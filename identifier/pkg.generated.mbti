@@ -1,0 +1,38 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "moonbit-community/dummy/identifier"
+
+import {
+  "moonbit-community/dummy/core",
+}
+
+// Values
+pub fn bson_object_id() -> @core.Gen[String]
+
+pub fn bson_oid() -> @core.Gen[String]
+
+pub fn ulid() -> @core.Gen[String]
+
+pub fn uuid() -> @core.Gen[String]
+
+pub fn uuid_v1() -> @core.Gen[String]
+
+pub fn uuid_v3() -> @core.Gen[String]
+
+pub fn uuid_v4() -> @core.Gen[String]
+
+pub fn uuid_v5() -> @core.Gen[String]
+
+pub fn uuid_v6() -> @core.Gen[String]
+
+pub fn uuid_v7() -> @core.Gen[String]
+
+pub fn uuid_v8() -> @core.Gen[String]
+
+// Errors
+
+// Types and methods
+
+// Type aliases
+
+// Traits
+

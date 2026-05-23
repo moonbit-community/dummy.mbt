@@ -1,0 +1,53 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "moonbit-community/dummy/address"
+
+import {
+  "moonbit-community/dummy/core",
+  "moonbit-community/dummy/locales",
+}
+
+// Values
+pub fn building_number(locale? : @locales.Locale) -> @core.Gen[String]
+
+pub fn city_name(locale? : @locales.Locale) -> @core.Gen[String]
+
+pub fn city_prefix(locale? : @locales.Locale) -> @core.Gen[String]
+
+pub fn city_suffix(locale? : @locales.Locale) -> @core.Gen[String]
+
+pub fn country_code() -> @core.Gen[String]
+
+pub fn country_name(locale? : @locales.Locale) -> @core.Gen[String]
+
+pub fn geohash(precision? : Int) -> @core.Gen[String]
+
+pub fn latitude() -> @core.Gen[String]
+
+pub fn longitude() -> @core.Gen[String]
+
+pub fn post_code(locale? : @locales.Locale) -> @core.Gen[String]
+
+pub fn secondary_address(locale? : @locales.Locale) -> @core.Gen[String]
+
+pub fn secondary_address_type(locale? : @locales.Locale) -> @core.Gen[String]
+
+pub fn state_abbr(locale? : @locales.Locale) -> @core.Gen[String]
+
+pub fn state_name(locale? : @locales.Locale) -> @core.Gen[String]
+
+pub fn street_name(locale? : @locales.Locale) -> @core.Gen[String]
+
+pub fn street_suffix(locale? : @locales.Locale) -> @core.Gen[String]
+
+pub fn time_zone(locale? : @locales.Locale) -> @core.Gen[String]
+
+pub fn zip_code(locale? : @locales.Locale) -> @core.Gen[String]
+
+// Errors
+
+// Types and methods
+
+// Type aliases
+
+// Traits
+

@@ -1,0 +1,22 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "moonbit-community/dummy/http"
+
+import {
+  "moonbit-community/dummy/core",
+}
+
+// Values
+pub fn http_method() -> @core.Gen[String]
+
+pub fn rfc_status_code() -> @core.Gen[Int]
+
+pub fn valid_status_code() -> @core.Gen[Int]
+
+// Errors
+
+// Types and methods
+
+// Type aliases
+
+// Traits
+

@@ -1,0 +1,28 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "moonbit-community/dummy/encoding"
+
+import {
+  "moonbit-community/dummy/core",
+}
+
+// Values
+pub fn base64() -> @core.Gen[String]
+
+pub fn base64_no_pad() -> @core.Gen[String]
+
+pub fn base64_padded() -> @core.Gen[String]
+
+pub fn url_safe_base64() -> @core.Gen[String]
+
+pub fn url_safe_base64_no_pad() -> @core.Gen[String]
+
+pub fn url_safe_base64_padded() -> @core.Gen[String]
+
+// Errors
+
+// Types and methods
+
+// Type aliases
+
+// Traits
+

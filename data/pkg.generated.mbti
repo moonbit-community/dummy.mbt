@@ -1,0 +1,156 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "moonbit-community/dummy/data"
+
+import {
+  "moonbit-community/dummy/locales",
+}
+
+// Values
+pub fn building_number_formats(@locales.Locale) -> Array[String]
+
+pub fn cell_number_formats(@locales.Locale) -> Array[String]
+
+pub fn chrono_date_format(locale? : @locales.Locale) -> String
+
+pub fn chrono_datetime_format(locale? : @locales.Locale) -> String
+
+pub fn chrono_time_format(locale? : @locales.Locale) -> String
+
+pub fn city_name_templates(@locales.Locale) -> Array[String]
+
+pub fn city_names(@locales.Locale) -> Array[String]
+
+pub fn city_prefixes(@locales.Locale) -> Array[String]
+
+pub fn city_rivers(@locales.Locale) -> Array[String]
+
+pub fn city_suffixes(@locales.Locale) -> Array[String]
+
+pub fn city_template(@locales.Locale) -> String
+
+pub fn city_with_prefix_template(@locales.Locale) -> String
+
+pub fn color_names() -> Array[String]
+
+pub fn company_bs_adjs(@locales.Locale) -> Array[String]
+
+pub fn company_bs_nouns(@locales.Locale) -> Array[String]
+
+pub fn company_bs_template(@locales.Locale) -> String
+
+pub fn company_bs_verbs(@locales.Locale) -> Array[String]
+
+pub fn company_buzzword_heads(@locales.Locale) -> Array[String]
+
+pub fn company_buzzword_middles(@locales.Locale) -> Array[String]
+
+pub fn company_buzzword_tails(@locales.Locale) -> Array[String]
+
+pub fn company_catch_phrase_template(@locales.Locale) -> String
+
+pub fn company_industries(@locales.Locale) -> Array[String]
+
+pub fn company_name_templates(@locales.Locale) -> Array[String]
+
+pub fn company_professions(@locales.Locale) -> Array[String]
+
+pub fn company_suffixes(@locales.Locale) -> Array[String]
+
+pub fn country_codes() -> Array[String]
+
+pub fn country_names(@locales.Locale) -> Array[String]
+
+pub fn currencies() -> Array[(String, String, String)]
+
+pub fn currency_codes(locale? : @locales.Locale) -> Array[String]
+
+pub fn currency_names(locale? : @locales.Locale) -> Array[String]
+
+pub fn currency_symbols(locale? : @locales.Locale) -> Array[String]
+
+pub fn domain_suffixes(locale? : @locales.Locale) -> Array[String]
+
+pub fn email_providers(locale? : @locales.Locale) -> Array[String]
+
+pub fn file_extensions() -> Array[String]
+
+pub fn geohash_chars() -> Array[String]
+
+pub fn http_methods() -> Array[String]
+
+pub fn http_statuses() -> Array[Int]
+
+pub fn isbn_ean_prefix() -> String
+
+pub fn job_fields(@locales.Locale) -> Array[String]
+
+pub fn job_positions(@locales.Locale) -> Array[String]
+
+pub fn job_seniority(@locales.Locale) -> Array[String]
+
+pub fn job_title_template(@locales.Locale) -> String
+
+pub fn licence_plate_formats(@locales.Locale) -> Array[String]
+
+pub fn lorem_words(@locales.Locale) -> Array[String]
+
+pub fn mime_types() -> Array[String]
+
+pub fn name_first_names(@locales.Locale) -> Array[String]
+
+pub fn name_last_names(@locales.Locale) -> Array[String]
+
+pub fn name_suffixes(@locales.Locale) -> Array[String]
+
+pub fn name_template(@locales.Locale) -> String
+
+pub fn name_titles(@locales.Locale) -> Array[String]
+
+pub fn name_with_title_template(@locales.Locale) -> String
+
+pub fn number_digits() -> Array[String]
+
+pub fn password_chars() -> Array[String]
+
+pub fn path_root_dirs() -> Array[String]
+
+pub fn path_segments() -> Array[String]
+
+pub fn phone_number_formats(@locales.Locale) -> Array[String]
+
+pub fn post_code_formats(@locales.Locale) -> Array[String]
+
+pub fn secondary_address_template(@locales.Locale) -> String
+
+pub fn secondary_address_types(@locales.Locale) -> Array[String]
+
+pub fn states(@locales.Locale) -> Array[(String, String)]
+
+pub fn street_names(@locales.Locale) -> Array[String]
+
+pub fn street_suffixes(@locales.Locale) -> Array[String]
+
+pub fn street_template(@locales.Locale) -> String
+
+pub fn time_date_format(locale? : @locales.Locale) -> String
+
+pub fn time_datetime_format(locale? : @locales.Locale) -> String
+
+pub fn time_time_format(locale? : @locales.Locale) -> String
+
+pub fn time_zones(locale? : @locales.Locale) -> Array[String]
+
+pub fn user_agents() -> Array[String]
+
+pub fn usernames() -> Array[String]
+
+pub fn zip_formats(@locales.Locale) -> Array[String]
+
+// Errors
+
+// Types and methods
+
+// Type aliases
+
+// Traits
+

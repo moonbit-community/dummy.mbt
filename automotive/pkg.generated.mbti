@@ -1,0 +1,19 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "moonbit-community/dummy/automotive"
+
+import {
+  "moonbit-community/dummy/core",
+  "moonbit-community/dummy/locales",
+}
+
+// Values
+pub fn licence_plate(locale? : @locales.Locale) -> @core.Gen[String]
+
+// Errors
+
+// Types and methods
+
+// Type aliases
+
+// Traits
+
