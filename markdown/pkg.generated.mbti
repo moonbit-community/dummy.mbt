@@ -1,0 +1,32 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "moonbit-community/dummy/markdown"
+
+import {
+  "moonbit-community/dummy/core",
+  "moonbit-community/dummy/locales",
+}
+
+// Values
+pub fn block_quote_multi_line(locale? : @locales.Locale, count? : @core.CountRange) -> @core.Gen[String]
+
+pub fn block_quote_single_line(locale? : @locales.Locale, count? : @core.CountRange) -> @core.Gen[String]
+
+pub fn bold_word(locale? : @locales.Locale) -> @core.Gen[String]
+
+pub fn bullet_points(locale? : @locales.Locale, count? : @core.CountRange) -> @core.Gen[String]
+
+pub fn code(count? : @core.CountRange) -> @core.Gen[String]
+
+pub fn italic_word(locale? : @locales.Locale) -> @core.Gen[String]
+
+pub fn link(locale? : @locales.Locale) -> @core.Gen[String]
+
+pub fn list_items(locale? : @locales.Locale, count? : @core.CountRange) -> @core.Gen[Array[String]]
+
+// Errors
+
+// Types and methods
+
+// Type aliases
+
+// Traits

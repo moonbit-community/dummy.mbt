@@ -1,0 +1,31 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "moonbit-community/dummy/filesystem"
+
+import {
+  "moonbit-community/dummy/core",
+}
+
+// Values
+pub fn dir_path() -> @core.Gen[String]
+
+pub fn file_extension() -> @core.Gen[String]
+
+pub fn file_name() -> @core.Gen[String]
+
+pub fn file_path() -> @core.Gen[String]
+
+pub fn mime_type() -> @core.Gen[String]
+
+pub fn semver() -> @core.Gen[String]
+
+pub fn semver_stable() -> @core.Gen[String]
+
+pub fn semver_unstable() -> @core.Gen[String]
+
+// Errors
+
+// Types and methods
+
+// Type aliases
+
+// Traits

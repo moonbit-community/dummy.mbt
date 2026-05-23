@@ -1,0 +1,33 @@
+import {
+  "moonbitlang/core/random",
+  "moonbit-community/dummy/core",
+  "moonbit-community/dummy/locales",
+  "moonbit-community/dummy/administrative",
+  "moonbit-community/dummy/address",
+  "moonbit-community/dummy/automotive",
+  "moonbit-community/dummy/barcode",
+  "moonbit-community/dummy/boolean",
+  "moonbit-community/dummy/chrono",
+  "moonbit-community/dummy/color",
+  "moonbit-community/dummy/company",
+  "moonbit-community/dummy/creditcard",
+  "moonbit-community/dummy/currency",
+  "moonbit-community/dummy/encoding",
+  "moonbit-community/dummy/filesystem",
+  "moonbit-community/dummy/finance",
+  "moonbit-community/dummy/http",
+  "moonbit-community/dummy/identifier",
+  "moonbit-community/dummy/internet",
+  "moonbit-community/dummy/job",
+  "moonbit-community/dummy/lorem",
+  "moonbit-community/dummy/markdown",
+  "moonbit-community/dummy/name",
+  "moonbit-community/dummy/number",
+  "moonbit-community/dummy/phone_number",
+  "moonbit-community/dummy/picsum",
+  "moonbit-community/dummy/time",
+}
+
+import {
+  "moonbitlang/core/test",
+} for "test"

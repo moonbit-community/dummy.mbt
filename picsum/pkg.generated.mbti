@@ -1,0 +1,33 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "moonbit-community/dummy/picsum"
+
+import {
+  "moonbit-community/dummy/core",
+  "moonbitlang/core/debug",
+}
+
+// Values
+pub fn image() -> @core.Gen[String]
+
+pub fn image_blur() -> @core.Gen[String]
+
+pub fn image_custom(ImageOptions) -> @core.Gen[String]
+
+pub fn image_grayscale() -> @core.Gen[String]
+
+pub fn image_with_seed() -> @core.Gen[String]
+
+// Errors
+
+// Types and methods
+pub(all) struct ImageOptions {
+  width : Int
+  height : Int
+  grayscale : Bool
+  blur : Int?
+  seed : String?
+} derive(Eq, @debug.Debug)
+
+// Type aliases
+
+// Traits

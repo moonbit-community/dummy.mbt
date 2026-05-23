@@ -1,0 +1,8 @@
+import {
+  "moonbitlang/core/random",
+  "moonbit-community/dummy/core",
+}
+
+import {
+  "moonbitlang/core/test",
+} for "test"

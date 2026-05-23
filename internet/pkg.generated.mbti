@@ -1,0 +1,38 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "moonbit-community/dummy/internet"
+
+import {
+  "moonbit-community/dummy/core",
+  "moonbit-community/dummy/locales",
+}
+
+// Values
+pub fn domain_suffix(locale? : @locales.Locale) -> @core.Gen[String]
+
+pub fn free_email(locale? : @locales.Locale) -> @core.Gen[String]
+
+pub fn free_email_provider(locale? : @locales.Locale) -> @core.Gen[String]
+
+pub fn ip() -> @core.Gen[String]
+
+pub fn ipv4() -> @core.Gen[String]
+
+pub fn ipv6() -> @core.Gen[String]
+
+pub fn mac_address() -> @core.Gen[String]
+
+pub fn password(len_range? : @core.CountRange) -> @core.Gen[String]
+
+pub fn safe_email(locale? : @locales.Locale) -> @core.Gen[String]
+
+pub fn user_agent() -> @core.Gen[String]
+
+pub fn username(locale? : @locales.Locale) -> @core.Gen[String]
+
+// Errors
+
+// Types and methods
+
+// Type aliases
+
+// Traits

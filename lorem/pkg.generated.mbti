@@ -1,0 +1,28 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "moonbit-community/dummy/lorem"
+
+import {
+  "moonbit-community/dummy/core",
+  "moonbit-community/dummy/locales",
+}
+
+// Values
+pub fn paragraph(locale? : @locales.Locale, count? : @core.CountRange) -> @core.Gen[String]
+
+pub fn paragraphs(locale? : @locales.Locale, count? : @core.CountRange) -> @core.Gen[Array[String]]
+
+pub fn sentence(locale? : @locales.Locale, count? : @core.CountRange) -> @core.Gen[String]
+
+pub fn sentences(locale? : @locales.Locale, count? : @core.CountRange) -> @core.Gen[Array[String]]
+
+pub fn word(locale? : @locales.Locale) -> @core.Gen[String]
+
+pub fn words(locale? : @locales.Locale, count? : @core.CountRange) -> @core.Gen[Array[String]]
+
+// Errors
+
+// Types and methods
+
+// Type aliases
+
+// Traits

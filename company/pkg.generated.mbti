@@ -1,0 +1,40 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "moonbit-community/dummy/company"
+
+import {
+  "moonbit-community/dummy/core",
+  "moonbit-community/dummy/locales",
+}
+
+// Values
+pub fn bs(locale? : @locales.Locale) -> @core.Gen[String]
+
+pub fn bs_adj(locale? : @locales.Locale) -> @core.Gen[String]
+
+pub fn bs_noun(locale? : @locales.Locale) -> @core.Gen[String]
+
+pub fn bs_verb(locale? : @locales.Locale) -> @core.Gen[String]
+
+pub fn buzzword(locale? : @locales.Locale) -> @core.Gen[String]
+
+pub fn buzzword_middle(locale? : @locales.Locale) -> @core.Gen[String]
+
+pub fn buzzword_tail(locale? : @locales.Locale) -> @core.Gen[String]
+
+pub fn catch_phrase(locale? : @locales.Locale) -> @core.Gen[String]
+
+pub fn company_name(locale? : @locales.Locale) -> @core.Gen[String]
+
+pub fn company_suffix(locale? : @locales.Locale) -> @core.Gen[String]
+
+pub fn industry(locale? : @locales.Locale) -> @core.Gen[String]
+
+pub fn profession(locale? : @locales.Locale) -> @core.Gen[String]
+
+// Errors
+
+// Types and methods
+
+// Type aliases
+
+// Traits

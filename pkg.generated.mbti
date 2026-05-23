@@ -1,0 +1,351 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "moonbit-community/dummy"
+
+import {
+  "moonbit-community/dummy/core",
+  "moonbit-community/dummy/locales",
+  "moonbitlang/core/debug",
+  "moonbitlang/core/random",
+}
+
+// Values
+pub let ar_sa : @locales.Locale
+
+pub fn base64() -> @core.Gen[String]
+
+pub fn base64_no_pad() -> @core.Gen[String]
+
+pub fn base64_padded() -> @core.Gen[String]
+
+pub fn bic() -> @core.Gen[String]
+
+pub fn block_quote_multi_line(locale? : @locales.Locale, count? : @core.CountRange) -> @core.Gen[String]
+
+pub fn block_quote_single_line(locale? : @locales.Locale, count? : @core.CountRange) -> @core.Gen[String]
+
+pub fn bold_word(locale? : @locales.Locale) -> @core.Gen[String]
+
+pub fn boolean(ratio? : Int) -> @core.Gen[Bool]
+
+pub fn bs(locale? : @locales.Locale) -> @core.Gen[String]
+
+pub fn bs_adj(locale? : @locales.Locale) -> @core.Gen[String]
+
+pub fn bs_noun(locale? : @locales.Locale) -> @core.Gen[String]
+
+pub fn bs_verb(locale? : @locales.Locale) -> @core.Gen[String]
+
+pub fn bson_object_id() -> @core.Gen[String]
+
+pub fn bson_oid() -> @core.Gen[String]
+
+pub fn building_number(locale? : @locales.Locale) -> @core.Gen[String]
+
+pub fn bullet_points(locale? : @locales.Locale, count? : @core.CountRange) -> @core.Gen[String]
+
+pub fn buzzword(locale? : @locales.Locale) -> @core.Gen[String]
+
+pub fn buzzword_middle(locale? : @locales.Locale) -> @core.Gen[String]
+
+pub fn buzzword_tail(locale? : @locales.Locale) -> @core.Gen[String]
+
+pub fn catch_phrase(locale? : @locales.Locale) -> @core.Gen[String]
+
+pub fn cell_number(locale? : @locales.Locale) -> @core.Gen[String]
+
+pub fn chrono_date(locale? : @locales.Locale) -> @core.Gen[String]
+
+pub fn chrono_date_time(locale? : @locales.Locale) -> @core.Gen[String]
+
+pub fn chrono_date_time_after(anchor_minutes? : Int, locale? : @locales.Locale) -> @core.Gen[String]
+
+pub fn chrono_date_time_before(anchor_minutes? : Int, locale? : @locales.Locale) -> @core.Gen[String]
+
+pub fn chrono_date_time_between(Int, Int, locale? : @locales.Locale) -> @core.Gen[String] raise @core.DummyError
+
+pub fn chrono_duration() -> @core.Gen[Int]
+
+pub fn chrono_time(locale? : @locales.Locale) -> @core.Gen[String]
+
+pub fn city_name(locale? : @locales.Locale) -> @core.Gen[String]
+
+pub fn city_prefix(locale? : @locales.Locale) -> @core.Gen[String]
+
+pub fn city_suffix(locale? : @locales.Locale) -> @core.Gen[String]
+
+pub fn color() -> @core.Gen[String]
+
+pub fn company_name(locale? : @locales.Locale) -> @core.Gen[String]
+
+pub fn company_suffix(locale? : @locales.Locale) -> @core.Gen[String]
+
+pub fn count_range(Int, Int) -> @core.CountRange
+
+pub fn country_code() -> @core.Gen[String]
+
+pub fn country_name(locale? : @locales.Locale) -> @core.Gen[String]
+
+pub fn credit_card_number() -> @core.Gen[String]
+
+pub fn currency_code(locale? : @locales.Locale) -> @core.Gen[String]
+
+pub fn currency_name(locale? : @locales.Locale) -> @core.Gen[String]
+
+pub fn currency_symbol(locale? : @locales.Locale) -> @core.Gen[String]
+
+pub let cy_gb : @locales.Locale
+
+pub let de_de : @locales.Locale
+
+pub fn default_seeded() -> @random.Rand
+
+pub fn digit() -> @core.Gen[Int]
+
+pub fn digit_string() -> @core.Gen[String]
+
+pub fn dir_path() -> @core.Gen[String]
+
+pub fn docs_locales() -> Array[@locales.DocsLocale]
+
+pub fn domain_suffix(locale? : @locales.Locale) -> @core.Gen[String]
+
+pub let en : @locales.Locale
+
+pub let fa_ir : @locales.Locale
+
+pub fn file_extension() -> @core.Gen[String]
+
+pub fn file_name() -> @core.Gen[String]
+
+pub fn file_path() -> @core.Gen[String]
+
+pub fn first_name(locale? : @locales.Locale) -> @core.Gen[String]
+
+pub let fr_fr : @locales.Locale
+
+pub fn free_email(locale? : @locales.Locale) -> @core.Gen[String]
+
+pub fn free_email_provider(locale? : @locales.Locale) -> @core.Gen[String]
+
+pub fn geohash(precision? : Int) -> @core.Gen[String]
+
+pub fn health_insurance_code(locale? : @locales.Locale) -> @core.Gen[String]
+
+pub fn hex_color() -> @core.Gen[String]
+
+pub fn hsl_color() -> @core.Gen[String]
+
+pub fn hsla_color() -> @core.Gen[String]
+
+pub fn http_method() -> @core.Gen[String]
+
+pub fn http_status_code() -> @core.Gen[Int]
+
+pub fn image_options(width? : Int, height? : Int, grayscale? : Bool, blur? : Int, seed? : String) -> ImageOptions
+
+pub fn industry(locale? : @locales.Locale) -> @core.Gen[String]
+
+pub fn int(range? : @core.IntRange) -> @core.Gen[Int]
+
+pub fn int_range(Int, Int) -> @core.IntRange
+
+pub fn ip() -> @core.Gen[String]
+
+pub fn ipv4() -> @core.Gen[String]
+
+pub fn ipv6() -> @core.Gen[String]
+
+pub fn isbn() -> @core.Gen[String]
+
+pub fn isbn10() -> @core.Gen[String]
+
+pub fn isbn13() -> @core.Gen[String]
+
+pub fn isin() -> @core.Gen[String]
+
+pub let it_it : @locales.Locale
+
+pub fn italic_word(locale? : @locales.Locale) -> @core.Gen[String]
+
+pub let ja_jp : @locales.Locale
+
+pub fn job_field(locale? : @locales.Locale) -> @core.Gen[String]
+
+pub fn job_position(locale? : @locales.Locale) -> @core.Gen[String]
+
+pub fn job_seniority(locale? : @locales.Locale) -> @core.Gen[String]
+
+pub fn job_title(locale? : @locales.Locale) -> @core.Gen[String]
+
+pub fn last_name(locale? : @locales.Locale) -> @core.Gen[String]
+
+pub fn latitude() -> @core.Gen[String]
+
+pub fn licence_plate(locale? : @locales.Locale) -> @core.Gen[String]
+
+pub fn list_items(locale? : @locales.Locale, count? : @core.CountRange) -> @core.Gen[Array[String]]
+
+pub fn longitude() -> @core.Gen[String]
+
+pub fn mac_address() -> @core.Gen[String]
+
+pub fn markdown_code(count? : @core.CountRange) -> @core.Gen[String]
+
+pub fn markdown_link(locale? : @locales.Locale) -> @core.Gen[String]
+
+pub fn mime_type() -> @core.Gen[String]
+
+pub fn name(locale? : @locales.Locale) -> @core.Gen[String]
+
+pub fn name_with_title(locale? : @locales.Locale) -> @core.Gen[String]
+
+pub let nl_nl : @locales.Locale
+
+pub fn number_with_format(String) -> @core.Gen[String]
+
+pub fn[T] one_of(ArrayView[@core.Gen[T]]) -> @core.Gen[T] raise @core.DummyError
+
+pub fn paragraph(locale? : @locales.Locale, count? : @core.CountRange) -> @core.Gen[String]
+
+pub fn paragraphs(locale? : @locales.Locale, count? : @core.CountRange) -> @core.Gen[Array[String]]
+
+pub fn password(len_range? : @core.CountRange) -> @core.Gen[String]
+
+pub fn phone_number(locale? : @locales.Locale) -> @core.Gen[String]
+
+pub fn picsum_image() -> @core.Gen[String]
+
+pub fn picsum_image_blur() -> @core.Gen[String]
+
+pub fn picsum_image_custom(ImageOptions) -> @core.Gen[String]
+
+pub fn picsum_image_grayscale() -> @core.Gen[String]
+
+pub fn picsum_image_with_seed() -> @core.Gen[String]
+
+pub fn post_code(locale? : @locales.Locale) -> @core.Gen[String]
+
+pub fn profession(locale? : @locales.Locale) -> @core.Gen[String]
+
+pub let pt_br : @locales.Locale
+
+pub let pt_pt : @locales.Locale
+
+pub fn rfc_status_code() -> @core.Gen[Int]
+
+pub fn rgb_color() -> @core.Gen[String]
+
+pub fn rgba_color() -> @core.Gen[String]
+
+pub fn safe_email(locale? : @locales.Locale) -> @core.Gen[String]
+
+pub fn secondary_address(locale? : @locales.Locale) -> @core.Gen[String]
+
+pub fn secondary_address_type(locale? : @locales.Locale) -> @core.Gen[String]
+
+pub fn seed(Bytes) -> @random.Rand
+
+pub fn semver() -> @core.Gen[String]
+
+pub fn semver_stable() -> @core.Gen[String]
+
+pub fn semver_unstable() -> @core.Gen[String]
+
+pub fn sentence(locale? : @locales.Locale, count? : @core.CountRange) -> @core.Gen[String]
+
+pub fn sentences(locale? : @locales.Locale, count? : @core.CountRange) -> @core.Gen[Array[String]]
+
+pub fn state_abbr(locale? : @locales.Locale) -> @core.Gen[String]
+
+pub fn state_name(locale? : @locales.Locale) -> @core.Gen[String]
+
+pub fn street_name(locale? : @locales.Locale) -> @core.Gen[String]
+
+pub fn street_suffix(locale? : @locales.Locale) -> @core.Gen[String]
+
+pub fn suffix(locale? : @locales.Locale) -> @core.Gen[String]
+
+pub fn time_date(locale? : @locales.Locale) -> @core.Gen[String]
+
+pub fn time_date_time(locale? : @locales.Locale) -> @core.Gen[String]
+
+pub fn time_date_time_after(anchor_minutes? : Int, locale? : @locales.Locale) -> @core.Gen[String]
+
+pub fn time_date_time_before(anchor_minutes? : Int, locale? : @locales.Locale) -> @core.Gen[String]
+
+pub fn time_date_time_between(Int, Int, locale? : @locales.Locale) -> @core.Gen[String] raise @core.DummyError
+
+pub fn time_duration() -> @core.Gen[Int]
+
+pub fn time_time(locale? : @locales.Locale) -> @core.Gen[String]
+
+pub fn time_zone(locale? : @locales.Locale) -> @core.Gen[String]
+
+pub fn title(locale? : @locales.Locale) -> @core.Gen[String]
+
+pub let tr_tr : @locales.Locale
+
+pub fn ulid() -> @core.Gen[String]
+
+pub fn url_safe_base64() -> @core.Gen[String]
+
+pub fn url_safe_base64_no_pad() -> @core.Gen[String]
+
+pub fn url_safe_base64_padded() -> @core.Gen[String]
+
+pub fn user_agent() -> @core.Gen[String]
+
+pub fn username(locale? : @locales.Locale) -> @core.Gen[String]
+
+pub fn uuid() -> @core.Gen[String]
+
+pub fn uuid_v1() -> @core.Gen[String]
+
+pub fn uuid_v3() -> @core.Gen[String]
+
+pub fn uuid_v4() -> @core.Gen[String]
+
+pub fn uuid_v5() -> @core.Gen[String]
+
+pub fn uuid_v6() -> @core.Gen[String]
+
+pub fn uuid_v7() -> @core.Gen[String]
+
+pub fn uuid_v8() -> @core.Gen[String]
+
+pub fn valid_status_code() -> @core.Gen[Int]
+
+pub fn[T] weighted(ArrayView[(Int, @core.Gen[T])]) -> @core.Gen[T] raise @core.DummyError
+
+pub fn word(locale? : @locales.Locale) -> @core.Gen[String]
+
+pub fn words(locale? : @locales.Locale, count? : @core.CountRange) -> @core.Gen[Array[String]]
+
+pub let zh_cn : @locales.Locale
+
+pub let zh_tw : @locales.Locale
+
+pub fn zip_code(locale? : @locales.Locale) -> @core.Gen[String]
+
+// Errors
+
+// Types and methods
+pub(all) struct Dummy {
+  locale : @locales.Locale
+} derive(Eq, @debug.Debug)
+pub fn Dummy::email(Self) -> @core.Gen[String]
+pub fn Dummy::name(Self) -> @core.Gen[String]
+pub fn Dummy::new(locale? : @locales.Locale) -> Self
+pub fn Dummy::sentence(Self) -> @core.Gen[String]
+
+pub(all) struct ImageOptions {
+  width : Int
+  height : Int
+  grayscale : Bool
+  blur : Int?
+  seed : String?
+} derive(Eq, @debug.Debug)
+
+// Type aliases
+
+// Traits

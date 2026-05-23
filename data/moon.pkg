@@ -1,0 +1,7 @@
+import {
+  "moonbit-community/dummy/locales",
+}
+
+import {
+  "moonbitlang/core/test",
+} for "test"
