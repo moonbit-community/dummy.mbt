@@ -1,22 +1,18 @@
 ///|
 /// Generate a free email provider domain.
-pub fn free_email_provider(
-  locale~ : @locales.Locale = @locales.EN,
-) -> @core.Gen[String] {
+pub fn free_email_provider(locale~ : @locales.Locale = EN) -> @core.Gen[String] {
   @core.Gen::new(rng => @core.pick_string(@data.email_providers(locale~), rng))
 }
 
 ///|
 /// Generate a domain suffix such as `com` or a locale-specific TLD.
-pub fn domain_suffix(
-  locale~ : @locales.Locale = @locales.EN,
-) -> @core.Gen[String] {
+pub fn domain_suffix(locale~ : @locales.Locale = EN) -> @core.Gen[String] {
   @core.Gen::new(rng => @core.pick_string(@data.domain_suffixes(locale~), rng))
 }
 
 ///|
 /// Generate a lowercase username from names, words, and digits.
-pub fn username(locale~ : @locales.Locale = @locales.EN) -> @core.Gen[String] {
+pub fn username(locale~ : @locales.Locale = EN) -> @core.Gen[String] {
   @core.Gen::new(rng => {
     match rng.int(limit=256) {
       0 => @core.pick_string(@data.name_first_names(locale), rng).to_lower()
@@ -37,7 +33,7 @@ pub fn username(locale~ : @locales.Locale = @locales.EN) -> @core.Gen[String] {
 
 ///|
 /// Generate an email address at a free provider.
-pub fn free_email(locale~ : @locales.Locale = @locales.EN) -> @core.Gen[String] {
+pub fn free_email(locale~ : @locales.Locale = EN) -> @core.Gen[String] {
   @core.Gen::new(rng => {
     username(locale~).dummy(rng) + "@" + free_email_provider(locale~).dummy(rng)
   })
@@ -45,7 +41,7 @@ pub fn free_email(locale~ : @locales.Locale = @locales.EN) -> @core.Gen[String] 
 
 ///|
 /// Generate an email address under documentation-safe `example.*` domains.
-pub fn safe_email(locale~ : @locales.Locale = @locales.EN) -> @core.Gen[String] {
+pub fn safe_email(locale~ : @locales.Locale = EN) -> @core.Gen[String] {
   @core.Gen::new(rng => {
     let domain = @core.pick_string(["com", "net", "org"], rng)
     @core.pick_string(@data.name_first_names(locale), rng).to_lower() +
@@ -62,7 +58,7 @@ pub fn password(
   @core.Gen::new(rng => {
     let len = len_range.sample(rng)
     let chars = @data.password_chars()
-    let out = StringBuilder::new(size_hint=len)
+    let out = StringBuilder(size_hint=len)
     for _ in 0..<len {
       out.write_string(@core.pick_string(chars, rng))
     }

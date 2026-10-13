@@ -214,7 +214,7 @@ fn matches_tr_fa_plate(s : String) -> Bool {
 
 ///|
 test "licence_plate supports FR_FR and IT_IT format" {
-  for locale in [@locales.FR_FR, @locales.IT_IT] {
+  for locale in [@locales.FR_FR, IT_IT] {
     let values = @automotive.licence_plate(locale~).sample(
       count=32,
       @core.seed(b"automotive-common"),
@@ -230,13 +230,13 @@ test "licence_plate defaults to FR_FR" {
   let seed = b"automotive-default"
   @test.assert_eq(
     @automotive.licence_plate().dummy(@core.seed(seed)),
-    @automotive.licence_plate(locale=@locales.FR_FR).dummy(@core.seed(seed)),
+    @automotive.licence_plate(locale=FR_FR).dummy(@core.seed(seed)),
   )
 }
 
 ///|
 test "licence_plate supports NL_NL formats" {
-  let values = @automotive.licence_plate(locale=@locales.NL_NL).sample(
+  let values = @automotive.licence_plate(locale=NL_NL).sample(
     count=128,
     @core.seed(b"automotive-nl"),
   )
@@ -262,7 +262,7 @@ test "licence_plate supports NL_NL formats" {
 
 ///|
 test "licence_plate supports PT_PT formats" {
-  let values = @automotive.licence_plate(locale=@locales.PT_PT).sample(
+  let values = @automotive.licence_plate(locale=PT_PT).sample(
     count=256,
     @core.seed(b"automotive-pt"),
   )
@@ -303,7 +303,7 @@ test "licence_plate supports PT_PT formats" {
 
 ///|
 test "licence_plate supports TR_TR and FA_IR formats" {
-  for locale in [@locales.TR_TR, @locales.FA_IR] {
+  for locale in [@locales.TR_TR, FA_IR] {
     let values = @automotive.licence_plate(locale~).sample(
       count=64,
       @core.seed(b"automotive-tr-fa"),
@@ -327,11 +327,11 @@ test "licence_plate supports TR_TR and FA_IR formats" {
 ///|
 test "licence_plate is deterministic for the same seed" {
   let seed = b"automotive-determinism"
-  let a = @automotive.licence_plate(locale=@locales.NL_NL).sample(
+  let a = @automotive.licence_plate(locale=NL_NL).sample(
     count=16,
     @core.seed(seed),
   )
-  let b = @automotive.licence_plate(locale=@locales.NL_NL).sample(
+  let b = @automotive.licence_plate(locale=NL_NL).sample(
     count=16,
     @core.seed(seed),
   )
@@ -340,8 +340,13 @@ test "licence_plate is deterministic for the same seed" {
 
 ///|
 test "licence_plate rejects unsupported locales" {
-  let result : Result[String, @core.DummyError] = try? @automotive.licence_plate(
-    locale=@locales.EN,
-  ).dummy(@core.seed(b"automotive-unsupported"))
-  assert_true(result is Err(@core.DummyError::UnsupportedLocale(_)))
+  try
+    @automotive.licence_plate(locale=EN).dummy(
+      @core.seed(b"automotive-unsupported"),
+    )
+  catch {
+    error => assert_true(error is UnsupportedLocale(_))
+  } noraise {
+    _ => fail("expected UnsupportedLocale to be raised")
+  }
 }

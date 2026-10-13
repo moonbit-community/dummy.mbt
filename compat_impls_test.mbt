@@ -769,10 +769,15 @@ test "impls extra facade address and administrative contracts" {
     ) {
     assert_true(extra_valid_health_insurance_code(value))
   }
-  let unsupported : Result[String, @core.DummyError] = try? @dummy.health_insurance_code(
-    locale=@dummy.en,
-  ).dummy(@dummy.seed(b"impls-extra-health-unsupported"))
-  assert_true(unsupported is Err(@core.DummyError::UnsupportedLocale(_)))
+  try
+    @dummy.health_insurance_code(locale=@dummy.en).dummy(
+      @dummy.seed(b"impls-extra-health-unsupported"),
+    )
+  catch {
+    error => assert_true(error is UnsupportedLocale(_))
+  } noraise {
+    _ => fail("expected UnsupportedLocale to be raised")
+  }
   for
     value in @dummy.country_code().sample(
       count=24,
@@ -854,14 +859,24 @@ test "impls extra facade picsum variants and option contracts" {
     ).dummy(@dummy.seed(b"impls-extra-picsum-seed-only")),
     "https://picsum.photos/seed/seed-only/201/301",
   )
-  let bad_width : Result[String, @core.DummyError] = try? @dummy.picsum_image_custom(
-    @dummy.image_options(width=0),
-  ).dummy(@dummy.seed(b"impls-extra-picsum-bad-width"))
-  assert_true(bad_width is Err(@core.DummyError::InvalidRange(_)))
-  let bad_blur : Result[String, @core.DummyError] = try? @dummy.picsum_image_custom(
-    @dummy.image_options(blur=11),
-  ).dummy(@dummy.seed(b"impls-extra-picsum-bad-blur"))
-  assert_true(bad_blur is Err(@core.DummyError::InvalidRange(_)))
+  try
+    @dummy.picsum_image_custom(@dummy.image_options(width=0)).dummy(
+      @dummy.seed(b"impls-extra-picsum-bad-width"),
+    )
+  catch {
+    error => assert_true(error is InvalidRange(_))
+  } noraise {
+    _ => fail("expected InvalidRange to be raised")
+  }
+  try
+    @dummy.picsum_image_custom(@dummy.image_options(blur=11)).dummy(
+      @dummy.seed(b"impls-extra-picsum-bad-blur"),
+    )
+  catch {
+    error => assert_true(error is InvalidRange(_))
+  } noraise {
+    _ => fail("expected InvalidRange to be raised")
+  }
 }
 
 ///|
@@ -1642,73 +1657,73 @@ test "deep chrono locale formats" {
     deep_valid_chrono_iso_datetime,
   )
   deep_assert_string_samples(
-    @chrono.time(locale=@locales.FA_IR),
+    @chrono.time(locale=FA_IR),
     b"deep-chrono-fa-time",
     16,
     deep_valid_hms,
   )
   deep_assert_string_samples(
-    @chrono.date(locale=@locales.FA_IR),
+    @chrono.date(locale=FA_IR),
     b"deep-chrono-fa-date",
     16,
     value => deep_valid_ymd_date(value, '/'),
   )
   deep_assert_string_samples(
-    @chrono.date_time(locale=@locales.FA_IR),
+    @chrono.date_time(locale=FA_IR),
     b"deep-chrono-fa-dt",
     16,
     value => deep_valid_ymd_space_datetime(value, '/'),
   )
   deep_assert_string_samples(
-    @chrono.time(locale=@locales.PT_PT),
+    @chrono.time(locale=PT_PT),
     b"deep-chrono-pt-time",
     16,
     deep_valid_hms,
   )
   deep_assert_string_samples(
-    @chrono.date(locale=@locales.PT_PT),
+    @chrono.date(locale=PT_PT),
     b"deep-chrono-pt-date",
     16,
     value => deep_valid_dmy_date(value, '-'),
   )
   deep_assert_string_samples(
-    @chrono.date_time(locale=@locales.PT_PT),
+    @chrono.date_time(locale=PT_PT),
     b"deep-chrono-pt-dt",
     16,
     value => deep_valid_dmy_space_datetime(value, '-'),
   )
   deep_assert_string_samples(
-    @chrono.time(locale=@locales.TR_TR),
+    @chrono.time(locale=TR_TR),
     b"deep-chrono-tr-time",
     16,
     deep_valid_hms,
   )
   deep_assert_string_samples(
-    @chrono.date(locale=@locales.TR_TR),
+    @chrono.date(locale=TR_TR),
     b"deep-chrono-tr-date",
     16,
     value => deep_valid_dmy_date(value, '.'),
   )
   deep_assert_string_samples(
-    @chrono.date_time(locale=@locales.TR_TR),
+    @chrono.date_time(locale=TR_TR),
     b"deep-chrono-tr-dt",
     16,
     value => deep_valid_dmy_space_datetime(value, '.'),
   )
   deep_assert_string_samples(
-    @chrono.time(locale=@locales.NL_NL),
+    @chrono.time(locale=NL_NL),
     b"deep-chrono-nl-time",
     16,
     deep_valid_hms_with_fraction,
   )
   deep_assert_string_samples(
-    @chrono.date(locale=@locales.NL_NL),
+    @chrono.date(locale=NL_NL),
     b"deep-chrono-nl-date",
     16,
     value => deep_valid_ymd_date(value, '-'),
   )
   deep_assert_string_samples(
-    @chrono.date_time(locale=@locales.NL_NL),
+    @chrono.date_time(locale=NL_NL),
     b"deep-chrono-nl-dt",
     16,
     deep_valid_chrono_iso_datetime,
@@ -1790,73 +1805,73 @@ test "deep time locale formats" {
     value => deep_valid_dmy_space_datetime(value, '-'),
   )
   deep_assert_string_samples(
-    @time.time(locale=@locales.FA_IR),
+    @time.time(locale=FA_IR),
     b"deep-time-fa-time",
     16,
     deep_valid_hms_with_fraction,
   )
   deep_assert_string_samples(
-    @time.date(locale=@locales.FA_IR),
+    @time.date(locale=FA_IR),
     b"deep-time-fa-date",
     16,
     value => deep_valid_ymd_date(value, '/'),
   )
   deep_assert_string_samples(
-    @time.date_time(locale=@locales.FA_IR),
+    @time.date_time(locale=FA_IR),
     b"deep-time-fa-dt",
     16,
     value => deep_valid_ymd_space_datetime(value, '/'),
   )
   deep_assert_string_samples(
-    @time.time(locale=@locales.PT_PT),
+    @time.time(locale=PT_PT),
     b"deep-time-pt-time",
     16,
     deep_valid_hms_with_fraction,
   )
   deep_assert_string_samples(
-    @time.date(locale=@locales.PT_PT),
+    @time.date(locale=PT_PT),
     b"deep-time-pt-date",
     16,
     value => deep_valid_dmy_date(value, '-'),
   )
   deep_assert_string_samples(
-    @time.date_time(locale=@locales.PT_PT),
+    @time.date_time(locale=PT_PT),
     b"deep-time-pt-dt",
     16,
     value => deep_valid_dmy_space_datetime(value, '-'),
   )
   deep_assert_string_samples(
-    @time.time(locale=@locales.TR_TR),
+    @time.time(locale=TR_TR),
     b"deep-time-tr-time",
     16,
     deep_valid_hms_with_fraction,
   )
   deep_assert_string_samples(
-    @time.date(locale=@locales.TR_TR),
+    @time.date(locale=TR_TR),
     b"deep-time-tr-date",
     16,
     value => deep_valid_dmy_date(value, '.'),
   )
   deep_assert_string_samples(
-    @time.date_time(locale=@locales.TR_TR),
+    @time.date_time(locale=TR_TR),
     b"deep-time-tr-dt",
     16,
     value => deep_valid_dmy_space_datetime(value, '.'),
   )
   deep_assert_string_samples(
-    @time.time(locale=@locales.NL_NL),
+    @time.time(locale=NL_NL),
     b"deep-time-nl-time",
     16,
     deep_valid_hms_with_fraction,
   )
   deep_assert_string_samples(
-    @time.date(locale=@locales.NL_NL),
+    @time.date(locale=NL_NL),
     b"deep-time-nl-date",
     16,
     value => deep_valid_dmy_date(value, '-'),
   )
   deep_assert_string_samples(
-    @time.date_time(locale=@locales.NL_NL),
+    @time.date_time(locale=NL_NL),
     b"deep-time-nl-dt",
     16,
     value => deep_valid_dmy_space_datetime(value, '-'),
@@ -2190,14 +2205,24 @@ test "generator source unsupported and range contracts are exposed by facade" {
       @dummy.seed(default_plate_seed),
     ),
   )
-  let unsupported_plate : Result[String, @core.DummyError] = try? @dummy.licence_plate(
-    locale=@dummy.en,
-  ).dummy(@dummy.seed(b"compat-source-more-bad-plate"))
-  assert_true(unsupported_plate is Err(@core.DummyError::UnsupportedLocale(_)))
-  let bad_geohash : Result[String, @core.DummyError] = try? @dummy.geohash(
-    precision=0,
-  ).dummy(@dummy.seed(b"compat-source-more-bad-geohash"))
-  assert_true(bad_geohash is Err(@core.DummyError::InvalidCount(_)))
+  try
+    @dummy.licence_plate(locale=@dummy.en).dummy(
+      @dummy.seed(b"compat-source-more-bad-plate"),
+    )
+  catch {
+    error => assert_true(error is UnsupportedLocale(_))
+  } noraise {
+    _ => fail("expected UnsupportedLocale to be raised")
+  }
+  try
+    @dummy.geohash(precision=0).dummy(
+      @dummy.seed(b"compat-source-more-bad-geohash"),
+    )
+  catch {
+    error => assert_true(error is InvalidCount(_))
+  } noraise {
+    _ => fail("expected InvalidCount to be raised")
+  }
   frs_more_assert_string_samples(
     @dummy.geohash(precision=5),
     b"compat-source-more-geohash",

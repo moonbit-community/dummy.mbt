@@ -2,7 +2,7 @@
 /// Pick one item uniformly from a non-empty array view.
 pub fn[T] pick(items : ArrayView[T], rng : @random.Rand) -> T raise DummyError {
   if items.length() == 0 {
-    raise DummyError::EmptyCandidates("pick")
+    raise EmptyCandidates("pick")
   }
   items[rng.int(limit=items.length())]
 }
@@ -39,7 +39,7 @@ pub fn render_template(
 /// `#` becomes a digit from 0 through 9, `^` becomes a digit from 1 through 9,
 /// and every other character is copied unchanged.
 pub fn numerify(pattern : String, rng : @random.Rand) -> String {
-  let out = StringBuilder::new(size_hint=pattern.length())
+  let out = StringBuilder(size_hint=pattern.length())
   for ch in pattern {
     match ch {
       '#' => out.write_string(rng.int(limit=10).to_string())
@@ -58,7 +58,7 @@ pub fn repeat_pick(
   rng : @random.Rand,
 ) -> Array[String] raise DummyError {
   if count < 0 {
-    raise DummyError::InvalidCount(count)
+    raise InvalidCount(count)
   }
   let out : Array[String] = []
   for _ in 0..<count {
@@ -80,13 +80,13 @@ pub fn join_strings(items : ArrayView[String], sep : String) -> String {
 /// Generate a lowercase ASCII string of length `len`.
 pub fn random_ascii(len : Int32, rng : @random.Rand) -> String raise DummyError {
   if len < 0 {
-    raise DummyError::InvalidCount(len)
+    raise InvalidCount(len)
   }
   let chars : Array[String] = [
     "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p",
     "q", "r", "s", "t", "u", "v", "w", "x", "y", "z",
   ]
-  let out = StringBuilder::new(size_hint=len)
+  let out = StringBuilder(size_hint=len)
   for _ in 0..<len {
     out.write_string(pick_string(chars, rng))
   }
@@ -100,9 +100,9 @@ pub fn random_digit_string(
   rng : @random.Rand,
 ) -> String raise DummyError {
   if len < 0 {
-    raise DummyError::InvalidCount(len)
+    raise InvalidCount(len)
   }
-  let out = StringBuilder::new(size_hint=len)
+  let out = StringBuilder(size_hint=len)
   for _ in 0..<len {
     out.write_string(rng.int(limit=10).to_string())
   }
@@ -115,7 +115,7 @@ pub fn pad_left(value : String, width : Int32, pad : Char) -> String {
   if value.length() >= width {
     value
   } else {
-    let out = StringBuilder::new(size_hint=width)
+    let out = StringBuilder(size_hint=width)
     for _ in value.length()..<width {
       out.write_char(pad)
     }

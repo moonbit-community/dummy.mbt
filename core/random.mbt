@@ -39,7 +39,7 @@ pub fn random_int(
 /// `ratio` must be in `0..=100`.
 pub fn random_bool(ratio : Int32, rng : @random.Rand) -> Bool raise DummyError {
   if ratio < 0 || ratio > 100 {
-    raise DummyError::InvalidRange("boolean ratio must be in 0..100")
+    raise InvalidRange("boolean ratio must be in 0..100")
   }
   rng.int(limit=100) < ratio
 }

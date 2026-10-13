@@ -14,3 +14,13 @@ pub(all) suberror DummyError {
   /// A locale-specific generator was requested for an unsupported locale.
   UnsupportedLocale(String)
 } derive(Eq, Debug)
+
+///|
+#deprecated
+#doc(hidden)
+pub extend DummyError with Eq::{equal, not_equal}
+
+///|
+#deprecated
+#doc(hidden)
+pub extend DummyError with Debug::{to_repr}

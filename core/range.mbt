@@ -9,6 +9,16 @@ pub(all) struct IntRange {
 } derive(Eq, Debug)
 
 ///|
+#deprecated
+#doc(hidden)
+pub extend IntRange with Eq::{equal, not_equal}
+
+///|
+#deprecated
+#doc(hidden)
+pub extend IntRange with Debug::{to_repr}
+
+///|
 /// Construct a half-open integer range `[start, end)`.
 pub fn int_range(start : Int32, end : Int32) -> IntRange {
   { start, end, }
@@ -18,9 +28,7 @@ pub fn int_range(start : Int32, end : Int32) -> IntRange {
 /// Validate that `end` is greater than `start`.
 pub fn IntRange::validate(self : IntRange) -> Unit raise DummyError {
   if self.end <= self.start {
-    raise DummyError::InvalidRange(
-      "expected end > start, got \{self.start}..\{self.end}",
-    )
+    raise InvalidRange("expected end > start, got \{self.start}..\{self.end}")
   }
 }
 
@@ -44,6 +52,16 @@ pub(all) struct CountRange {
 } derive(Eq, Debug)
 
 ///|
+#deprecated
+#doc(hidden)
+pub extend CountRange with Eq::{equal, not_equal}
+
+///|
+#deprecated
+#doc(hidden)
+pub extend CountRange with Debug::{to_repr}
+
+///|
 /// Construct an inclusive count range `[min, max]`.
 pub fn count_range(min : Int32, max : Int32) -> CountRange {
   { min, max, }
@@ -53,9 +71,7 @@ pub fn count_range(min : Int32, max : Int32) -> CountRange {
 /// Validate that the count range is non-negative and ordered.
 pub fn CountRange::validate(self : CountRange) -> Unit raise DummyError {
   if self.min < 0 || self.max < self.min {
-    raise DummyError::InvalidRange(
-      "expected 0 <= min <= max, got \{self.min}..\{self.max}",
-    )
+    raise InvalidRange("expected 0 <= min <= max, got \{self.min}..\{self.max}")
   }
 }
 

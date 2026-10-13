@@ -154,7 +154,7 @@ pub fn isbn13() -> @core.Gen[String] {
   @core.Gen::new(rng => {
     let group = if rng.int(limit=2) == 0 { "0" } else { "1" }
     let reg_pub_len = 13 - 3 - group.length() - 1
-    let reg_pub = StringBuilder::new(size_hint=reg_pub_len)
+    let reg_pub = StringBuilder(size_hint=reg_pub_len)
     for _ in 0..<reg_pub_len {
       reg_pub.write_string(rng.int(limit=10).to_string())
     }
@@ -168,7 +168,7 @@ pub fn isbn10() -> @core.Gen[String] {
   @core.Gen::new(rng => {
     let group = if rng.int(limit=2) == 0 { "0" } else { "1" }
     let reg_pub_len = 13 - 3 - group.length() - 1
-    let reg_pub = StringBuilder::new(size_hint=reg_pub_len)
+    let reg_pub = StringBuilder(size_hint=reg_pub_len)
     for _ in 0..<reg_pub_len {
       reg_pub.write_string(rng.int(limit=10).to_string())
     }

@@ -32,12 +32,12 @@ fn compat_auto_valid_common_plate(s : String) -> Bool {
 ///|
 test "data automotive formats are preserved" {
   let rng = @core.seed(b"format-automotive")
-  for locale in [@locales.FR_FR, @locales.IT_IT] {
+  for locale in [@locales.FR_FR, IT_IT] {
     for value in @automotive.licence_plate(locale~).sample(count=16, rng) {
       assert_true(compat_auto_valid_common_plate(value))
     }
   }
-  for locale in [@locales.NL_NL, @locales.PT_PT, @locales.TR_TR, @locales.FA_IR] {
+  for locale in [@locales.NL_NL, PT_PT, TR_TR, FA_IR] {
     for value in @automotive.licence_plate(locale~).sample(count=16, rng) {
       assert_true(compat_auto_placeholders_resolved(value))
     }

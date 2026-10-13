@@ -10,8 +10,11 @@ test "seed is deterministic after normalization" {
 ///|
 test "range validation rejects empty ranges" {
   let rng = default_seeded()
-  let result : Result[Int32, DummyError] = try? int_range(3, 3).sample(rng)
-  assert_true(result is Err(DummyError::InvalidRange(_)))
+  try int_range(3, 3).sample(rng) catch {
+    error => assert_true(error is InvalidRange(_))
+  } noraise {
+    _ => fail("expected InvalidRange to be raised")
+  }
 }
 
 ///|
@@ -25,8 +28,11 @@ test "sample length and weighted generation" {
 ///|
 test "empty candidates report an explicit error" {
   let rng = default_seeded()
-  let result : Result[String, DummyError] = try? pick_string([], rng)
-  assert_true(result is Err(DummyError::EmptyCandidates(_)))
+  try pick_string([], rng) catch {
+    error => assert_true(error is EmptyCandidates(_))
+  } noraise {
+    _ => fail("expected EmptyCandidates to be raised")
+  }
 }
 
 ///|
@@ -74,21 +80,27 @@ test "sample preserves requested length and generator order" {
 ///|
 test "one_of reports empty input and handles singleton input" {
   let rng = default_seeded()
-  let empty : Result[Gen[String], DummyError] = try? one_of([])
-  assert_true(empty is Err(DummyError::EmptyCandidates("one_of")))
+  try (one_of([]) : Gen[String]) catch {
+    error => assert_true(error is EmptyCandidates("one_of"))
+  } noraise {
+    _ => fail("expected EmptyCandidates to be raised")
+  }
   let only = one_of([Gen::pure("only")]).dummy(rng)
   @test.assert_eq(only, "only")
 }
 
 ///|
 test "weighted rejects empty and non-positive totals" {
-  let empty : Result[Gen[String], DummyError] = try? weighted([])
-  assert_true(empty is Err(DummyError::EmptyCandidates("weighted")))
-  let zero : Result[Gen[String], DummyError] = try? weighted([
-    (0, Gen::pure("zero")),
-    (-2, Gen::pure("negative")),
-  ])
-  assert_true(zero is Err(DummyError::InvalidRange(_)))
+  try (weighted([]) : Gen[String]) catch {
+    error => assert_true(error is EmptyCandidates("weighted"))
+  } noraise {
+    _ => fail("expected EmptyCandidates to be raised")
+  }
+  try weighted([(0, Gen::pure("zero")), (-2, Gen::pure("negative"))]) catch {
+    error => assert_true(error is InvalidRange(_))
+  } noraise {
+    _ => fail("expected InvalidRange to be raised")
+  }
 }
 
 ///|

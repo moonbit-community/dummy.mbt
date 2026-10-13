@@ -1,6 +1,9 @@
 import {
-  "moonbitlang/core/test",
   "moonbit-community/dummy/core",
   "moonbit-community/dummy/lorem",
   "moonbit-community/dummy/locales",
 }
+
+import {
+  "moonbitlang/core/test",
+} for "test"

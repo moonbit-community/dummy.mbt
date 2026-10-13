@@ -1,4 +1,7 @@
 import {
-  "moonbitlang/core/test",
   "moonbit-community/dummy/core",
 }
+
+import {
+  "moonbitlang/core/test",
+} for "test"

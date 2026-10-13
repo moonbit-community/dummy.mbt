@@ -401,39 +401,19 @@ fn fc_compat_features() -> Array[FcFeatureCase] {
 ///|
 fn fc_compat_docs_locales() -> Array[FcLocaleCase] {
   [
-    { docs_name: "English", docs_code: "EN", locale: @locales.EN, },
-    { docs_name: "French", docs_code: "FR_FR", locale: @locales.FR_FR, },
-    { docs_name: "Arabic", docs_code: "AR_SA", locale: @locales.AR_SA, },
-    {
-      docs_name: "Traditional Chinese",
-      docs_code: "ZH_TW",
-      locale: @locales.ZH_TW,
-    },
-    {
-      docs_name: "Simplified Chinese",
-      docs_code: "ZH_CN",
-      locale: @locales.ZH_CN,
-    },
-    { docs_name: "Japanese", docs_code: "JA_JP", locale: @locales.JA_JP, },
-    {
-      docs_name: "Portuguese - Brazil",
-      docs_code: "PT_BR",
-      locale: @locales.PT_BR,
-    },
-    {
-      docs_name: "Portuguese - Portugal",
-      docs_code: "PT_PT",
-      locale: @locales.PT_PT,
-    },
-    { docs_name: "German", docs_code: "DE_DE", locale: @locales.DE_DE, },
-    { docs_name: "Italian", docs_code: "IT_IT", locale: @locales.IT_IT, },
-    {
-      docs_name: "Cymraeg - Welsh",
-      docs_code: "CY_GB",
-      locale: @locales.CY_GB,
-    },
-    { docs_name: "Dutch", docs_code: "NL_NL", locale: @locales.NL_NL, },
-    { docs_name: "Persian (Iran)", docs_code: "FA_IR", locale: @locales.FA_IR, },
+    { docs_name: "English", docs_code: "EN", locale: EN, },
+    { docs_name: "French", docs_code: "FR_FR", locale: FR_FR, },
+    { docs_name: "Arabic", docs_code: "AR_SA", locale: AR_SA, },
+    { docs_name: "Traditional Chinese", docs_code: "ZH_TW", locale: ZH_TW, },
+    { docs_name: "Simplified Chinese", docs_code: "ZH_CN", locale: ZH_CN, },
+    { docs_name: "Japanese", docs_code: "JA_JP", locale: JA_JP, },
+    { docs_name: "Portuguese - Brazil", docs_code: "PT_BR", locale: PT_BR, },
+    { docs_name: "Portuguese - Portugal", docs_code: "PT_PT", locale: PT_PT, },
+    { docs_name: "German", docs_code: "DE_DE", locale: DE_DE, },
+    { docs_name: "Italian", docs_code: "IT_IT", locale: IT_IT, },
+    { docs_name: "Cymraeg - Welsh", docs_code: "CY_GB", locale: CY_GB, },
+    { docs_name: "Dutch", docs_code: "NL_NL", locale: NL_NL, },
+    { docs_name: "Persian (Iran)", docs_code: "FA_IR", locale: FA_IR, },
   ]
 }
 

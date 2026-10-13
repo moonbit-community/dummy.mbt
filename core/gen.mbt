@@ -10,7 +10,7 @@ pub(all) struct Gen[T] {
 ///|
 /// Create a generator from a function that consumes a shared RNG.
 pub fn[T] Gen::new(run : (@random.Rand) -> T raise DummyError) -> Gen[T] {
-  Gen::{ run, }
+  { run, }
 }
 
 ///|
@@ -38,7 +38,7 @@ pub fn[T] Gen::sample(
   rng : @random.Rand,
 ) -> Array[T] raise DummyError {
   if count < 0 {
-    raise DummyError::InvalidCount(count)
+    raise InvalidCount(count)
   }
   let out : Array[T] = []
   for _ in 0..<count {
@@ -68,7 +68,7 @@ pub fn[T, U] Gen::flat_map(self : Gen[T], f : (T) -> Gen[U]) -> Gen[U] {
 /// Raises `DummyError::EmptyCandidates` if no candidates are supplied.
 pub fn[T] one_of(items : ArrayView[Gen[T]]) -> Gen[T] raise DummyError {
   if items.length() == 0 {
-    raise DummyError::EmptyCandidates("one_of")
+    raise EmptyCandidates("one_of")
   }
   Gen::new(rng => {
     let idx = rng.int(limit=items.length())
@@ -85,7 +85,7 @@ pub fn[T] weighted(
   items : ArrayView[(Int32, Gen[T])],
 ) -> Gen[T] raise DummyError {
   if items.length() == 0 {
-    raise DummyError::EmptyCandidates("weighted")
+    raise EmptyCandidates("weighted")
   }
   let total = items.fold(init=0, (acc, item) => {
     let (weight, _) = item
@@ -96,9 +96,7 @@ pub fn[T] weighted(
     }
   })
   if total <= 0 {
-    raise DummyError::InvalidRange(
-      "weighted requires at least one positive weight",
-    )
+    raise InvalidRange("weighted requires at least one positive weight")
   }
   Gen::new(rng => {
     let target = rng.int(limit=total)

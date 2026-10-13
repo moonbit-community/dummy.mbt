@@ -73,12 +73,12 @@ fn health_insurance_code_fr_fr(
 ///
 /// Currently only `FR_FR` has a meaningful locale-specific implementation.
 pub fn health_insurance_code(
-  locale~ : @locales.Locale = @locales.FR_FR,
+  locale~ : @locales.Locale = FR_FR,
 ) -> @core.Gen[String] {
   @core.Gen::new(rng => {
     match locale {
-      @locales.FR_FR => health_insurance_code_fr_fr(rng)
-      _ => raise @core.DummyError::UnsupportedLocale(locale.code())
+      FR_FR => health_insurance_code_fr_fr(rng)
+      _ => raise UnsupportedLocale(locale.code())
     }
   })
 }

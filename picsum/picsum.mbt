@@ -9,6 +9,16 @@ pub(all) struct ImageOptions {
 } derive(Eq, Debug)
 
 ///|
+#deprecated
+#doc(hidden)
+pub extend ImageOptions with Eq::{equal, not_equal}
+
+///|
+#deprecated
+#doc(hidden)
+pub extend ImageOptions with Debug::{to_repr}
+
+///|
 /// Generate a random Picsum image URL.
 pub fn image() -> @core.Gen[String] {
   @core.Gen::new(rng => {
@@ -48,9 +58,7 @@ pub fn image_blur() -> @core.Gen[String] {
 pub fn image_custom(opts : ImageOptions) -> @core.Gen[String] {
   @core.Gen::new(_rng => {
     if opts.width <= 0 || opts.height <= 0 {
-      raise @core.DummyError::InvalidRange(
-        "picsum image dimensions must be positive",
-      )
+      raise InvalidRange("picsum image dimensions must be positive")
     }
     let base = match opts.seed {
       Some(seed) =>
@@ -64,7 +72,7 @@ pub fn image_custom(opts : ImageOptions) -> @core.Gen[String] {
     match opts.blur {
       Some(blur) => {
         if blur < 1 || blur > 10 {
-          raise @core.DummyError::InvalidRange("picsum blur must be in 1..10")
+          raise InvalidRange("picsum blur must be in 1..10")
         }
         params.push("blur=\{blur}")
       }

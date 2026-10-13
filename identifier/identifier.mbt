@@ -9,7 +9,7 @@ fn lower_hex_chars() -> Array[String] {
 ///|
 // Generate `len` lowercase hexadecimal characters.
 fn random_hex(len : Int32, rng : @random.Rand) -> String raise @core.DummyError {
-  let out = StringBuilder::new(size_hint=len)
+  let out = StringBuilder(size_hint=len)
   let chars = lower_hex_chars()
   for _ in 0..<len {
     out.write_string(@core.pick_string(chars, rng))
@@ -118,7 +118,7 @@ fn ulid_chars() -> Array[String] {
 /// Generate a 26-character ULID string.
 pub fn ulid() -> @core.Gen[String] {
   @core.Gen::new(rng => {
-    let out = StringBuilder::new(size_hint=26)
+    let out = StringBuilder(size_hint=26)
     out.write_string(@core.pick_string(ulid_first_chars(), rng))
     let chars = ulid_chars()
     for _ in 1..<26 {

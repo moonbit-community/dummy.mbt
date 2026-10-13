@@ -103,7 +103,7 @@ fn isin_check_digit(stem : String) -> String {
 /// and an optional branch suffix.
 pub fn bic() -> @core.Gen[String] {
   @core.Gen::new(rng => {
-    let out = StringBuilder::new(size_hint=11)
+    let out = StringBuilder(size_hint=11)
     for _ in 0..<3 {
       out.write_string(upper_letter(rng))
     }
@@ -133,7 +133,7 @@ pub fn bic() -> @core.Gen[String] {
 pub fn isin() -> @core.Gen[String] {
   @core.Gen::new(rng => {
     let country = iso3166_code(rng)
-    let body = StringBuilder::new(size_hint=9)
+    let body = StringBuilder(size_hint=9)
     for _ in 0..<9 {
       body.write_string(upper_alphanumeric(rng))
     }

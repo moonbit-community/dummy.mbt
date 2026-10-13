@@ -113,16 +113,16 @@ fn is_geohash_char(ch : Char) -> Bool {
 ///|
 test "city and street names follow locale shape" {
   let rng = @core.seed(b"address-locale")
-  let en_street = @address.street_name(locale=@locales.EN).dummy(rng)
+  let en_street = @address.street_name(locale=EN).dummy(rng)
   assert_true(en_street.contains(" "))
-  let zh_city = @address.city_name(locale=@locales.ZH_CN).dummy(rng)
+  let zh_city = @address.city_name(locale=ZH_CN).dummy(rng)
   assert_true(
     zh_city.has_suffix("城") ||
     zh_city.has_suffix("镇") ||
     zh_city.has_suffix("乡") ||
     zh_city.has_suffix("市"),
   )
-  let zh_street = @address.street_name(locale=@locales.ZH_CN).dummy(rng)
+  let zh_street = @address.street_name(locale=ZH_CN).dummy(rng)
   assert_true(
     zh_street.has_suffix("路") ||
     zh_street.has_suffix("街") ||
@@ -135,9 +135,7 @@ test "city and street names follow locale shape" {
 ///|
 test "country state timezone and secondary address are non-empty" {
   let rng = @core.seed(b"address-shared")
-  assert_true(
-    !@address.country_name(locale=@locales.FR_FR).dummy(rng).is_empty(),
-  )
+  assert_true(!@address.country_name(locale=FR_FR).dummy(rng).is_empty())
   @test.assert_eq(@address.country_code().dummy(rng).length(), 2)
   assert_true(!@address.state_name().dummy(rng).is_empty())
   assert_true(!@address.state_abbr().dummy(rng).is_empty())
@@ -148,39 +146,27 @@ test "country state timezone and secondary address are non-empty" {
 ///|
 test "address non-first-wave locales use data where available" {
   let rng = @core.seed(b"address-extra-locales")
-  let fr_street = @address.street_name(locale=@locales.FR_FR).dummy(rng)
+  let fr_street = @address.street_name(locale=FR_FR).dummy(rng)
   assert_true(fr_street.contains(" "))
-  @test.assert_eq(
-    @address.zip_code(locale=@locales.FR_FR).dummy(rng).length(),
-    5,
-  )
-  @test.assert_eq(
-    @address.post_code(locale=@locales.PT_BR).dummy(rng).length(),
-    9,
-  )
-  let nl_zip = @address.zip_code(locale=@locales.NL_NL).dummy(rng)
+  @test.assert_eq(@address.zip_code(locale=FR_FR).dummy(rng).length(), 5)
+  @test.assert_eq(@address.post_code(locale=PT_BR).dummy(rng).length(), 9)
+  let nl_zip = @address.zip_code(locale=NL_NL).dummy(rng)
   assert_true(is_nl_postcode(nl_zip))
-  assert_true(!@address.state_name(locale=@locales.PT_BR).dummy(rng).is_empty())
-  @test.assert_eq(
-    @address.state_abbr(locale=@locales.PT_BR).dummy(rng).length(),
-    2,
-  )
-  @test.assert_eq(
-    @address.time_zone(locale=@locales.FR_FR).dummy(rng),
-    "Europe/Paris",
-  )
+  assert_true(!@address.state_name(locale=PT_BR).dummy(rng).is_empty())
+  @test.assert_eq(@address.state_abbr(locale=PT_BR).dummy(rng).length(), 2)
+  @test.assert_eq(@address.time_zone(locale=FR_FR).dummy(rng), "Europe/Paris")
 }
 
 ///|
 test "de and nl city names use special templates" {
-  let de = @address.city_name(locale=@locales.DE_DE).sample(
+  let de = @address.city_name(locale=DE_DE).sample(
     count=64,
     @core.seed(b"address-city-de-special"),
   )
   assert_true(sample_contains(de, "-"))
   assert_true(sample_contains(de, "("))
   assert_true(!sample_contains(de, "{River}"))
-  let nl = @address.city_name(locale=@locales.NL_NL).sample(
+  let nl = @address.city_name(locale=NL_NL).sample(
     count=64,
     @core.seed(b"address-city-nl-special"),
   )
@@ -191,17 +177,17 @@ test "de and nl city names use special templates" {
 ///|
 test "zip code formats are locale-specific" {
   let rng = @core.seed(b"address-zip")
-  let en = @address.zip_code(locale=@locales.EN).dummy(rng)
+  let en = @address.zip_code(locale=EN).dummy(rng)
   assert_true(en.length() == 5 || en.length() == 10)
-  let zh_cn = @address.zip_code(locale=@locales.ZH_CN).dummy(rng)
+  let zh_cn = @address.zip_code(locale=ZH_CN).dummy(rng)
   @test.assert_eq(zh_cn.length(), 6)
   assert_true(all_decimal_digits(zh_cn))
-  let zh_tw = @address.zip_code(locale=@locales.ZH_TW).dummy(rng)
+  let zh_tw = @address.zip_code(locale=ZH_TW).dummy(rng)
   assert_true(!zh_tw.is_empty())
   let tw_fallback_seed = b"address-zip-tw-fallback"
   @test.assert_eq(
-    @address.zip_code(locale=@locales.ZH_TW).dummy(@core.seed(tw_fallback_seed)),
-    @address.zip_code(locale=@locales.EN).dummy(@core.seed(tw_fallback_seed)),
+    @address.zip_code(locale=ZH_TW).dummy(@core.seed(tw_fallback_seed)),
+    @address.zip_code(locale=EN).dummy(@core.seed(tw_fallback_seed)),
   )
 }
 
@@ -215,37 +201,36 @@ test "coordinate and geohash strings have expected shape" {
   for ch in geohash {
     assert_true(is_geohash_char(ch))
   }
-  let bad : Result[String, @core.DummyError] = try? @address.geohash(
-    precision=0,
-  ).dummy(@core.seed(b"bad-geohash"))
-  assert_true(bad is Err(@core.DummyError::InvalidCount(_)))
+  try @address.geohash(precision=0).dummy(@core.seed(b"bad-geohash")) catch {
+    error => assert_true(error is InvalidCount(_))
+  } noraise {
+    _ => fail("expected InvalidCount to be raised")
+  }
 }
 
 ///|
 test "address fixed seed locale golden outputs" {
-  let en_city = @address.city_name(locale=@locales.EN).dummy(
+  let en_city = @address.city_name(locale=EN).dummy(
     @core.seed(b"address-city-en"),
   )
-  let en_street = @address.street_name(locale=@locales.EN).dummy(
+  let en_street = @address.street_name(locale=EN).dummy(
     @core.seed(b"address-street-en"),
   )
-  let en_zip = @address.zip_code(locale=@locales.EN).dummy(
-    @core.seed(b"address-zip-en"),
-  )
-  let zh_cn_city = @address.city_name(locale=@locales.ZH_CN).dummy(
+  let en_zip = @address.zip_code(locale=EN).dummy(@core.seed(b"address-zip-en"))
+  let zh_cn_city = @address.city_name(locale=ZH_CN).dummy(
     @core.seed(b"address-city-cn"),
   )
-  let zh_cn_street = @address.street_name(locale=@locales.ZH_CN).dummy(
+  let zh_cn_street = @address.street_name(locale=ZH_CN).dummy(
     @core.seed(b"address-street-cn"),
   )
-  let zh_cn_zip = @address.zip_code(locale=@locales.ZH_CN).dummy(
+  let zh_cn_zip = @address.zip_code(locale=ZH_CN).dummy(
     @core.seed(b"address-zip-cn"),
   )
   let zh_tw_zip_seed = b"address-zip-tw"
-  let zh_tw_zip = @address.zip_code(locale=@locales.ZH_TW).dummy(
+  let zh_tw_zip = @address.zip_code(locale=ZH_TW).dummy(
     @core.seed(zh_tw_zip_seed),
   )
-  let zh_tw_secondary = @address.secondary_address(locale=@locales.ZH_TW).dummy(
+  let zh_tw_secondary = @address.secondary_address(locale=ZH_TW).dummy(
     @core.seed(b"address-secondary-tw"),
   )
   assert_true(!en_city.is_empty())
@@ -258,7 +243,7 @@ test "address fixed seed locale golden outputs" {
   assert_true(!zh_tw_zip.is_empty())
   @test.assert_eq(
     zh_tw_zip,
-    @address.zip_code(locale=@locales.EN).dummy(@core.seed(zh_tw_zip_seed)),
+    @address.zip_code(locale=EN).dummy(@core.seed(zh_tw_zip_seed)),
   )
   assert_true(!zh_tw_secondary.is_empty())
 }

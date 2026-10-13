@@ -36,7 +36,7 @@ fn compat_admin_valid_health_code(s : String) -> Bool {
 
 ///|
 test "data administrative format is preserved" {
-  let values = @administrative.health_insurance_code(locale=@locales.FR_FR).sample(
+  let values = @administrative.health_insurance_code(locale=FR_FR).sample(
     count=32,
     @core.seed(b"format-administrative"),
   )

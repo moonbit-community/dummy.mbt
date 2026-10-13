@@ -11,7 +11,7 @@ fn count_char(s : String, target : Char) -> Int32 {
 
 ///|
 test "job title is composed from seniority field and position" {
-  let title = @job.title(locale=@locales.EN).dummy(@core.seed(b"job-title"))
+  let title = @job.title(locale=EN).dummy(@core.seed(b"job-title"))
   assert_true(title.contains(" "))
   assert_true(count_char(title, ' ') >= 2)
 }
@@ -19,23 +19,23 @@ test "job title is composed from seniority field and position" {
 ///|
 test "job pieces are non-empty across locale fallback" {
   let rng = @core.seed(b"job-pieces")
-  assert_true(!@job.seniority(locale=@locales.ZH_CN).dummy(rng).is_empty())
-  assert_true(!@job.field(locale=@locales.ZH_CN).dummy(rng).is_empty())
-  assert_true(!@job.position(locale=@locales.ZH_CN).dummy(rng).is_empty())
-  assert_true(!@job.title(locale=@locales.FR_FR).dummy(rng).is_empty())
+  assert_true(!@job.seniority(locale=ZH_CN).dummy(rng).is_empty())
+  assert_true(!@job.field(locale=ZH_CN).dummy(rng).is_empty())
+  assert_true(!@job.position(locale=ZH_CN).dummy(rng).is_empty())
+  assert_true(!@job.title(locale=FR_FR).dummy(rng).is_empty())
   @test.assert_eq(
-    @job.title(locale=@locales.FR_FR).dummy(@core.seed(b"job-fallback")),
-    @job.title(locale=@locales.EN).dummy(@core.seed(b"job-fallback")),
+    @job.title(locale=FR_FR).dummy(@core.seed(b"job-fallback")),
+    @job.title(locale=EN).dummy(@core.seed(b"job-fallback")),
   )
 }
 
 ///|
 test "job generators are deterministic for the same seed" {
-  let a = @job.title(locale=@locales.ZH_CN).sample(
+  let a = @job.title(locale=ZH_CN).sample(
     count=8,
     @core.seed(b"job-determinism"),
   )
-  let b = @job.title(locale=@locales.ZH_CN).sample(
+  let b = @job.title(locale=ZH_CN).sample(
     count=8,
     @core.seed(b"job-determinism"),
   )
@@ -44,17 +44,15 @@ test "job generators are deterministic for the same seed" {
 
 ///|
 test "job fixed seed locale golden outputs" {
-  let en = @job.title(locale=@locales.EN).dummy(@core.seed(b"job-golden-en"))
-  let zh_cn = @job.title(locale=@locales.ZH_CN).dummy(
-    @core.seed(b"job-golden-cn"),
-  )
-  let zh_tw_seniority = @job.seniority(locale=@locales.ZH_TW).dummy(
+  let en = @job.title(locale=EN).dummy(@core.seed(b"job-golden-en"))
+  let zh_cn = @job.title(locale=ZH_CN).dummy(@core.seed(b"job-golden-cn"))
+  let zh_tw_seniority = @job.seniority(locale=ZH_TW).dummy(
     @core.seed(b"job-golden-tw-seniority"),
   )
-  let zh_tw_field = @job.field(locale=@locales.ZH_TW).dummy(
+  let zh_tw_field = @job.field(locale=ZH_TW).dummy(
     @core.seed(b"job-golden-tw-field"),
   )
-  let zh_tw_position = @job.position(locale=@locales.ZH_TW).dummy(
+  let zh_tw_position = @job.position(locale=ZH_TW).dummy(
     @core.seed(b"job-golden-tw-position"),
   )
   @test.assert_eq(count_char(en, ' '), 2)

@@ -19,7 +19,7 @@ fn luhn_check_digit(digits : ArrayView[Int32]) -> Int32 {
 ///|
 // Convert generated decimal digits into the final card-number string.
 fn digits_to_string(digits : ArrayView[Int32]) -> String {
-  let out = StringBuilder::new(size_hint=digits.length())
+  let out = StringBuilder(size_hint=digits.length())
   for digit in digits {
     out.write_string(digit.to_string())
   }

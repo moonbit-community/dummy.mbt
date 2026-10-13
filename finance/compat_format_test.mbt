@@ -50,7 +50,7 @@ fn compat_finance_valid_isin(s : String) -> Bool {
   guard compat_finance_all(s[0:2].to_owned(), compat_finance_is_upper) else {
     return false
   }
-  let expanded = StringBuilder::new()
+  let expanded = StringBuilder()
   for ch in s {
     guard compat_finance_isin_char_value(ch) is Some(value) else {
       return false

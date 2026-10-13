@@ -50,7 +50,7 @@ fn encode_base64(
   chars : ArrayView[String],
   padding : Bool,
 ) -> String {
-  let out = StringBuilder::new(size_hint=(bytes.length() + 2) / 3 * 4)
+  let out = StringBuilder(size_hint=(bytes.length() + 2) / 3 * 4)
   let full = bytes.length() / 3
   for block in 0..<full {
     let i = block * 3

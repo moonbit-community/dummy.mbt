@@ -267,7 +267,7 @@ fn compat_det_digit_value_at(s : String, i : Int32) -> Int32 {
 
 ///|
 fn compat_det_strip_hyphens(s : String) -> String {
-  let out = StringBuilder::new(size_hint=s.length())
+  let out = StringBuilder(size_hint=s.length())
   for ch in s {
     if ch != '-' {
       out.write_char(ch)
@@ -376,15 +376,16 @@ test "migrated facade seed reproducibility" {
 
 ///|
 test "migrated facade weighted boundaries" {
-  let empty : Result[@core.Gen[String], @core.DummyError] = try? @dummy.weighted([],
-  )
-  assert_true(empty is Err(@core.DummyError::EmptyCandidates("weighted")))
-  let invalid : Result[@core.Gen[String], @core.DummyError] = try? @dummy.weighted([
-      (0, @dummy.name()),
-      (-1, @dummy.company_name()),
-    ],
-  )
-  assert_true(invalid is Err(@core.DummyError::InvalidRange(_)))
+  try (@dummy.weighted([]) : @core.Gen[String]) catch {
+    error => assert_true(error is EmptyCandidates("weighted"))
+  } noraise {
+    _ => fail("expected EmptyCandidates to be raised")
+  }
+  try @dummy.weighted([(0, @dummy.name()), (-1, @dummy.company_name())]) catch {
+    error => assert_true(error is InvalidRange(_))
+  } noraise {
+    _ => fail("expected InvalidRange to be raised")
+  }
   let gen = @dummy.weighted([
     (0, @dummy.name()),
     (4, @core.Gen::pure("selected")),

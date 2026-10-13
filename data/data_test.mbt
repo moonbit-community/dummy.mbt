@@ -38,43 +38,37 @@ test "shared internet data is available" {
 
 ///|
 test "shared phone patterns are available" {
-  let en = @data.phone_number_formats(@locales.EN)
+  let en = @data.phone_number_formats(EN)
   assert_true(en.length() >= 16)
   assert_true(contains_string(en, "(^##) ###-####"))
   assert_true(contains_string(en, "^##.###.#### x#####"))
-  let cell = @data.cell_number_formats(@locales.EN)
+  let cell = @data.cell_number_formats(EN)
   assert_true(contains_string(cell, "1-^##-###-####"))
   assert_true(
-    contains_string(
-      @data.phone_number_formats(@locales.ZH_CN),
-      "+86 1##########",
-    ),
+    contains_string(@data.phone_number_formats(ZH_CN), "+86 1##########"),
   )
   assert_true(
-    contains_string(
-      @data.phone_number_formats(@locales.ZH_TW),
-      "+886 9## ### ###",
-    ),
+    contains_string(@data.phone_number_formats(ZH_TW), "+886 9## ### ###"),
   )
 }
 
 ///|
 test "automotive licence plate formats are available" {
-  @test.assert_eq(@data.licence_plate_formats(@locales.FR_FR), ["$$-###-$$"])
-  @test.assert_eq(@data.licence_plate_formats(@locales.IT_IT), ["$$-###-$$"])
-  @test.assert_eq(@data.licence_plate_formats(@locales.NL_NL), [
+  @test.assert_eq(@data.licence_plate_formats(FR_FR), ["$$-###-$$"])
+  @test.assert_eq(@data.licence_plate_formats(IT_IT), ["$$-###-$$"])
+  @test.assert_eq(@data.licence_plate_formats(NL_NL), [
     "$$-###-$", "$-###-$$", "$$$-##-$",
   ])
-  @test.assert_eq(@data.licence_plate_formats(@locales.PT_PT), [
+  @test.assert_eq(@data.licence_plate_formats(PT_PT), [
     "$$-##-##", "##-##-$$", "##-$$-##", "## ## $$", "## $$ ##", "$$ ## $$",
   ])
-  @test.assert_eq(@data.licence_plate_formats(@locales.TR_TR), [
+  @test.assert_eq(@data.licence_plate_formats(TR_TR), [
     "## ABC ###", "## AB ####",
   ])
-  @test.assert_eq(@data.licence_plate_formats(@locales.FA_IR), [
+  @test.assert_eq(@data.licence_plate_formats(FA_IR), [
     "## ABC ###", "## AB ####",
   ])
-  @test.assert_eq(@data.licence_plate_formats(@locales.EN), [])
+  @test.assert_eq(@data.licence_plate_formats(EN), [])
 }
 
 ///|
@@ -105,16 +99,12 @@ test "shared currency and filesystem data is available" {
 
 ///|
 test "address default tables are available" {
-  @test.assert_eq(@data.states(@locales.EN).length(), 50)
+  @test.assert_eq(@data.states(EN).length(), 50)
   assert_true(contains_string(@data.country_codes(), "US"))
   assert_true(contains_string(@data.country_codes(), "ZW"))
   assert_true(contains_string(@data.time_zones(), "Pacific/Tongatapu"))
-  assert_true(
-    contains_string(@data.post_code_formats(@locales.EN), "#####-####"),
-  )
-  assert_true(
-    contains_string(@data.building_number_formats(@locales.EN), "#####"),
-  )
+  assert_true(contains_string(@data.post_code_formats(EN), "#####-####"))
+  assert_true(contains_string(@data.building_number_formats(EN), "#####"))
   @test.assert_eq(@data.geohash_chars().length(), 32)
 }
 
@@ -132,7 +122,7 @@ test "chrono and time format data is available" {
   @test.assert_eq(@data.chrono_date_format(), "%F")
   @test.assert_eq(@data.chrono_datetime_format(), "%+")
   @test.assert_eq(
-    @data.time_time_format(locale=@locales.PT_BR),
+    @data.time_time_format(locale=PT_BR),
     "[hour]:[minute]:[second][subsecond]",
   )
   @test.assert_eq(@data.time_date_format(), "[year]-[month]-[day]")
@@ -140,203 +130,143 @@ test "chrono and time format data is available" {
     @data.time_datetime_format(),
     "[year]-[month]-[day]T[hour]:[minute]:[second][offset_hour sign:mandatory][offset_minute]",
   )
-  @test.assert_eq(@data.chrono_date_format(locale=@locales.FA_IR), "%Y/%m/%d")
+  @test.assert_eq(@data.chrono_date_format(locale=FA_IR), "%Y/%m/%d")
   @test.assert_eq(
-    @data.chrono_datetime_format(locale=@locales.IT_IT),
+    @data.chrono_datetime_format(locale=IT_IT),
     "%d-%m-%Y %H:%M:%S",
   )
-  @test.assert_eq(@data.chrono_date_format(locale=@locales.TR_TR), "%d.%m.%Y")
+  @test.assert_eq(@data.chrono_date_format(locale=TR_TR), "%d.%m.%Y")
+  @test.assert_eq(@data.time_date_format(locale=NL_NL), "[day]-[month]-[year]")
+  @test.assert_eq(@data.time_date_format(locale=PT_BR), "[day]/[month]/[year]")
   @test.assert_eq(
-    @data.time_date_format(locale=@locales.NL_NL),
-    "[day]-[month]-[year]",
-  )
-  @test.assert_eq(
-    @data.time_date_format(locale=@locales.PT_BR),
-    "[day]/[month]/[year]",
-  )
-  @test.assert_eq(
-    @data.time_datetime_format(locale=@locales.FA_IR),
+    @data.time_datetime_format(locale=FA_IR),
     "[year]/[month]/[day] [hour]:[minute]:[second]",
   )
+  @test.assert_eq(@data.time_date_format(locale=TR_TR), "[day].[month].[year]")
   @test.assert_eq(
-    @data.time_date_format(locale=@locales.TR_TR),
-    "[day].[month].[year]",
-  )
-  @test.assert_eq(
-    @data.time_datetime_format(locale=@locales.TR_TR),
+    @data.time_datetime_format(locale=TR_TR),
     "[day].[month].[year] [hour]:[minute]:[second]",
   )
   @test.assert_eq(
-    @data.time_datetime_format(locale=@locales.PT_PT),
+    @data.time_datetime_format(locale=PT_PT),
     "[day]-[month]-[year] [hour]:[minute]:[second]",
   )
   @test.assert_eq(
-    @data.time_datetime_format(locale=@locales.PT_BR),
+    @data.time_datetime_format(locale=PT_BR),
     "[day]/[month]/[year]T[hour]:[minute]:[second][offset_hour sign:mandatory][offset_minute]",
   )
 }
 
 ///|
 test "first wave locale data and fallback are non-empty" {
-  assert_true(@data.name_first_names(@locales.ZH_CN).length() > 10)
-  assert_true(@data.name_last_names(@locales.ZH_TW).length() > 10)
-  assert_true(@data.lorem_words(@locales.ZH_CN).length() > 10)
-  assert_true(@data.company_suffixes(@locales.FR_FR).length() > 0)
-  @test.assert_eq(@data.name_template(@locales.ZH_CN), "{LastName}{FirstName}")
-  @test.assert_eq(@data.name_template(@locales.FR_FR), "{FirstName} {LastName}")
+  assert_true(@data.name_first_names(ZH_CN).length() > 10)
+  assert_true(@data.name_last_names(ZH_TW).length() > 10)
+  assert_true(@data.lorem_words(ZH_CN).length() > 10)
+  assert_true(@data.company_suffixes(FR_FR).length() > 0)
+  @test.assert_eq(@data.name_template(ZH_CN), "{LastName}{FirstName}")
+  @test.assert_eq(@data.name_template(FR_FR), "{FirstName} {LastName}")
 }
 
 ///|
 test "non-first-wave locale data is available" {
+  assert_true(contains_string(@data.name_first_names(AR_SA), "أحلام"))
+  assert_true(contains_string(@data.name_titles(FR_FR), "Mme"))
+  assert_true(contains_string(@data.name_titles(JA_JP), "様"))
   assert_true(
-    contains_string(@data.name_first_names(@locales.AR_SA), "أحلام"),
+    contains_string(@data.email_providers(locale=PT_BR), "uol.com.br"),
   )
-  assert_true(contains_string(@data.name_titles(@locales.FR_FR), "Mme"))
-  assert_true(contains_string(@data.name_titles(@locales.JA_JP), "様"))
+  assert_true(contains_string(@data.domain_suffixes(locale=NL_NL), "nl"))
   assert_true(
-    contains_string(@data.email_providers(locale=@locales.PT_BR), "uol.com.br"),
-  )
-  assert_true(
-    contains_string(@data.domain_suffixes(locale=@locales.NL_NL), "nl"),
-  )
-  assert_true(
-    contains_string(@data.phone_number_formats(@locales.JA_JP), "011-###-####"),
+    contains_string(@data.phone_number_formats(JA_JP), "011-###-####"),
   )
   assert_true(
-    contains_string(
-      @data.cell_number_formats(@locales.NL_NL),
-      "+31 06 ########",
-    ),
+    contains_string(@data.cell_number_formats(NL_NL), "+31 06 ########"),
   )
-  assert_true(
-    contains_string(@data.post_code_formats(@locales.PT_BR), "#####-###"),
-  )
-  assert_true(contains_string(@data.zip_formats(@locales.NL_NL), "#### $$"))
-  assert_true(
-    contains_string(@data.time_zones(locale=@locales.FR_FR), "Europe/Paris"),
-  )
-  assert_true(contains_string(@data.company_suffixes(@locales.PT_BR), "Ltda."))
-  assert_true(contains_string(@data.job_seniority(@locales.JA_JP), "シニア"))
+  assert_true(contains_string(@data.post_code_formats(PT_BR), "#####-###"))
+  assert_true(contains_string(@data.zip_formats(NL_NL), "#### $$"))
+  assert_true(contains_string(@data.time_zones(locale=FR_FR), "Europe/Paris"))
+  assert_true(contains_string(@data.company_suffixes(PT_BR), "Ltda."))
+  assert_true(contains_string(@data.job_seniority(JA_JP), "シニア"))
   @test.assert_eq(
-    @data.job_title_template(@locales.JA_JP),
+    @data.job_title_template(JA_JP),
     "{Seniority}{Field}{Position}",
   )
-  @test.assert_eq(
-    @data.street_template(@locales.FR_FR),
-    "{StreetSuffix} {StreetName}",
-  )
-  @test.assert_eq(
-    @data.company_bs_template(@locales.IT_IT),
-    "{Verb} {Noun} {Adj}",
-  )
-  @test.assert_eq(@data.states(@locales.PT_BR).length(), 27)
+  @test.assert_eq(@data.street_template(FR_FR), "{StreetSuffix} {StreetName}")
+  @test.assert_eq(@data.company_bs_template(IT_IT), "{Verb} {Noun} {Adj}")
+  @test.assert_eq(@data.states(PT_BR).length(), 27)
 }
 
 ///|
 test "de and nl city special data is available" {
-  assert_true(contains_string(@data.city_prefixes(@locales.DE_DE), "Bad"))
-  assert_true(contains_string(@data.city_suffixes(@locales.DE_DE), "stadt"))
-  @test.assert_eq(@data.city_name_templates(@locales.DE_DE), [
+  assert_true(contains_string(@data.city_prefixes(DE_DE), "Bad"))
+  assert_true(contains_string(@data.city_suffixes(DE_DE), "stadt"))
+  @test.assert_eq(@data.city_name_templates(DE_DE), [
     "{CityPrefix}{CityName}{CitySuffix}", "{CityPrefix} {CityName}{CitySuffix}",
     "{CityPrefix}-{CityName}{CitySuffix}", "{CityPrefix}-{CityName}{CitySuffix} {River}",
     "{CityName}{CitySuffix}",
   ])
-  assert_true(contains_string(@data.city_rivers(@locales.DE_DE), "(Rhein)"))
-  assert_true(contains_string(@data.city_prefixes(@locales.NL_NL), "Nieuw"))
-  assert_true(contains_string(@data.city_suffixes(@locales.NL_NL), "drecht"))
-  @test.assert_eq(@data.city_name_templates(@locales.NL_NL), [
+  assert_true(contains_string(@data.city_rivers(DE_DE), "(Rhein)"))
+  assert_true(contains_string(@data.city_prefixes(NL_NL), "Nieuw"))
+  assert_true(contains_string(@data.city_suffixes(NL_NL), "drecht"))
+  @test.assert_eq(@data.city_name_templates(NL_NL), [
     "{CityPrefix}{CityName}{CitySuffix}", "{CityPrefix} {CityName}{CitySuffix}",
     "{CityPrefix}-{CityName}{CitySuffix}", "{CityPrefix}-{CityName}{CitySuffix} {River}",
     "{CityName}{CitySuffix}",
   ])
-  @test.assert_eq(@data.city_rivers(@locales.NL_NL), ["{River}"])
+  @test.assert_eq(@data.city_rivers(NL_NL), ["{River}"])
 }
 
 ///|
 test "locale override constants are routed through data accessors" {
-  @test.assert_eq(@data.name_template(@locales.ZH_TW), "{LastName}{FirstName}")
+  @test.assert_eq(@data.name_template(ZH_TW), "{LastName}{FirstName}")
   @test.assert_eq(
-    @data.name_with_title_template(@locales.ZH_TW),
+    @data.name_with_title_template(ZH_TW),
     "{LastName}{FirstName}{Title}",
   )
-  @test.assert_eq(@data.city_template(@locales.ZH_CN), "{CityName}{CitySuffix}")
+  @test.assert_eq(@data.city_template(ZH_CN), "{CityName}{CitySuffix}")
   @test.assert_eq(
-    @data.city_with_prefix_template(@locales.ZH_CN),
+    @data.city_with_prefix_template(ZH_CN),
     "{CityPrefix}{CityName}{CitySuffix}",
   )
+  @test.assert_eq(@data.street_template(ZH_CN), "{StreetName}{StreetSuffix}")
+  @test.assert_eq(@data.company_name_templates(ZH_CN), ["{Name_1}{Suffix}"])
   @test.assert_eq(
-    @data.street_template(@locales.ZH_CN),
-    "{StreetName}{StreetSuffix}",
-  )
-  @test.assert_eq(@data.company_name_templates(@locales.ZH_CN), [
-    "{Name_1}{Suffix}",
-  ])
-  @test.assert_eq(
-    @data.company_catch_phrase_template(@locales.ZH_CN),
+    @data.company_catch_phrase_template(ZH_CN),
     "{Head}{Middle}{Tail}",
   )
+  @test.assert_eq(@data.company_bs_template(ZH_CN), "{Verb}{Adj}{Noun}")
   @test.assert_eq(
-    @data.company_bs_template(@locales.ZH_CN),
-    "{Verb}{Adj}{Noun}",
-  )
-  @test.assert_eq(
-    @data.job_title_template(@locales.ZH_CN),
+    @data.job_title_template(ZH_CN),
     "{Seniority} {Field} {Position}",
   )
   assert_true(
-    contains_string(
-      @data.email_providers(locale=@locales.CY_GB),
-      "draig.example.cymru",
-    ),
+    contains_string(@data.email_providers(locale=CY_GB), "draig.example.cymru"),
   )
   assert_true(
     contains_string(
-      @data.currency_names(locale=@locales.CY_GB),
+      @data.currency_names(locale=CY_GB),
       "Doler yr Unol Daleithiau",
     ),
   )
-  assert_true(contains_string(@data.job_seniority(@locales.CY_GB), "Uwch"))
+  assert_true(contains_string(@data.job_seniority(CY_GB), "Uwch"))
+  assert_true(contains_string(@data.company_buzzword_heads(CY_GB), "Addasadwy"))
+  assert_true(contains_string(@data.secondary_address_types(PT_PT), "Piso"))
   assert_true(
-    contains_string(@data.company_buzzword_heads(@locales.CY_GB), "Addasadwy"),
+    contains_string(@data.time_zones(locale=PT_PT), "Atlantic/Azores"),
   )
+  assert_true(contains_string(@data.building_number_formats(PT_PT), "nº ###"))
+  assert_true(contains_string(@data.currency_codes(locale=PT_PT), "EUR"))
+  assert_true(contains_string(@data.currency_symbols(locale=PT_PT), "€"))
+  assert_true(contains_string(@data.company_suffixes(PT_PT), "Lda."))
   assert_true(
-    contains_string(@data.secondary_address_types(@locales.PT_PT), "Piso"),
+    contains_string(@data.time_zones(locale=TR_TR), "Europe/Istanbul"),
   )
+  assert_true(contains_string(@data.domain_suffixes(locale=TR_TR), "com.tr"))
+  assert_true(contains_string(@data.building_number_formats(TR_TR), "No: ###"))
   assert_true(
-    contains_string(@data.time_zones(locale=@locales.PT_PT), "Atlantic/Azores"),
+    contains_string(@data.phone_number_formats(TR_TR), "+90 (212) ### ####"),
   )
-  assert_true(
-    contains_string(@data.building_number_formats(@locales.PT_PT), "nº ###"),
-  )
-  assert_true(
-    contains_string(@data.currency_codes(locale=@locales.PT_PT), "EUR"),
-  )
-  assert_true(
-    contains_string(@data.currency_symbols(locale=@locales.PT_PT), "€"),
-  )
-  assert_true(contains_string(@data.company_suffixes(@locales.PT_PT), "Lda."))
-  assert_true(
-    contains_string(@data.time_zones(locale=@locales.TR_TR), "Europe/Istanbul"),
-  )
-  assert_true(
-    contains_string(@data.domain_suffixes(locale=@locales.TR_TR), "com.tr"),
-  )
-  assert_true(
-    contains_string(@data.building_number_formats(@locales.TR_TR), "No: ###"),
-  )
-  assert_true(
-    contains_string(
-      @data.phone_number_formats(@locales.TR_TR),
-      "+90 (212) ### ####",
-    ),
-  )
-  assert_true(
-    contains_string(@data.secondary_address_types(@locales.FA_IR), "واحد"),
-  )
-  assert_true(
-    contains_string(@data.time_zones(locale=@locales.FA_IR), "Asia/Tehran"),
-  )
-  assert_true(
-    contains_string(@data.currency_codes(locale=@locales.FA_IR), "IRR"),
-  )
+  assert_true(contains_string(@data.secondary_address_types(FA_IR), "واحد"))
+  assert_true(contains_string(@data.time_zones(locale=FA_IR), "Asia/Tehran"))
+  assert_true(contains_string(@data.currency_codes(locale=FA_IR), "IRR"))
 }

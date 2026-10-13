@@ -105,7 +105,7 @@ test "seeded and filtered image urls use expected query shapes" {
 
 ///|
 test "image_custom renders exact dimensions seed and params" {
-  let url = @picsum.image_custom(@picsum.ImageOptions::{
+  let url = @picsum.image_custom({
     width: 320,
     height: 240,
     grayscale: true,
@@ -119,7 +119,7 @@ test "image_custom renders exact dimensions seed and params" {
 
 ///|
 test "image_custom omits query string when no options request params" {
-  let url = @picsum.image_custom(@picsum.ImageOptions::{
+  let url = @picsum.image_custom({
     width: 640,
     height: 480,
     grayscale: false,
@@ -131,7 +131,7 @@ test "image_custom omits query string when no options request params" {
 
 ///|
 test "image_custom keeps seed path before query parameters" {
-  let url = @picsum.image_custom(@picsum.ImageOptions::{
+  let url = @picsum.image_custom({
     width: 800,
     height: 600,
     grayscale: true,
@@ -143,20 +143,30 @@ test "image_custom keeps seed path before query parameters" {
 
 ///|
 test "image_custom rejects invalid options" {
-  let bad_size : Result[String, @core.DummyError] = try? @picsum.image_custom(@picsum.ImageOptions::{
-    width: 0,
-    height: 240,
-    grayscale: false,
-    blur: None,
-    seed: None,
-  }).dummy(@core.seed(b"picsum-bad-size"))
-  assert_true(bad_size is Err(@core.DummyError::InvalidRange(_)))
-  let bad_blur : Result[String, @core.DummyError] = try? @picsum.image_custom(@picsum.ImageOptions::{
-    width: 320,
-    height: 240,
-    grayscale: false,
-    blur: Some(11),
-    seed: None,
-  }).dummy(@core.seed(b"picsum-bad-blur"))
-  assert_true(bad_blur is Err(@core.DummyError::InvalidRange(_)))
+  try
+    @picsum.image_custom({
+      width: 0,
+      height: 240,
+      grayscale: false,
+      blur: None,
+      seed: None,
+    }).dummy(@core.seed(b"picsum-bad-size"))
+  catch {
+    error => assert_true(error is InvalidRange(_))
+  } noraise {
+    _ => fail("expected InvalidRange to be raised")
+  }
+  try
+    @picsum.image_custom({
+      width: 320,
+      height: 240,
+      grayscale: false,
+      blur: Some(11),
+      seed: None,
+    }).dummy(@core.seed(b"picsum-bad-blur"))
+  catch {
+    error => assert_true(error is InvalidRange(_))
+  } noraise {
+    _ => fail("expected InvalidRange to be raised")
+  }
 }

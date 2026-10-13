@@ -11,14 +11,16 @@ test "boolean ratio boundaries match semantics" {
 
 ///|
 test "boolean rejects ratios outside 0..100" {
-  let low : Result[Bool, @core.DummyError] = try? @boolean.boolean(ratio=-1).dummy(
-    @core.seed(b"boolean-low"),
-  )
-  assert_true(low is Err(@core.DummyError::InvalidRange(_)))
-  let high : Result[Bool, @core.DummyError] = try? @boolean.boolean(ratio=101).dummy(
-    @core.seed(b"boolean-high"),
-  )
-  assert_true(high is Err(@core.DummyError::InvalidRange(_)))
+  try @boolean.boolean(ratio=-1).dummy(@core.seed(b"boolean-low")) catch {
+    error => assert_true(error is InvalidRange(_))
+  } noraise {
+    _ => fail("expected InvalidRange to be raised")
+  }
+  try @boolean.boolean(ratio=101).dummy(@core.seed(b"boolean-high")) catch {
+    error => assert_true(error is InvalidRange(_))
+  } noraise {
+    _ => fail("expected InvalidRange to be raised")
+  }
 }
 
 ///|

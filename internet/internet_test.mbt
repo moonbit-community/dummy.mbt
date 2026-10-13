@@ -125,7 +125,7 @@ fn is_mac_address(s : String) -> Bool {
 
 ///|
 fn email_local_part(s : String) -> String {
-  let out = StringBuilder::new()
+  let out = StringBuilder()
   for ch in s {
     if ch == '@' {
       return out.to_string()
@@ -246,9 +246,9 @@ test "email generators use expected domains" {
   )
   assert_true(has_ascii_local_part(safe))
   let safe_local = email_local_part(safe)
-  assert_true(is_lower_first_name(safe_local, @locales.EN))
+  assert_true(is_lower_first_name(safe_local, EN))
   assert_true(!has_upper_ascii(safe_local))
-  let br = @internet.free_email(locale=@locales.PT_BR).dummy(rng)
+  let br = @internet.free_email(locale=PT_BR).dummy(rng)
   assert_true(
     br.has_suffix("@bol.com.br") ||
     br.has_suffix("@gmail.com.br") ||
@@ -259,7 +259,7 @@ test "email generators use expected domains" {
     br.has_suffix("@uol.com.br") ||
     br.has_suffix("@yahoo.com.br"),
   )
-  let nl_suffix = @internet.domain_suffix(locale=@locales.NL_NL).dummy(rng)
+  let nl_suffix = @internet.domain_suffix(locale=NL_NL).dummy(rng)
   assert_true(
     nl_suffix == "nl" ||
     nl_suffix == "com" ||
@@ -348,7 +348,7 @@ test "ip and mac address formats are shaped correctly" {
 ///|
 test "domain suffix user agent and username are non-empty" {
   let rng = @core.seed(b"internet-shared")
-  let username = @internet.username(locale=@locales.ZH_CN).dummy(rng)
+  let username = @internet.username(locale=ZH_CN).dummy(rng)
   assert_true(!username.is_empty())
   assert_true(!username.contains("@"))
   assert_true(!username.contains(" "))
@@ -372,17 +372,17 @@ test "username follows structural variants" {
     assert_true(!value.is_empty())
     assert_true(!value.contains("@"))
     assert_true(!value.contains(" "))
-    match username_shape(value, @locales.EN) {
+    match username_shape(value, EN) {
       "first" | "word.first" | "first_number" | "first_word" => ()
       _ => fail("username did not match an shape")
     }
   }
-  let first = @data.name_first_names(@locales.EN)[0].to_lower()
-  let word = @data.lorem_words(@locales.EN)[0]
-  @test.assert_eq(username_shape(first, @locales.EN), "first")
-  @test.assert_eq(username_shape(word + "." + first, @locales.EN), "word.first")
-  @test.assert_eq(username_shape(first + "42", @locales.EN), "first_number")
-  @test.assert_eq(username_shape(first + "_" + word, @locales.EN), "first_word")
+  let first = @data.name_first_names(EN)[0].to_lower()
+  let word = @data.lorem_words(EN)[0]
+  @test.assert_eq(username_shape(first, EN), "first")
+  @test.assert_eq(username_shape(word + "." + first, EN), "word.first")
+  @test.assert_eq(username_shape(first + "42", EN), "first_number")
+  @test.assert_eq(username_shape(first + "_" + word, EN), "first_word")
 }
 
 ///|

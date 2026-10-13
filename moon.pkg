@@ -1,5 +1,4 @@
 import {
-  "moonbitlang/core/test",
   "moonbitlang/core/random",
   "moonbit-community/dummy/core",
   "moonbit-community/dummy/locales",
@@ -28,3 +27,7 @@ import {
   "moonbit-community/dummy/picsum",
   "moonbit-community/dummy/time",
 }
+
+import {
+  "moonbitlang/core/test",
+} for "test"

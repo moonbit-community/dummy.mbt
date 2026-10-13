@@ -51,9 +51,9 @@ impl @core.DummyDefault for FeOrder with fn dummy_default(rng) {
   {
     order_id: @dummy.int(range=@dummy.int_range(1000, 2000)).dummy(rng),
     customer: @dummy.name().dummy(rng),
-    items: Array::makei(3, _ => FeItem::dummy_default(rng)),
+    items: Array::makei(3, _ => @core.DummyDefault::dummy_default(rng)),
     paid: @dummy.boolean(ratio=70).dummy(rng),
-    status: FeOrderStatus::dummy_default(rng),
+    status: @core.DummyDefault::dummy_default(rng),
     uuid: @dummy.uuid_v4().dummy(rng),
   }
 }
@@ -129,7 +129,7 @@ fn fe_string_with(
 ) -> @core.Gen[String] {
   @core.Gen::new(rng => {
     let len = len_range.sample(rng)
-    let out = StringBuilder::new(size_hint=len)
+    let out = StringBuilder(size_hint=len)
     for _ in 0..<len {
       out.write_string(@core.pick_string(chars, rng))
     }
@@ -182,16 +182,23 @@ fn fe_assert_order_shape(order : FeOrder) -> Unit raise {
 
 ///|
 test "basic usage examples port to manual DummyDefault records" {
-  let left = FeBasicUser::dummy_default(@dummy.seed(b"compat-basic-user"))
-  let right = FeBasicUser::dummy_default(@dummy.seed(b"compat-basic-user"))
+  let left : FeBasicUser = @core.DummyDefault::dummy_default(
+    @dummy.seed(b"compat-basic-user"),
+  )
+  let right : FeBasicUser = @core.DummyDefault::dummy_default(
+    @dummy.seed(b"compat-basic-user"),
+  )
   assert_true(left == right)
   assert_true(left.order_id >= 1000 && left.order_id < 2000)
   assert_true(!left.customer.is_empty())
   assert_true(left.paid || !left.paid)
-  let order = FeOrder::dummy_default(@dummy.seed(b"compat-derived-order"))
+  let order : FeOrder = @core.DummyDefault::dummy_default(
+    @dummy.seed(b"compat-derived-order"),
+  )
   fe_assert_order_shape(order)
   assert_true(
-    order == FeOrder::dummy_default(@dummy.seed(b"compat-derived-order")),
+    order ==
+    @core.DummyDefault::dummy_default(@dummy.seed(b"compat-derived-order")),
   )
 }
 
@@ -486,7 +493,7 @@ fn fmore_ascii_string_with(
 ) -> @core.Gen[String] {
   @core.Gen::new(rng => {
     let len = len_range.sample(rng)
-    let out = StringBuilder::new(size_hint=len)
+    let out = StringBuilder(size_hint=len)
     for _ in 0..<len {
       out.write_string(@core.pick_string(chars, rng))
     }
@@ -509,7 +516,7 @@ fn fmore_fixed_nested_ints(
 fn fmore_string_map(
   rng : @random.Rand,
 ) -> Map[Int32, Array[String]] raise @core.DummyError {
-  let out : Map[Int32, Array[String]] = {}
+  let out : Map[Int32, Array[String]] = Map([])
   for key in 0..<4 {
     out[key] = @dummy.name(locale=@dummy.en).sample(count=2, rng)
   }
@@ -520,7 +527,7 @@ fn fmore_string_map(
 fn fmore_map_of_int_sets(
   rng : @random.Rand,
 ) -> Map[Int32, Array[Int32]] raise @core.DummyError {
-  let out : Map[Int32, Array[Int32]] = {}
+  let out : Map[Int32, Array[Int32]] = Map([])
   for key in 0..<5 {
     let values = @dummy.int(range=@dummy.int_range(1, 11)).sample(count=6, rng)
     values.sort()
@@ -1059,9 +1066,9 @@ impl @core.DummyDefault for SubagentOrder with fn dummy_default(rng) {
   {
     order_id: @dummy.int(range=@dummy.int_range(1000, 2000)).dummy(rng),
     customer: @dummy.name().dummy(rng),
-    items: Array::makei(3, _ => SubagentLineItem::dummy_default(rng)),
+    items: Array::makei(3, _ => @core.DummyDefault::dummy_default(rng)),
     paid: @dummy.boolean(ratio=70).dummy(rng),
-    status: SubagentOrderStatus::dummy_default(rng),
+    status: @core.DummyDefault::dummy_default(rng),
     uuid: @dummy.uuid_v4().dummy(rng),
     total_cents: @dummy.int(range=@dummy.int_range(1, 1_000_000)).dummy(rng),
   }
@@ -1154,7 +1161,7 @@ fn subagent_ascii_string_with(
 ) -> @core.Gen[String] {
   @core.Gen::new(rng => {
     let len = len_range.sample(rng)
-    let out = StringBuilder::new(size_hint=len)
+    let out = StringBuilder(size_hint=len)
     for _ in 0..<len {
       out.write_string(@core.pick_string(chars, rng))
     }
@@ -1180,7 +1187,7 @@ fn subagent_result_with(
 fn subagent_map_of_set_like_values(
   rng : @random.Rand,
 ) -> Map[Int32, Array[Int32]] raise @core.DummyError {
-  let out : Map[Int32, Array[Int32]] = {}
+  let out : Map[Int32, Array[Int32]] = Map([])
   for key in 0..<4 {
     let raw = @dummy.int(range=@dummy.int_range(1, 11)).sample(count=8, rng)
     raw.sort()
@@ -1254,8 +1261,12 @@ test "examples fixed seed streams replay deterministically" {
 ///|
 test "basic and derive examples map to manual DummyDefault records" {
   let seed = b"subagent-derived-order"
-  let left = SubagentOrder::dummy_default(@dummy.seed(seed))
-  let right = SubagentOrder::dummy_default(@dummy.seed(seed))
+  let left : SubagentOrder = @core.DummyDefault::dummy_default(
+    @dummy.seed(seed),
+  )
+  let right : SubagentOrder = @core.DummyDefault::dummy_default(
+    @dummy.seed(seed),
+  )
   assert_true(left == right)
   assert_true(left.order_id >= 1000 && left.order_id < 2000)
   assert_true(!left.customer.is_empty())
@@ -1369,11 +1380,11 @@ test "collection examples port vec map and set-like result formats" {
   for value in vec {
     assert_true(value >= 0 && value < 256)
   }
-  let map : Map[Int32, Array[String]] = {}
+  let map : Map[Int32, Array[String]] = Map([])
   for key in 0..<3 {
     map[key] = @dummy.name(locale=@dummy.en).sample(count=2, rng)
   }
-  let same_map : Map[Int32, Array[String]] = {}
+  let same_map : Map[Int32, Array[String]] = Map([])
   let same_rng = @dummy.seed(seed)
   ignore(@dummy.count_range(4, 7).sample(same_rng))
   ignore(

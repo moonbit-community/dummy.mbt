@@ -63,7 +63,7 @@ fn parts_from_minutes(minutes : Int32, rng : @random.Rand) -> Parts {
   let hour = minute_of_day / 60
   let minute = minute_of_day % 60
   let second = rng.int(limit=60)
-  let frac_out = StringBuilder::new(size_hint=9)
+  let frac_out = StringBuilder(size_hint=9)
   for _ in 0..<9 {
     frac_out.write_string(rng.int(limit=10).to_string())
   }
@@ -133,7 +133,7 @@ fn render_at(minutes : Int32, fmt : String, rng : @random.Rand) -> String {
 
 ///|
 /// Generate a time string for the selected locale.
-pub fn time(locale~ : @locales.Locale = @locales.EN) -> @core.Gen[String] {
+pub fn time(locale~ : @locales.Locale = EN) -> @core.Gen[String] {
   @core.Gen::new(rng => {
     let minutes = rng.int(limit=day_minutes)
     render_at(minutes, @data.chrono_time_format(locale~), rng)
@@ -142,7 +142,7 @@ pub fn time(locale~ : @locales.Locale = @locales.EN) -> @core.Gen[String] {
 
 ///|
 /// Generate a date string for the selected locale.
-pub fn date(locale~ : @locales.Locale = @locales.EN) -> @core.Gen[String] {
+pub fn date(locale~ : @locales.Locale = EN) -> @core.Gen[String] {
   @core.Gen::new(rng => {
     let minutes = random_minutes(rng)
     render_at(minutes, @data.chrono_date_format(locale~), rng)
@@ -151,7 +151,7 @@ pub fn date(locale~ : @locales.Locale = @locales.EN) -> @core.Gen[String] {
 
 ///|
 /// Generate a date-time string for the selected locale.
-pub fn date_time(locale~ : @locales.Locale = @locales.EN) -> @core.Gen[String] {
+pub fn date_time(locale~ : @locales.Locale = EN) -> @core.Gen[String] {
   @core.Gen::new(rng => {
     let minutes = random_minutes(rng)
     render_at(minutes, @data.chrono_datetime_format(locale~), rng)
@@ -168,7 +168,7 @@ pub fn duration() -> @core.Gen[Int32] {
 /// Generate a date-time before `anchor_minutes`.
 pub fn date_time_before(
   anchor_minutes~ : Int32 = 0,
-  locale~ : @locales.Locale = @locales.EN,
+  locale~ : @locales.Locale = EN,
 ) -> @core.Gen[String] {
   @core.Gen::new(rng => {
     let offset = duration().dummy(rng) + 1
@@ -184,7 +184,7 @@ pub fn date_time_before(
 /// Generate a date-time after `anchor_minutes`.
 pub fn date_time_after(
   anchor_minutes~ : Int32 = 0,
-  locale~ : @locales.Locale = @locales.EN,
+  locale~ : @locales.Locale = EN,
 ) -> @core.Gen[String] {
   @core.Gen::new(rng => {
     let offset = duration().dummy(rng) + 1
@@ -201,10 +201,10 @@ pub fn date_time_after(
 pub fn date_time_between(
   start_minutes : Int32,
   end_minutes : Int32,
-  locale~ : @locales.Locale = @locales.EN,
+  locale~ : @locales.Locale = EN,
 ) -> @core.Gen[String] raise @core.DummyError {
   if end_minutes <= start_minutes {
-    raise @core.DummyError::InvalidRange(
+    raise InvalidRange(
       "expected end_minutes > start_minutes, got \{start_minutes}..\{end_minutes}",
     )
   }

@@ -53,7 +53,7 @@ test "data picsum URL variants are preserved" {
   let blur = @picsum.image_blur().dummy(rng)
   assert_true(blur.contains("?blur="))
   assert_true(compat_picsum_dimensions_in_range(blur))
-  let custom = @picsum.image_custom(@picsum.ImageOptions::{
+  let custom = @picsum.image_custom({
     width: 320,
     height: 240,
     grayscale: true,

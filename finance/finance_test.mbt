@@ -87,7 +87,7 @@ fn all_chars_match(s : String, pred : (Char) -> Bool) -> Bool {
 fn two_chars_at(s : String, i : Int32) -> String? {
   guard s.get_char(i) is Some(a) else { return None }
   guard s.get_char(i + 1) is Some(b) else { return None }
-  let out = StringBuilder::new(size_hint=2)
+  let out = StringBuilder(size_hint=2)
   out.write_char(a)
   out.write_char(b)
   Some(out.to_string())

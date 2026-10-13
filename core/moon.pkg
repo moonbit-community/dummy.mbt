@@ -1,4 +1,7 @@
 import {
-  "moonbitlang/core/test",
   "moonbitlang/core/random",
 }
+
+import {
+  "moonbitlang/core/test",
+} for "wbtest"

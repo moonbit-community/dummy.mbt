@@ -420,7 +420,9 @@ impl @core.DummyDefault for DemoUser with fn dummy_default(rng) {
 
 ///|
 test "custom dummy default" {
-  let user = DemoUser::dummy_default(@dummy.default_seeded())
+  let user : DemoUser = @core.DummyDefault::dummy_default(
+    @dummy.default_seeded(),
+  )
   assert_true(!user.name.is_empty())
 }
 ```

@@ -23,16 +23,9 @@ test "currency names and symbols come from shared data" {
   let rng = @core.seed(b"currency-values")
   assert_true(!@currency.currency_name().dummy(rng).is_empty())
   assert_true(!@currency.currency_symbol().dummy(rng).is_empty())
-  assert_true(
-    !@currency.currency_name(locale=@locales.PT_PT).dummy(rng).is_empty(),
-  )
-  assert_true(
-    !@currency.currency_symbol(locale=@locales.IT_IT).dummy(rng).is_empty(),
-  )
-  @test.assert_eq(
-    @currency.currency_code(locale=@locales.PT_PT).dummy(rng).length(),
-    3,
-  )
+  assert_true(!@currency.currency_name(locale=PT_PT).dummy(rng).is_empty())
+  assert_true(!@currency.currency_symbol(locale=IT_IT).dummy(rng).is_empty())
+  @test.assert_eq(@currency.currency_code(locale=PT_PT).dummy(rng).length(), 3)
 }
 
 ///|

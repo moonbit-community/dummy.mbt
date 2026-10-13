@@ -14,7 +14,7 @@ fn compat_barcode_is_digit_at(s : String, i : Int32) -> Bool {
 
 ///|
 fn compat_barcode_strip_hyphens(s : String) -> String {
-  let out = StringBuilder::new(size_hint=s.length())
+  let out = StringBuilder(size_hint=s.length())
   for ch in s {
     if ch != '-' {
       out.write_char(ch)

@@ -23,7 +23,7 @@ fn all_phone_chars(s : String) -> Bool {
 
 ///|
 test "phone_number uses style phone formats" {
-  let values = @phone_number.phone_number(locale=@locales.EN).sample(
+  let values = @phone_number.phone_number(locale=EN).sample(
     count=32,
     @core.seed(b"phone-en"),
   )
@@ -35,7 +35,7 @@ test "phone_number uses style phone formats" {
 
 ///|
 test "cell_number uses the cell format set" {
-  let values = @phone_number.cell_number(locale=@locales.EN).sample(
+  let values = @phone_number.cell_number(locale=EN).sample(
     count=16,
     @core.seed(b"cell-en"),
   )
@@ -48,17 +48,17 @@ test "cell_number uses the cell format set" {
 ///|
 test "zh phone formats keep locale prefixes" {
   let rng = @core.seed(b"phone-zh")
-  let cn = @phone_number.phone_number(locale=@locales.ZH_CN).dummy(rng)
+  let cn = @phone_number.phone_number(locale=ZH_CN).dummy(rng)
   assert_true(cn.has_prefix("+86 1"))
-  let tw = @phone_number.phone_number(locale=@locales.ZH_TW).dummy(rng)
+  let tw = @phone_number.phone_number(locale=ZH_TW).dummy(rng)
   assert_true(tw.has_prefix("+886 9"))
   assert_true(
-    @phone_number.cell_number(locale=@locales.ZH_CN)
+    @phone_number.cell_number(locale=ZH_CN)
     .dummy(@core.seed(b"cell-zh-cn"))
     .has_prefix("+86 1"),
   )
   assert_true(
-    @phone_number.cell_number(locale=@locales.ZH_TW)
+    @phone_number.cell_number(locale=ZH_TW)
     .dummy(@core.seed(b"cell-zh-tw"))
     .has_prefix("+886 9"),
   )
@@ -79,26 +79,26 @@ test "phone generators are deterministic for the same seed" {
 
 ///|
 test "phone locale data and fixed seed golden outputs" {
-  let fr = @phone_number.phone_number(locale=@locales.FR_FR).dummy(
+  let fr = @phone_number.phone_number(locale=FR_FR).dummy(
     @core.seed(b"phone-fr"),
   )
   assert_true(all_phone_chars(fr))
   @test.assert_eq(fr.length(), 14)
-  let pt_br = @phone_number.cell_number(locale=@locales.PT_BR).dummy(
+  let pt_br = @phone_number.cell_number(locale=PT_BR).dummy(
     @core.seed(b"phone-pt-br"),
   )
   assert_true(all_phone_chars(pt_br))
   assert_true(pt_br.contains("9"))
-  let en = @phone_number.phone_number(locale=@locales.EN).dummy(
+  let en = @phone_number.phone_number(locale=EN).dummy(
     @core.seed(b"phone-golden-en"),
   )
-  let en_cell = @phone_number.cell_number(locale=@locales.EN).dummy(
+  let en_cell = @phone_number.cell_number(locale=EN).dummy(
     @core.seed(b"cell-golden-en"),
   )
-  let zh_cn = @phone_number.phone_number(locale=@locales.ZH_CN).dummy(
+  let zh_cn = @phone_number.phone_number(locale=ZH_CN).dummy(
     @core.seed(b"phone-golden-cn"),
   )
-  let zh_tw = @phone_number.phone_number(locale=@locales.ZH_TW).dummy(
+  let zh_tw = @phone_number.phone_number(locale=ZH_TW).dummy(
     @core.seed(b"phone-golden-tw"),
   )
   assert_true(all_phone_chars(en))

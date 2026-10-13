@@ -110,7 +110,7 @@ test "health_insurance_code defaults to FR_FR and has valid NIR shape" {
 
 ///|
 test "health_insurance_code supports explicit FR_FR locale" {
-  let value = @administrative.health_insurance_code(locale=@locales.FR_FR).dummy(
+  let value = @administrative.health_insurance_code(locale=FR_FR).dummy(
     @core.seed(b"health-insurance-explicit-fr"),
   )
   assert_valid_health_insurance_code(value)
@@ -119,11 +119,11 @@ test "health_insurance_code supports explicit FR_FR locale" {
 ///|
 test "health_insurance_code is deterministic for the same seed" {
   let seed = b"health-insurance-determinism"
-  let a = @administrative.health_insurance_code(locale=@locales.FR_FR).sample(
+  let a = @administrative.health_insurance_code(locale=FR_FR).sample(
     count=8,
     @core.seed(seed),
   )
-  let b = @administrative.health_insurance_code(locale=@locales.FR_FR).sample(
+  let b = @administrative.health_insurance_code(locale=FR_FR).sample(
     count=8,
     @core.seed(seed),
   )
@@ -132,8 +132,13 @@ test "health_insurance_code is deterministic for the same seed" {
 
 ///|
 test "health_insurance_code rejects unsupported locales" {
-  let result : Result[String, @core.DummyError] = try? @administrative.health_insurance_code(
-    locale=@locales.EN,
-  ).dummy(@core.seed(b"health-insurance-unsupported"))
-  assert_true(result is Err(@core.DummyError::UnsupportedLocale(_)))
+  try
+    @administrative.health_insurance_code(locale=EN).dummy(
+      @core.seed(b"health-insurance-unsupported"),
+    )
+  catch {
+    error => assert_true(error is UnsupportedLocale(_))
+  } noraise {
+    _ => fail("expected UnsupportedLocale to be raised")
+  }
 }

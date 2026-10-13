@@ -1,58 +1,58 @@
 ///|
 /// English locale constant, equivalent to `EN`.
-pub let en : @locales.Locale = @locales.EN
+pub let en : @locales.Locale = EN
 
 ///|
 /// French (France) locale constant, equivalent to `FR_FR`.
-pub let fr_fr : @locales.Locale = @locales.FR_FR
+pub let fr_fr : @locales.Locale = FR_FR
 
 ///|
 /// Traditional Chinese locale constant, equivalent to `ZH_TW`.
-pub let zh_tw : @locales.Locale = @locales.ZH_TW
+pub let zh_tw : @locales.Locale = ZH_TW
 
 ///|
 /// Simplified Chinese locale constant, equivalent to `ZH_CN`.
-pub let zh_cn : @locales.Locale = @locales.ZH_CN
+pub let zh_cn : @locales.Locale = ZH_CN
 
 ///|
 /// Japanese locale constant, equivalent to `JA_JP`.
-pub let ja_jp : @locales.Locale = @locales.JA_JP
+pub let ja_jp : @locales.Locale = JA_JP
 
 ///|
 /// Arabic (Saudi Arabia) locale constant, equivalent to `AR_SA`.
-pub let ar_sa : @locales.Locale = @locales.AR_SA
+pub let ar_sa : @locales.Locale = AR_SA
 
 ///|
 /// Portuguese (Brazil) locale constant, equivalent to `PT_BR`.
-pub let pt_br : @locales.Locale = @locales.PT_BR
+pub let pt_br : @locales.Locale = PT_BR
 
 ///|
 /// Portuguese (Portugal) locale constant, equivalent to `PT_PT`.
-pub let pt_pt : @locales.Locale = @locales.PT_PT
+pub let pt_pt : @locales.Locale = PT_PT
 
 ///|
 /// German (Germany) locale constant, equivalent to `DE_DE`.
-pub let de_de : @locales.Locale = @locales.DE_DE
+pub let de_de : @locales.Locale = DE_DE
 
 ///|
 /// Italian (Italy) locale constant, equivalent to `IT_IT`.
-pub let it_it : @locales.Locale = @locales.IT_IT
+pub let it_it : @locales.Locale = IT_IT
 
 ///|
 /// Welsh (Great Britain) locale constant, equivalent to `CY_GB`.
-pub let cy_gb : @locales.Locale = @locales.CY_GB
+pub let cy_gb : @locales.Locale = CY_GB
 
 ///|
 /// Dutch (Netherlands) locale constant, equivalent to `NL_NL`.
-pub let nl_nl : @locales.Locale = @locales.NL_NL
+pub let nl_nl : @locales.Locale = NL_NL
 
 ///|
 /// Turkish (Turkey) locale constant, equivalent to `TR_TR`.
-pub let tr_tr : @locales.Locale = @locales.TR_TR
+pub let tr_tr : @locales.Locale = TR_TR
 
 ///|
 /// Persian (Iran) locale constant, equivalent to `FA_IR`.
-pub let fa_ir : @locales.Locale = @locales.FA_IR
+pub let fa_ir : @locales.Locale = FA_IR
 
 ///|
 /// Build a deterministic random generator from arbitrary seed bytes.
@@ -129,6 +129,16 @@ pub(all) struct ImageOptions {
 } derive(Eq, Debug)
 
 ///|
+#deprecated
+#doc(hidden)
+pub extend ImageOptions with Eq::{equal, not_equal}
+
+///|
+#deprecated
+#doc(hidden)
+pub extend ImageOptions with Debug::{to_repr}
+
+///|
 /// Construct `ImageOptions` with current defaults.
 ///
 /// Defaults are `640x480`, no grayscale, no blur, and no seed path segment.
@@ -139,7 +149,7 @@ pub fn image_options(
   blur? : Int32,
   seed? : String,
 ) -> ImageOptions {
-  ImageOptions::{ width, height, grayscale, blur, seed, }
+  { width, height, grayscale, blur, seed, }
 }
 
 ///|
@@ -152,9 +162,19 @@ pub(all) struct Dummy {
 } derive(Eq, Debug)
 
 ///|
+#deprecated
+#doc(hidden)
+pub extend Dummy with Eq::{equal, not_equal}
+
+///|
+#deprecated
+#doc(hidden)
+pub extend Dummy with Debug::{to_repr}
+
+///|
 /// Create a locale-bound `Dummy` facade. Defaults to English.
-pub fn Dummy::new(locale~ : @locales.Locale = @locales.EN) -> Dummy {
-  Dummy::{ locale, }
+pub fn Dummy::new(locale~ : @locales.Locale = EN) -> Dummy {
+  { locale, }
 }
 
 ///|
@@ -177,45 +197,43 @@ pub fn Dummy::sentence(self : Dummy) -> @core.Gen[String] {
 
 ///|
 /// Generate a first/given name for `locale`.
-pub fn first_name(locale~ : @locales.Locale = @locales.EN) -> @core.Gen[String] {
+pub fn first_name(locale~ : @locales.Locale = EN) -> @core.Gen[String] {
   @name.first_name(locale~)
 }
 
 ///|
 /// Generate a last/family name for `locale`.
-pub fn last_name(locale~ : @locales.Locale = @locales.EN) -> @core.Gen[String] {
+pub fn last_name(locale~ : @locales.Locale = EN) -> @core.Gen[String] {
   @name.last_name(locale~)
 }
 
 ///|
 /// Generate a name title or honorific for `locale`.
-pub fn title(locale~ : @locales.Locale = @locales.EN) -> @core.Gen[String] {
+pub fn title(locale~ : @locales.Locale = EN) -> @core.Gen[String] {
   @name.title(locale~)
 }
 
 ///|
 /// Generate a name suffix such as `Jr.` when the locale has suffix data.
-pub fn suffix(locale~ : @locales.Locale = @locales.EN) -> @core.Gen[String] {
+pub fn suffix(locale~ : @locales.Locale = EN) -> @core.Gen[String] {
   @name.suffix(locale~)
 }
 
 ///|
 /// Generate a full name using the selected locale's name template.
-pub fn name(locale~ : @locales.Locale = @locales.EN) -> @core.Gen[String] {
+pub fn name(locale~ : @locales.Locale = EN) -> @core.Gen[String] {
   @name.name(locale~)
 }
 
 ///|
 /// Generate a full name with title using locale-specific ordering.
-pub fn name_with_title(
-  locale~ : @locales.Locale = @locales.EN,
-) -> @core.Gen[String] {
+pub fn name_with_title(locale~ : @locales.Locale = EN) -> @core.Gen[String] {
   @name.name_with_title(locale~)
 }
 
 ///|
 /// Generate one lorem word from the selected locale's word table.
-pub fn word(locale~ : @locales.Locale = @locales.EN) -> @core.Gen[String] {
+pub fn word(locale~ : @locales.Locale = EN) -> @core.Gen[String] {
   @lorem.word(locale~)
 }
 
@@ -224,7 +242,7 @@ pub fn word(locale~ : @locales.Locale = @locales.EN) -> @core.Gen[String] {
 ///
 /// The number of words is sampled from the inclusive `count` range.
 pub fn words(
-  locale~ : @locales.Locale = @locales.EN,
+  locale~ : @locales.Locale = EN,
   count~ : @core.CountRange = @core.count_range(3, 6),
 ) -> @core.Gen[Array[String]] {
   @lorem.words(locale~, count~)
@@ -235,7 +253,7 @@ pub fn words(
 ///
 /// The number of words is sampled from the inclusive `count` range.
 pub fn sentence(
-  locale~ : @locales.Locale = @locales.EN,
+  locale~ : @locales.Locale = EN,
   count~ : @core.CountRange = @core.count_range(4, 10),
 ) -> @core.Gen[String] {
   @lorem.sentence(locale~, count~)
@@ -246,7 +264,7 @@ pub fn sentence(
 ///
 /// The number of sentences is sampled from the inclusive `count` range.
 pub fn sentences(
-  locale~ : @locales.Locale = @locales.EN,
+  locale~ : @locales.Locale = EN,
   count~ : @core.CountRange = @core.count_range(2, 4),
 ) -> @core.Gen[Array[String]] {
   @lorem.sentences(locale~, count~)
@@ -257,7 +275,7 @@ pub fn sentences(
 ///
 /// The number of sentences is sampled from the inclusive `count` range.
 pub fn paragraph(
-  locale~ : @locales.Locale = @locales.EN,
+  locale~ : @locales.Locale = EN,
   count~ : @core.CountRange = @core.count_range(3, 5),
 ) -> @core.Gen[String] {
   @lorem.paragraph(locale~, count~)
@@ -268,7 +286,7 @@ pub fn paragraph(
 ///
 /// The number of paragraphs is sampled from the inclusive `count` range.
 pub fn paragraphs(
-  locale~ : @locales.Locale = @locales.EN,
+  locale~ : @locales.Locale = EN,
   count~ : @core.CountRange = @core.count_range(2, 3),
 ) -> @core.Gen[Array[String]] {
   @lorem.paragraphs(locale~, count~)
@@ -276,31 +294,25 @@ pub fn paragraphs(
 
 ///|
 /// Generate a city name using locale templates.
-pub fn city_name(locale~ : @locales.Locale = @locales.EN) -> @core.Gen[String] {
+pub fn city_name(locale~ : @locales.Locale = EN) -> @core.Gen[String] {
   @address.city_name(locale~)
 }
 
 ///|
 /// Generate a city prefix such as `North` when the locale supports prefixes.
-pub fn city_prefix(
-  locale~ : @locales.Locale = @locales.EN,
-) -> @core.Gen[String] {
+pub fn city_prefix(locale~ : @locales.Locale = EN) -> @core.Gen[String] {
   @address.city_prefix(locale~)
 }
 
 ///|
 /// Generate a city suffix such as `town` or a locale-specific equivalent.
-pub fn city_suffix(
-  locale~ : @locales.Locale = @locales.EN,
-) -> @core.Gen[String] {
+pub fn city_suffix(locale~ : @locales.Locale = EN) -> @core.Gen[String] {
   @address.city_suffix(locale~)
 }
 
 ///|
 /// Generate a country name from the selected locale's country table.
-pub fn country_name(
-  locale~ : @locales.Locale = @locales.EN,
-) -> @core.Gen[String] {
+pub fn country_name(locale~ : @locales.Locale = EN) -> @core.Gen[String] {
   @address.country_name(locale~)
 }
 
@@ -312,71 +324,63 @@ pub fn country_code() -> @core.Gen[String] {
 
 ///|
 /// Generate a full street name using locale-specific templates.
-pub fn street_name(
-  locale~ : @locales.Locale = @locales.EN,
-) -> @core.Gen[String] {
+pub fn street_name(locale~ : @locales.Locale = EN) -> @core.Gen[String] {
   @address.street_name(locale~)
 }
 
 ///|
 /// Generate a street suffix such as `Street`, `Avenue`, or local equivalents.
-pub fn street_suffix(
-  locale~ : @locales.Locale = @locales.EN,
-) -> @core.Gen[String] {
+pub fn street_suffix(locale~ : @locales.Locale = EN) -> @core.Gen[String] {
   @address.street_suffix(locale~)
 }
 
 ///|
 /// Generate a time zone identifier or locale-backed time zone string.
-pub fn time_zone(locale~ : @locales.Locale = @locales.EN) -> @core.Gen[String] {
+pub fn time_zone(locale~ : @locales.Locale = EN) -> @core.Gen[String] {
   @address.time_zone(locale~)
 }
 
 ///|
 /// Generate a state, province, or region name.
-pub fn state_name(locale~ : @locales.Locale = @locales.EN) -> @core.Gen[String] {
+pub fn state_name(locale~ : @locales.Locale = EN) -> @core.Gen[String] {
   @address.state_name(locale~)
 }
 
 ///|
 /// Generate the abbreviation paired with a state or region entry.
-pub fn state_abbr(locale~ : @locales.Locale = @locales.EN) -> @core.Gen[String] {
+pub fn state_abbr(locale~ : @locales.Locale = EN) -> @core.Gen[String] {
   @address.state_abbr(locale~)
 }
 
 ///|
 /// Generate a secondary address type such as `Apt.` or `Suite`.
 pub fn secondary_address_type(
-  locale~ : @locales.Locale = @locales.EN,
+  locale~ : @locales.Locale = EN,
 ) -> @core.Gen[String] {
   @address.secondary_address_type(locale~)
 }
 
 ///|
 /// Generate a secondary address designator with a random unit number.
-pub fn secondary_address(
-  locale~ : @locales.Locale = @locales.EN,
-) -> @core.Gen[String] {
+pub fn secondary_address(locale~ : @locales.Locale = EN) -> @core.Gen[String] {
   @address.secondary_address(locale~)
 }
 
 ///|
 /// Generate a ZIP-code-shaped string for the selected locale.
-pub fn zip_code(locale~ : @locales.Locale = @locales.EN) -> @core.Gen[String] {
+pub fn zip_code(locale~ : @locales.Locale = EN) -> @core.Gen[String] {
   @address.zip_code(locale~)
 }
 
 ///|
 /// Generate a postal-code-shaped string for the selected locale.
-pub fn post_code(locale~ : @locales.Locale = @locales.EN) -> @core.Gen[String] {
+pub fn post_code(locale~ : @locales.Locale = EN) -> @core.Gen[String] {
   @address.post_code(locale~)
 }
 
 ///|
 /// Generate a building number from locale-specific number formats.
-pub fn building_number(
-  locale~ : @locales.Locale = @locales.EN,
-) -> @core.Gen[String] {
+pub fn building_number(locale~ : @locales.Locale = EN) -> @core.Gen[String] {
   @address.building_number(locale~)
 }
 
@@ -400,133 +404,115 @@ pub fn geohash(precision~ : Int32 = 8) -> @core.Gen[String] {
 
 ///|
 /// Generate a company name using locale templates.
-pub fn company_name(
-  locale~ : @locales.Locale = @locales.EN,
-) -> @core.Gen[String] {
+pub fn company_name(locale~ : @locales.Locale = EN) -> @core.Gen[String] {
   @company.company_name(locale~)
 }
 
 ///|
 /// Generate a three-part business catch phrase.
-pub fn catch_phrase(
-  locale~ : @locales.Locale = @locales.EN,
-) -> @core.Gen[String] {
+pub fn catch_phrase(locale~ : @locales.Locale = EN) -> @core.Gen[String] {
   @company.catch_phrase(locale~)
 }
 
 ///|
 /// Generate a company suffix such as `Inc.` or a locale-specific equivalent.
-pub fn company_suffix(
-  locale~ : @locales.Locale = @locales.EN,
-) -> @core.Gen[String] {
+pub fn company_suffix(locale~ : @locales.Locale = EN) -> @core.Gen[String] {
   @company.company_suffix(locale~)
 }
 
 ///|
 /// Generate the first part of a company buzzword phrase.
-pub fn buzzword(locale~ : @locales.Locale = @locales.EN) -> @core.Gen[String] {
+pub fn buzzword(locale~ : @locales.Locale = EN) -> @core.Gen[String] {
   @company.buzzword(locale~)
 }
 
 ///|
 /// Generate the middle part of a company buzzword phrase.
-pub fn buzzword_middle(
-  locale~ : @locales.Locale = @locales.EN,
-) -> @core.Gen[String] {
+pub fn buzzword_middle(locale~ : @locales.Locale = EN) -> @core.Gen[String] {
   @company.buzzword_middle(locale~)
 }
 
 ///|
 /// Generate the tail part of a company buzzword phrase.
-pub fn buzzword_tail(
-  locale~ : @locales.Locale = @locales.EN,
-) -> @core.Gen[String] {
+pub fn buzzword_tail(locale~ : @locales.Locale = EN) -> @core.Gen[String] {
   @company.buzzword_tail(locale~)
 }
 
 ///|
 /// Generate a business-speak verb.
-pub fn bs_verb(locale~ : @locales.Locale = @locales.EN) -> @core.Gen[String] {
+pub fn bs_verb(locale~ : @locales.Locale = EN) -> @core.Gen[String] {
   @company.bs_verb(locale~)
 }
 
 ///|
 /// Generate a business-speak adjective.
-pub fn bs_adj(locale~ : @locales.Locale = @locales.EN) -> @core.Gen[String] {
+pub fn bs_adj(locale~ : @locales.Locale = EN) -> @core.Gen[String] {
   @company.bs_adj(locale~)
 }
 
 ///|
 /// Generate a business-speak noun.
-pub fn bs_noun(locale~ : @locales.Locale = @locales.EN) -> @core.Gen[String] {
+pub fn bs_noun(locale~ : @locales.Locale = EN) -> @core.Gen[String] {
   @company.bs_noun(locale~)
 }
 
 ///|
 /// Generate a complete business-speak phrase.
-pub fn bs(locale~ : @locales.Locale = @locales.EN) -> @core.Gen[String] {
+pub fn bs(locale~ : @locales.Locale = EN) -> @core.Gen[String] {
   @company.bs(locale~)
 }
 
 ///|
 /// Generate a profession label.
-pub fn profession(locale~ : @locales.Locale = @locales.EN) -> @core.Gen[String] {
+pub fn profession(locale~ : @locales.Locale = EN) -> @core.Gen[String] {
   @company.profession(locale~)
 }
 
 ///|
 /// Generate an industry label.
-pub fn industry(locale~ : @locales.Locale = @locales.EN) -> @core.Gen[String] {
+pub fn industry(locale~ : @locales.Locale = EN) -> @core.Gen[String] {
   @company.industry(locale~)
 }
 
 ///|
 /// Generate a locale-shaped phone number.
-pub fn phone_number(
-  locale~ : @locales.Locale = @locales.EN,
-) -> @core.Gen[String] {
+pub fn phone_number(locale~ : @locales.Locale = EN) -> @core.Gen[String] {
   @phone_number.phone_number(locale~)
 }
 
 ///|
 /// Generate a locale-shaped mobile or cell phone number.
-pub fn cell_number(
-  locale~ : @locales.Locale = @locales.EN,
-) -> @core.Gen[String] {
+pub fn cell_number(locale~ : @locales.Locale = EN) -> @core.Gen[String] {
   @phone_number.cell_number(locale~)
 }
 
 ///|
 /// Generate a lowercase username from name-and-word name and word patterns.
-pub fn username(locale~ : @locales.Locale = @locales.EN) -> @core.Gen[String] {
+pub fn username(locale~ : @locales.Locale = EN) -> @core.Gen[String] {
   @internet.username(locale~)
 }
 
 ///|
 /// Generate a free email provider domain such as `gmail.com`.
-pub fn free_email_provider(
-  locale~ : @locales.Locale = @locales.EN,
-) -> @core.Gen[String] {
+pub fn free_email_provider(locale~ : @locales.Locale = EN) -> @core.Gen[String] {
   @internet.free_email_provider(locale~)
 }
 
 ///|
 /// Generate a domain suffix such as `com`, `org`, or a locale-specific TLD.
-pub fn domain_suffix(
-  locale~ : @locales.Locale = @locales.EN,
-) -> @core.Gen[String] {
+pub fn domain_suffix(locale~ : @locales.Locale = EN) -> @core.Gen[String] {
   @internet.domain_suffix(locale~)
 }
 
 ///|
 /// Generate an email address at a free email provider.
-pub fn free_email(locale~ : @locales.Locale = @locales.EN) -> @core.Gen[String] {
+pub fn free_email(locale~ : @locales.Locale = EN) -> @core.Gen[String] {
   @internet.free_email(locale~)
 }
 
 ///|
 /// Generate an email address under reserved documentation-safe domains.
-pub fn safe_email(locale~ : @locales.Locale = @locales.EN) -> @core.Gen[String] {
+pub fn safe_email(locale~ : @locales.Locale = EN) -> @core.Gen[String] {
   @internet.safe_email(locale~)
 }
 
@@ -572,53 +558,43 @@ pub fn user_agent() -> @core.Gen[String] {
 
 ///|
 /// Generate an ISO-style currency code for `locale`.
-pub fn currency_code(
-  locale~ : @locales.Locale = @locales.EN,
-) -> @core.Gen[String] {
+pub fn currency_code(locale~ : @locales.Locale = EN) -> @core.Gen[String] {
   @currency.currency_code(locale~)
 }
 
 ///|
 /// Generate a currency display name for `locale`.
-pub fn currency_name(
-  locale~ : @locales.Locale = @locales.EN,
-) -> @core.Gen[String] {
+pub fn currency_name(locale~ : @locales.Locale = EN) -> @core.Gen[String] {
   @currency.currency_name(locale~)
 }
 
 ///|
 /// Generate a currency symbol for `locale`.
-pub fn currency_symbol(
-  locale~ : @locales.Locale = @locales.EN,
-) -> @core.Gen[String] {
+pub fn currency_symbol(locale~ : @locales.Locale = EN) -> @core.Gen[String] {
   @currency.currency_symbol(locale~)
 }
 
 ///|
 /// Generate a job seniority segment such as `Senior` or local equivalent.
-pub fn job_seniority(
-  locale~ : @locales.Locale = @locales.EN,
-) -> @core.Gen[String] {
+pub fn job_seniority(locale~ : @locales.Locale = EN) -> @core.Gen[String] {
   @job.seniority(locale~)
 }
 
 ///|
 /// Generate a job field segment.
-pub fn job_field(locale~ : @locales.Locale = @locales.EN) -> @core.Gen[String] {
+pub fn job_field(locale~ : @locales.Locale = EN) -> @core.Gen[String] {
   @job.field(locale~)
 }
 
 ///|
 /// Generate a job position segment.
-pub fn job_position(
-  locale~ : @locales.Locale = @locales.EN,
-) -> @core.Gen[String] {
+pub fn job_position(locale~ : @locales.Locale = EN) -> @core.Gen[String] {
   @job.position(locale~)
 }
 
 ///|
 /// Generate a complete job title from locale-specific job templates.
-pub fn job_title(locale~ : @locales.Locale = @locales.EN) -> @core.Gen[String] {
+pub fn job_title(locale~ : @locales.Locale = EN) -> @core.Gen[String] {
   @job.title(locale~)
 }
 
@@ -699,16 +675,14 @@ pub fn isin() -> @core.Gen[String] {
 ///
 /// The data currently has meaningful coverage for French-style codes.
 pub fn health_insurance_code(
-  locale~ : @locales.Locale = @locales.FR_FR,
+  locale~ : @locales.Locale = FR_FR,
 ) -> @core.Gen[String] {
   @administrative.health_insurance_code(locale~)
 }
 
 ///|
 /// Generate a locale-shaped vehicle licence plate.
-pub fn licence_plate(
-  locale~ : @locales.Locale = @locales.FR_FR,
-) -> @core.Gen[String] {
+pub fn licence_plate(locale~ : @locales.Locale = FR_FR) -> @core.Gen[String] {
   @automotive.licence_plate(locale~)
 }
 
@@ -902,25 +876,19 @@ pub fn url_safe_base64_no_pad() -> @core.Gen[String] {
 
 ///|
 /// Generate a chrono-family time string for `locale`.
-pub fn chrono_time(
-  locale~ : @locales.Locale = @locales.EN,
-) -> @core.Gen[String] {
+pub fn chrono_time(locale~ : @locales.Locale = EN) -> @core.Gen[String] {
   @chrono.time(locale~)
 }
 
 ///|
 /// Generate a chrono-family date string for `locale`.
-pub fn chrono_date(
-  locale~ : @locales.Locale = @locales.EN,
-) -> @core.Gen[String] {
+pub fn chrono_date(locale~ : @locales.Locale = EN) -> @core.Gen[String] {
   @chrono.date(locale~)
 }
 
 ///|
 /// Generate a chrono-family date-time string for `locale`.
-pub fn chrono_date_time(
-  locale~ : @locales.Locale = @locales.EN,
-) -> @core.Gen[String] {
+pub fn chrono_date_time(locale~ : @locales.Locale = EN) -> @core.Gen[String] {
   @chrono.date_time(locale~)
 }
 
@@ -934,7 +902,7 @@ pub fn chrono_duration() -> @core.Gen[Int32] {
 /// Generate a chrono-family date-time before `anchor_minutes`.
 pub fn chrono_date_time_before(
   anchor_minutes~ : Int32 = 0,
-  locale~ : @locales.Locale = @locales.EN,
+  locale~ : @locales.Locale = EN,
 ) -> @core.Gen[String] {
   @chrono.date_time_before(anchor_minutes~, locale~)
 }
@@ -943,7 +911,7 @@ pub fn chrono_date_time_before(
 /// Generate a chrono-family date-time after `anchor_minutes`.
 pub fn chrono_date_time_after(
   anchor_minutes~ : Int32 = 0,
-  locale~ : @locales.Locale = @locales.EN,
+  locale~ : @locales.Locale = EN,
 ) -> @core.Gen[String] {
   @chrono.date_time_after(anchor_minutes~, locale~)
 }
@@ -955,28 +923,26 @@ pub fn chrono_date_time_after(
 pub fn chrono_date_time_between(
   start_minutes : Int32,
   end_minutes : Int32,
-  locale~ : @locales.Locale = @locales.EN,
+  locale~ : @locales.Locale = EN,
 ) -> @core.Gen[String] raise @core.DummyError {
   @chrono.date_time_between(start_minutes, end_minutes, locale~)
 }
 
 ///|
 /// Generate a time-family time string for `locale`.
-pub fn time_time(locale~ : @locales.Locale = @locales.EN) -> @core.Gen[String] {
+pub fn time_time(locale~ : @locales.Locale = EN) -> @core.Gen[String] {
   @time.time(locale~)
 }
 
 ///|
 /// Generate a time-family date string for `locale`.
-pub fn time_date(locale~ : @locales.Locale = @locales.EN) -> @core.Gen[String] {
+pub fn time_date(locale~ : @locales.Locale = EN) -> @core.Gen[String] {
   @time.date(locale~)
 }
 
 ///|
 /// Generate a time-family date-time string for `locale`.
-pub fn time_date_time(
-  locale~ : @locales.Locale = @locales.EN,
-) -> @core.Gen[String] {
+pub fn time_date_time(locale~ : @locales.Locale = EN) -> @core.Gen[String] {
   @time.date_time(locale~)
 }
 
@@ -990,7 +956,7 @@ pub fn time_duration() -> @core.Gen[Int32] {
 /// Generate a time-family date-time before `anchor_minutes`.
 pub fn time_date_time_before(
   anchor_minutes~ : Int32 = 0,
-  locale~ : @locales.Locale = @locales.EN,
+  locale~ : @locales.Locale = EN,
 ) -> @core.Gen[String] {
   @time.date_time_before(anchor_minutes~, locale~)
 }
@@ -999,7 +965,7 @@ pub fn time_date_time_before(
 /// Generate a time-family date-time after `anchor_minutes`.
 pub fn time_date_time_after(
   anchor_minutes~ : Int32 = 0,
-  locale~ : @locales.Locale = @locales.EN,
+  locale~ : @locales.Locale = EN,
 ) -> @core.Gen[String] {
   @time.date_time_after(anchor_minutes~, locale~)
 }
@@ -1011,30 +977,26 @@ pub fn time_date_time_after(
 pub fn time_date_time_between(
   start_minutes : Int32,
   end_minutes : Int32,
-  locale~ : @locales.Locale = @locales.EN,
+  locale~ : @locales.Locale = EN,
 ) -> @core.Gen[String] raise @core.DummyError {
   @time.date_time_between(start_minutes, end_minutes, locale~)
 }
 
 ///|
 /// Generate one Markdown italic word, for example `*word*`.
-pub fn italic_word(
-  locale~ : @locales.Locale = @locales.EN,
-) -> @core.Gen[String] {
+pub fn italic_word(locale~ : @locales.Locale = EN) -> @core.Gen[String] {
   @markdown.italic_word(locale~)
 }
 
 ///|
 /// Generate one Markdown bold word, for example `**word**`.
-pub fn bold_word(locale~ : @locales.Locale = @locales.EN) -> @core.Gen[String] {
+pub fn bold_word(locale~ : @locales.Locale = EN) -> @core.Gen[String] {
   @markdown.bold_word(locale~)
 }
 
 ///|
 /// Generate a Markdown link whose label and path are fake data.
-pub fn markdown_link(
-  locale~ : @locales.Locale = @locales.EN,
-) -> @core.Gen[String] {
+pub fn markdown_link(locale~ : @locales.Locale = EN) -> @core.Gen[String] {
   @markdown.link(locale~)
 }
 
@@ -1043,7 +1005,7 @@ pub fn markdown_link(
 ///
 /// The number of bullet lines is sampled from the inclusive `count` range.
 pub fn bullet_points(
-  locale~ : @locales.Locale = @locales.EN,
+  locale~ : @locales.Locale = EN,
   count~ : @core.CountRange = @core.count_range(2, 5),
 ) -> @core.Gen[String] {
   @markdown.bullet_points(locale~, count~)
@@ -1054,7 +1016,7 @@ pub fn bullet_points(
 ///
 /// The number of items is sampled from the inclusive `count` range.
 pub fn list_items(
-  locale~ : @locales.Locale = @locales.EN,
+  locale~ : @locales.Locale = EN,
   count~ : @core.CountRange = @core.count_range(2, 5),
 ) -> @core.Gen[Array[String]] {
   @markdown.list_items(locale~, count~)
@@ -1063,7 +1025,7 @@ pub fn list_items(
 ///|
 /// Generate Markdown block quote lines.
 pub fn block_quote_single_line(
-  locale~ : @locales.Locale = @locales.EN,
+  locale~ : @locales.Locale = EN,
   count~ : @core.CountRange = @core.count_range(1, 3),
 ) -> @core.Gen[String] {
   @markdown.block_quote_single_line(locale~, count~)
@@ -1072,7 +1034,7 @@ pub fn block_quote_single_line(
 ///|
 /// Generate a multi-line Markdown block quote.
 pub fn block_quote_multi_line(
-  locale~ : @locales.Locale = @locales.EN,
+  locale~ : @locales.Locale = EN,
   count~ : @core.CountRange = @core.count_range(2, 4),
 ) -> @core.Gen[String] {
   @markdown.block_quote_multi_line(locale~, count~)
@@ -1137,7 +1099,7 @@ pub fn picsum_image_blur() -> @core.Gen[String] {
 ///|
 /// Generate a Picsum image URL from explicit `ImageOptions`.
 pub fn picsum_image_custom(opts : ImageOptions) -> @core.Gen[String] {
-  @picsum.image_custom(@picsum.ImageOptions::{
+  @picsum.image_custom({
     width: opts.width,
     height: opts.height,
     grayscale: opts.grayscale,

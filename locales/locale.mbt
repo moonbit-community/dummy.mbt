@@ -21,12 +21,32 @@ pub(all) enum Locale {
 } derive(Eq, Debug)
 
 ///|
+#deprecated
+#doc(hidden)
+pub extend Locale with Eq::{equal, not_equal}
+
+///|
+#deprecated
+#doc(hidden)
+pub extend Locale with Debug::{to_repr}
+
+///|
 /// Entry from `docs/data/locales.js`.
 pub(all) struct DocsLocale {
   name : String
   docs_code : String
   locale : Locale
 } derive(Eq, Debug)
+
+///|
+#deprecated
+#doc(hidden)
+pub extend DocsLocale with Eq::{equal, not_equal}
+
+///|
+#deprecated
+#doc(hidden)
+pub extend DocsLocale with Debug::{to_repr}
 
 ///|
 /// Return the locale code used in data files and docs.

@@ -22,31 +22,31 @@ test "time includes subsecond placeholder" {
 ///|
 test "date uses locale backed time date formats" {
   expect_shape(
-    @time.date(locale=@locales.EN).dummy(@core.seed(b"time-en-date")),
+    @time.date(locale=EN).dummy(@core.seed(b"time-en-date")),
     "####-##-##",
   )
   expect_shape(
-    @time.date(locale=@locales.FA_IR).dummy(@core.seed(b"time-fa-date")),
+    @time.date(locale=FA_IR).dummy(@core.seed(b"time-fa-date")),
     "####/##/##",
   )
   expect_shape(
-    @time.date(locale=@locales.IT_IT).dummy(@core.seed(b"time-it-date")),
+    @time.date(locale=IT_IT).dummy(@core.seed(b"time-it-date")),
     "##-##-####",
   )
   expect_shape(
-    @time.date(locale=@locales.NL_NL).dummy(@core.seed(b"time-nl-date")),
+    @time.date(locale=NL_NL).dummy(@core.seed(b"time-nl-date")),
     "##-##-####",
   )
   expect_shape(
-    @time.date(locale=@locales.PT_BR).dummy(@core.seed(b"time-pt-br-date")),
+    @time.date(locale=PT_BR).dummy(@core.seed(b"time-pt-br-date")),
     "##/##/####",
   )
   expect_shape(
-    @time.date(locale=@locales.PT_PT).dummy(@core.seed(b"time-pt-pt-date")),
+    @time.date(locale=PT_PT).dummy(@core.seed(b"time-pt-pt-date")),
     "##-##-####",
   )
   expect_shape(
-    @time.date(locale=@locales.TR_TR).dummy(@core.seed(b"time-tr-date")),
+    @time.date(locale=TR_TR).dummy(@core.seed(b"time-tr-date")),
     "##.##.####",
   )
 }
@@ -54,31 +54,31 @@ test "date uses locale backed time date formats" {
 ///|
 test "date_time uses locale backed time datetime formats" {
   expect_shape(
-    @time.date_time(locale=@locales.EN).dummy(@core.seed(b"time-en-dt")),
+    @time.date_time(locale=EN).dummy(@core.seed(b"time-en-dt")),
     "####-##-##T##:##:##+0000",
   )
   expect_shape(
-    @time.date_time(locale=@locales.FA_IR).dummy(@core.seed(b"time-fa-dt")),
+    @time.date_time(locale=FA_IR).dummy(@core.seed(b"time-fa-dt")),
     "####/##/## ##:##:##",
   )
   expect_shape(
-    @time.date_time(locale=@locales.IT_IT).dummy(@core.seed(b"time-it-dt")),
+    @time.date_time(locale=IT_IT).dummy(@core.seed(b"time-it-dt")),
     "##-##-#### ##:##:##",
   )
   expect_shape(
-    @time.date_time(locale=@locales.NL_NL).dummy(@core.seed(b"time-nl-dt")),
+    @time.date_time(locale=NL_NL).dummy(@core.seed(b"time-nl-dt")),
     "##-##-#### ##:##:##",
   )
   expect_shape(
-    @time.date_time(locale=@locales.PT_BR).dummy(@core.seed(b"time-pt-br-dt")),
+    @time.date_time(locale=PT_BR).dummy(@core.seed(b"time-pt-br-dt")),
     "##/##/####T##:##:##+0000",
   )
   expect_shape(
-    @time.date_time(locale=@locales.PT_PT).dummy(@core.seed(b"time-pt-pt-dt")),
+    @time.date_time(locale=PT_PT).dummy(@core.seed(b"time-pt-pt-dt")),
     "##-##-#### ##:##:##",
   )
   expect_shape(
-    @time.date_time(locale=@locales.TR_TR).dummy(@core.seed(b"time-tr-dt")),
+    @time.date_time(locale=TR_TR).dummy(@core.seed(b"time-tr-dt")),
     "##.##.#### ##:##:##",
   )
 }
@@ -126,8 +126,9 @@ test "before after and between are deterministic" {
 
 ///|
 test "between rejects reversed ranges" {
-  let reversed : Result[@core.Gen[String], @core.DummyError] = try? @time.date_time_between(
-    20, 10,
-  )
-  assert_true(reversed is Err(@core.DummyError::InvalidRange(_)))
+  try @time.date_time_between(20, 10) catch {
+    error => assert_true(error is InvalidRange(_))
+  } noraise {
+    _ => fail("expected InvalidRange to be raised")
+  }
 }

@@ -56,11 +56,11 @@ test "lorem range counts mirror determinism examples" {
 ///|
 test "sentence punctuation follows locale" {
   let rng = @core.seed(b"lorem-sentence")
-  let en = @lorem.sentence(locale=@locales.EN).dummy(rng)
+  let en = @lorem.sentence(locale=EN).dummy(rng)
   assert_true(en.has_suffix("."))
-  let zh = @lorem.sentence(locale=@locales.ZH_CN).dummy(rng)
+  let zh = @lorem.sentence(locale=ZH_CN).dummy(rng)
   assert_true(zh.has_suffix("。"))
-  let zh_tw = @lorem.sentence(locale=@locales.ZH_TW).dummy(rng)
+  let zh_tw = @lorem.sentence(locale=ZH_TW).dummy(rng)
   assert_true(zh_tw.has_suffix("。"))
 }
 
@@ -89,20 +89,18 @@ test "lorem generators are deterministic for the same seed" {
 test "lorem locale fallback and fixed seed golden outputs" {
   let fallback_seed = b"lorem-fallback"
   @test.assert_eq(
-    @lorem.word(locale=@locales.FR_FR).dummy(@core.seed(fallback_seed)),
-    @lorem.word(locale=@locales.EN).dummy(@core.seed(fallback_seed)),
+    @lorem.word(locale=FR_FR).dummy(@core.seed(fallback_seed)),
+    @lorem.word(locale=EN).dummy(@core.seed(fallback_seed)),
   )
-  let en = @lorem.sentence(locale=@locales.EN, count=@core.count_range(4, 4)).dummy(
+  let en = @lorem.sentence(locale=EN, count=@core.count_range(4, 4)).dummy(
     @core.seed(b"lorem-golden-en"),
   )
-  let zh_cn = @lorem.sentence(
-    locale=@locales.ZH_CN,
-    count=@core.count_range(4, 4),
-  ).dummy(@core.seed(b"lorem-golden-cn"))
-  let zh_tw = @lorem.sentence(
-    locale=@locales.ZH_TW,
-    count=@core.count_range(4, 4),
-  ).dummy(@core.seed(b"lorem-golden-tw"))
+  let zh_cn = @lorem.sentence(locale=ZH_CN, count=@core.count_range(4, 4)).dummy(
+    @core.seed(b"lorem-golden-cn"),
+  )
+  let zh_tw = @lorem.sentence(locale=ZH_TW, count=@core.count_range(4, 4)).dummy(
+    @core.seed(b"lorem-golden-tw"),
+  )
   assert_true(en.has_suffix("."))
   @test.assert_eq(count_char(en, ' '), 3)
   assert_true(zh_cn.has_suffix("。"))

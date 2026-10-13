@@ -77,14 +77,24 @@ test "int samples from the requested half-open range" {
 
 ///|
 test "int rejects empty or reversed ranges" {
-  let equal : Result[Int32, @core.DummyError] = try? @number.int(
-    range=@core.int_range(2, 2),
-  ).dummy(@core.seed(b"number-empty-range"))
-  assert_true(equal is Err(@core.DummyError::InvalidRange(_)))
-  let reversed : Result[Int32, @core.DummyError] = try? @number.int(
-    range=@core.int_range(5, 1),
-  ).dummy(@core.seed(b"number-reversed-range"))
-  assert_true(reversed is Err(@core.DummyError::InvalidRange(_)))
+  try
+    @number.int(range=@core.int_range(2, 2)).dummy(
+      @core.seed(b"number-empty-range"),
+    )
+  catch {
+    error => assert_true(error is InvalidRange(_))
+  } noraise {
+    _ => fail("expected InvalidRange to be raised")
+  }
+  try
+    @number.int(range=@core.int_range(5, 1)).dummy(
+      @core.seed(b"number-reversed-range"),
+    )
+  catch {
+    error => assert_true(error is InvalidRange(_))
+  } noraise {
+    _ => fail("expected InvalidRange to be raised")
+  }
 }
 
 ///|

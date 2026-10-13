@@ -15,7 +15,7 @@ fn numerify_licence_plate(
   pattern : String,
   rng : @random.Rand,
 ) -> String raise @core.DummyError {
-  let out = StringBuilder::new(size_hint=pattern.length())
+  let out = StringBuilder(size_hint=pattern.length())
   for ch in pattern {
     match ch {
       '$' => out.write_char(@core.pick(licence_chars(), rng))
@@ -28,13 +28,11 @@ fn numerify_licence_plate(
 
 ///|
 /// Generate a locale-shaped vehicle licence plate.
-pub fn licence_plate(
-  locale~ : @locales.Locale = @locales.FR_FR,
-) -> @core.Gen[String] {
+pub fn licence_plate(locale~ : @locales.Locale = FR_FR) -> @core.Gen[String] {
   @core.Gen::new(rng => {
     let formats = @data.licence_plate_formats(locale)
     if formats.is_empty() {
-      raise @core.DummyError::UnsupportedLocale(locale.code())
+      raise UnsupportedLocale(locale.code())
     } else {
       let pattern = @core.pick_string(formats, rng)
       numerify_licence_plate(pattern, rng)
