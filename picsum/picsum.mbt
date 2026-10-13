@@ -1,10 +1,10 @@
 ///|
 /// Options for constructing a Picsum image URL.
 pub(all) struct ImageOptions {
-  width : Int
-  height : Int
+  width : Int32
+  height : Int32
   grayscale : Bool
-  blur : Int?
+  blur : Int32?
   seed : String?
 } derive(Eq, Debug)
 

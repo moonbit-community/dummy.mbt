@@ -54,7 +54,7 @@ pub fn numerify(pattern : String, rng : @random.Rand) -> String {
 /// Pick `count` strings from `items`, preserving sample order.
 pub fn repeat_pick(
   items : ArrayView[String],
-  count : Int,
+  count : Int32,
   rng : @random.Rand,
 ) -> Array[String] raise DummyError {
   if count < 0 {
@@ -78,7 +78,7 @@ pub fn join_strings(items : ArrayView[String], sep : String) -> String {
 
 ///|
 /// Generate a lowercase ASCII string of length `len`.
-pub fn random_ascii(len : Int, rng : @random.Rand) -> String raise DummyError {
+pub fn random_ascii(len : Int32, rng : @random.Rand) -> String raise DummyError {
   if len < 0 {
     raise DummyError::InvalidCount(len)
   }
@@ -96,7 +96,7 @@ pub fn random_ascii(len : Int, rng : @random.Rand) -> String raise DummyError {
 ///|
 /// Generate a decimal digit string of length `len`.
 pub fn random_digit_string(
-  len : Int,
+  len : Int32,
   rng : @random.Rand,
 ) -> String raise DummyError {
   if len < 0 {
@@ -111,7 +111,7 @@ pub fn random_digit_string(
 
 ///|
 /// Left-pad `value` with `pad` until it reaches `width` code units.
-pub fn pad_left(value : String, width : Int, pad : Char) -> String {
+pub fn pad_left(value : String, width : Int32, pad : Char) -> String {
   if value.length() >= width {
     value
   } else {
@@ -126,12 +126,12 @@ pub fn pad_left(value : String, width : Int, pad : Char) -> String {
 
 ///|
 /// Render an integer as a two-character uppercase hexadecimal byte.
-pub fn hex_byte(value : Int) -> String {
+pub fn hex_byte(value : Int32) -> String {
   pad_left(value.to_string(radix=16).to_upper(), 2, '0')
 }
 
 ///|
 /// Render an integer as a four-character uppercase hexadecimal word.
-pub fn hex_u16(value : Int) -> String {
+pub fn hex_u16(value : Int32) -> String {
   pad_left(value.to_string(radix=16).to_upper(), 4, '0')
 }

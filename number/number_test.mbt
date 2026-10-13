@@ -11,7 +11,7 @@ fn is_non_zero_digit(ch : Char) -> Bool {
 }
 
 ///|
-fn is_digit_at(s : String, i : Int) -> Bool {
+fn is_digit_at(s : String, i : Int32) -> Bool {
   match s.get_char(i) {
     Some(ch) => is_ascii_digit(ch)
     None => false
@@ -19,7 +19,7 @@ fn is_digit_at(s : String, i : Int) -> Bool {
 }
 
 ///|
-fn is_non_zero_digit_at(s : String, i : Int) -> Bool {
+fn is_non_zero_digit_at(s : String, i : Int32) -> Bool {
   match s.get_char(i) {
     Some(ch) => is_non_zero_digit(ch)
     None => false
@@ -77,11 +77,11 @@ test "int samples from the requested half-open range" {
 
 ///|
 test "int rejects empty or reversed ranges" {
-  let equal : Result[Int, @core.DummyError] = try? @number.int(
+  let equal : Result[Int32, @core.DummyError] = try? @number.int(
     range=@core.int_range(2, 2),
   ).dummy(@core.seed(b"number-empty-range"))
   assert_true(equal is Err(@core.DummyError::InvalidRange(_)))
-  let reversed : Result[Int, @core.DummyError] = try? @number.int(
+  let reversed : Result[Int32, @core.DummyError] = try? @number.int(
     range=@core.int_range(5, 1),
   ).dummy(@core.seed(b"number-reversed-range"))
   assert_true(reversed is Err(@core.DummyError::InvalidRange(_)))

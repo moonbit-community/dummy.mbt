@@ -1,5 +1,5 @@
 ///|
-fn count_char(s : String, target : Char) -> Int {
+fn count_char(s : String, target : Char) -> Int32 {
   let mut count = 0
   for ch in s {
     if ch == target {
@@ -34,7 +34,7 @@ fn has_upper_ascii(s : String) -> Bool {
 }
 
 ///|
-fn digit_value(ch : Char) -> Int {
+fn digit_value(ch : Char) -> Int32 {
   ch.to_int() - '0'.to_int()
 }
 

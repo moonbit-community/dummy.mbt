@@ -1,5 +1,5 @@
 ///|
-fn digit_at(s : String, i : Int) -> Int {
+fn digit_at(s : String, i : Int32) -> Int32 {
   match s.get_char(i) {
     Some(ch) => ch.to_int() - '0'.to_int()
     None => -1

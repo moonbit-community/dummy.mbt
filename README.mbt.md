@@ -65,7 +65,7 @@ test "basic facade usage" {
   let words : Array[String] = @dummy.words(count=@dummy.count_range(3, 5)).dummy(
     rng,
   )
-  let ids : Array[Int] = @dummy.int(range=@dummy.int_range(1000, 9999)).sample(
+  let ids : Array[Int32] = @dummy.int(range=@dummy.int_range(1000, 9999)).sample(
     count=4,
     rng,
   )
@@ -415,7 +415,7 @@ struct DemoUser {
 
 ///|
 impl @core.DummyDefault for DemoUser with fn dummy_default(rng) {
-  { name: @dummy.name().dummy(rng), active: @dummy.boolean().dummy(rng) }
+  { name: @dummy.name().dummy(rng), active: @dummy.boolean().dummy(rng), }
 }
 
 ///|

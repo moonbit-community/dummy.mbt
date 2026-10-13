@@ -8,7 +8,7 @@ fn lower_hex_chars() -> Array[String] {
 
 ///|
 // Generate `len` lowercase hexadecimal characters.
-fn random_hex(len : Int, rng : @random.Rand) -> String raise @core.DummyError {
+fn random_hex(len : Int32, rng : @random.Rand) -> String raise @core.DummyError {
   let out = StringBuilder::new(size_hint=len)
   let chars = lower_hex_chars()
   for _ in 0..<len {

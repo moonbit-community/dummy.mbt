@@ -8,7 +8,7 @@ pub(all) suberror DummyError {
   /// A numeric or temporal range is invalid for sampling.
   InvalidRange(String)
   /// A requested collection size or string length is negative.
-  InvalidCount(Int)
+  InvalidCount(Int32)
   /// A random choice was requested from an empty candidate list.
   EmptyCandidates(String)
   /// A locale-specific generator was requested for an unsupported locale.

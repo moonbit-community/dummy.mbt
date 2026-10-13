@@ -15,4 +15,3 @@ pub fn credit_card_number() -> @core.Gen[String]
 // Type aliases
 
 // Traits
-

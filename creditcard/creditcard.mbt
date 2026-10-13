@@ -1,6 +1,6 @@
 ///|
 // Compute the Luhn check digit for the generated card-number stem.
-fn luhn_check_digit(digits : ArrayView[Int]) -> Int {
+fn luhn_check_digit(digits : ArrayView[Int32]) -> Int32 {
   let mut sum = 0
   let len = digits.length()
   for i, digit in digits {
@@ -18,7 +18,7 @@ fn luhn_check_digit(digits : ArrayView[Int]) -> Int {
 
 ///|
 // Convert generated decimal digits into the final card-number string.
-fn digits_to_string(digits : ArrayView[Int]) -> String {
+fn digits_to_string(digits : ArrayView[Int32]) -> String {
   let out = StringBuilder::new(size_hint=digits.length())
   for digit in digits {
     out.write_string(digit.to_string())
@@ -35,7 +35,7 @@ pub fn credit_card_number() -> @core.Gen[String] {
       1 => ([4], if rng.boolean() { 13 } else { 16 })
       _ => ([5, rng.int(limit=5) + 1], 16)
     }
-    let digits : Array[Int] = []
+    let digits : Array[Int32] = []
     digits.append(prefix)
     while digits.length() < length - 1 {
       digits.push(rng.int(limit=10))

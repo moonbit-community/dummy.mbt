@@ -18,4 +18,3 @@ pub fn phone_number(locale? : @locales.Locale) -> @core.Gen[String]
 // Type aliases
 
 // Traits
-

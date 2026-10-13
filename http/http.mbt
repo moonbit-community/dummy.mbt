@@ -1,12 +1,12 @@
 ///|
 /// Generate an RFC-listed HTTP status code from the table.
-pub fn rfc_status_code() -> @core.Gen[Int] {
+pub fn rfc_status_code() -> @core.Gen[Int32] {
   @core.Gen::new(rng => @core.pick(@data.http_statuses(), rng))
 }
 
 ///|
 /// Generate an integer in the HTTP status-code range 100 through 599.
-pub fn valid_status_code() -> @core.Gen[Int] {
+pub fn valid_status_code() -> @core.Gen[Int32] {
   @core.Gen::new(rng => rng.int(limit=500) + 100)
 }
 

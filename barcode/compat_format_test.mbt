@@ -1,5 +1,5 @@
 ///|
-fn compat_barcode_digit_value_at(s : String, i : Int) -> Int {
+fn compat_barcode_digit_value_at(s : String, i : Int32) -> Int32 {
   match s.get_char(i) {
     Some(ch) => ch.to_int() - '0'.to_int()
     None => -1
@@ -7,7 +7,7 @@ fn compat_barcode_digit_value_at(s : String, i : Int) -> Int {
 }
 
 ///|
-fn compat_barcode_is_digit_at(s : String, i : Int) -> Bool {
+fn compat_barcode_is_digit_at(s : String, i : Int32) -> Bool {
   let value = compat_barcode_digit_value_at(s, i)
   value >= 0 && value <= 9
 }

@@ -1,6 +1,6 @@
 ///|
 /// Generate a decimal digit from 0 through 9.
-pub fn digit() -> @core.Gen[Int] {
+pub fn digit() -> @core.Gen[Int32] {
   @core.Gen::new(rng => rng.int(limit=10))
 }
 
@@ -19,7 +19,7 @@ pub fn number_with_format(fmt : String) -> @core.Gen[String] {
 ///|
 /// Generate an integer from a half-open range `[start, end)`.
 pub fn int(
-  range? : @core.IntRange = @core.int_range(0, 1000),
-) -> @core.Gen[Int] {
+  range~ : @core.IntRange = @core.int_range(0, 1000),
+) -> @core.Gen[Int32] {
   @core.Gen::new(rng => range.sample(rng))
 }

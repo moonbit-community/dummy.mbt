@@ -83,7 +83,7 @@ fn is_nl_postcode(s : String) -> Bool {
 ///|
 fn is_geohash_char(ch : Char) -> Bool {
   match ch {
-    '0'..='9'
+    '0'..<='9'
     | 'b'
     | 'c'
     | 'd'

@@ -350,7 +350,7 @@ pub fn states(locale : @locales.Locale) -> Array[(String, String)] {
 
 ///|
 /// Time-zone candidates for the selected locale.
-pub fn time_zones(locale? : @locales.Locale = @locales.EN) -> Array[String] {
+pub fn time_zones(locale~ : @locales.Locale = @locales.EN) -> Array[String] {
   match locale {
     @locales.FR_FR => compat_fr_fr_address_time_zone()
     @locales.PT_PT => compat_pt_pt_address_time_zone()
@@ -364,7 +364,7 @@ pub fn time_zones(locale? : @locales.Locale = @locales.EN) -> Array[String] {
 
 ///|
 /// Chrono-family time format string for the selected locale.
-pub fn chrono_time_format(locale? : @locales.Locale = @locales.EN) -> String {
+pub fn chrono_time_format(locale~ : @locales.Locale = @locales.EN) -> String {
   match locale {
     @locales.FA_IR | @locales.IT_IT | @locales.PT_PT | @locales.TR_TR =>
       "%H:%M:%S"
@@ -374,7 +374,7 @@ pub fn chrono_time_format(locale? : @locales.Locale = @locales.EN) -> String {
 
 ///|
 /// Chrono-family date format string for the selected locale.
-pub fn chrono_date_format(locale? : @locales.Locale = @locales.EN) -> String {
+pub fn chrono_date_format(locale~ : @locales.Locale = @locales.EN) -> String {
   match locale {
     @locales.FA_IR => "%Y/%m/%d"
     @locales.IT_IT | @locales.PT_PT => "%d-%m-%Y"
@@ -386,7 +386,7 @@ pub fn chrono_date_format(locale? : @locales.Locale = @locales.EN) -> String {
 ///|
 /// Chrono-family date-time format string for the selected locale.
 pub fn chrono_datetime_format(
-  locale? : @locales.Locale = @locales.EN,
+  locale~ : @locales.Locale = @locales.EN,
 ) -> String {
   match locale {
     @locales.FA_IR => "%Y/%m/%d %H:%M:%S"
@@ -398,7 +398,7 @@ pub fn chrono_datetime_format(
 
 ///|
 /// Time-family time format string for the selected locale.
-pub fn time_time_format(locale? : @locales.Locale = @locales.EN) -> String {
+pub fn time_time_format(locale~ : @locales.Locale = @locales.EN) -> String {
   match locale {
     _ => "[hour]:[minute]:[second][subsecond]"
   }
@@ -406,7 +406,7 @@ pub fn time_time_format(locale? : @locales.Locale = @locales.EN) -> String {
 
 ///|
 /// Time-family date format string for the selected locale.
-pub fn time_date_format(locale? : @locales.Locale = @locales.EN) -> String {
+pub fn time_date_format(locale~ : @locales.Locale = @locales.EN) -> String {
   match locale {
     @locales.FA_IR => "[year]/[month]/[day]"
     @locales.IT_IT | @locales.NL_NL | @locales.PT_PT => "[day]-[month]-[year]"
@@ -418,7 +418,7 @@ pub fn time_date_format(locale? : @locales.Locale = @locales.EN) -> String {
 
 ///|
 /// Time-family date-time format string for the selected locale.
-pub fn time_datetime_format(locale? : @locales.Locale = @locales.EN) -> String {
+pub fn time_datetime_format(locale~ : @locales.Locale = @locales.EN) -> String {
   match locale {
     @locales.FA_IR => "[year]/[month]/[day] [hour]:[minute]:[second]"
     @locales.IT_IT | @locales.NL_NL | @locales.PT_PT =>
@@ -742,7 +742,7 @@ pub fn job_title_template(locale : @locales.Locale) -> String {
 ///|
 /// Free email provider candidates for the selected locale.
 pub fn email_providers(
-  locale? : @locales.Locale = @locales.EN,
+  locale~ : @locales.Locale = @locales.EN,
 ) -> Array[String] {
   match locale {
     @locales.FR_FR => compat_fr_fr_internet_free_email_provider()
@@ -760,7 +760,7 @@ pub fn email_providers(
 ///|
 /// Domain suffix candidates for the selected locale.
 pub fn domain_suffixes(
-  locale? : @locales.Locale = @locales.EN,
+  locale~ : @locales.Locale = @locales.EN,
 ) -> Array[String] {
   match locale {
     @locales.PT_BR => compat_pt_br_internet_domain_suffix()
@@ -794,7 +794,7 @@ pub fn user_agents() -> Array[String] {
 
 ///|
 /// Currency code candidates for the selected locale.
-pub fn currency_codes(locale? : @locales.Locale = @locales.EN) -> Array[String] {
+pub fn currency_codes(locale~ : @locales.Locale = @locales.EN) -> Array[String] {
   match locale {
     @locales.PT_PT => compat_pt_pt_currency_code()
     @locales.IT_IT => compat_it_it_currency_code()
@@ -805,7 +805,7 @@ pub fn currency_codes(locale? : @locales.Locale = @locales.EN) -> Array[String] 
 
 ///|
 /// Currency name candidates for the selected locale.
-pub fn currency_names(locale? : @locales.Locale = @locales.EN) -> Array[String] {
+pub fn currency_names(locale~ : @locales.Locale = @locales.EN) -> Array[String] {
   match locale {
     @locales.PT_PT => compat_pt_pt_currency_name()
     @locales.IT_IT => compat_it_it_currency_name()
@@ -818,7 +818,7 @@ pub fn currency_names(locale? : @locales.Locale = @locales.EN) -> Array[String] 
 ///|
 /// Currency symbol candidates for the selected locale.
 pub fn currency_symbols(
-  locale? : @locales.Locale = @locales.EN,
+  locale~ : @locales.Locale = @locales.EN,
 ) -> Array[String] {
   match locale {
     @locales.PT_PT => compat_pt_pt_currency_symbol()
@@ -884,7 +884,7 @@ pub fn mime_types() -> Array[String] {
 
 ///|
 /// HTTP status codes from the HTTP status table.
-pub fn http_statuses() -> Array[Int] {
+pub fn http_statuses() -> Array[Int32] {
   [
     100, 101, 102, 200, 201, 202, 203, 204, 205, 206, 207, 208, 226, 300, 301, 302,
     303, 304, 305, 307, 308, 400, 401, 402, 403, 404, 405, 406, 407, 408, 409, 410,

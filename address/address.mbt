@@ -1,7 +1,7 @@
 ///|
 /// Generate a city prefix for `locale`.
 pub fn city_prefix(
-  locale? : @locales.Locale = @locales.EN,
+  locale~ : @locales.Locale = @locales.EN,
 ) -> @core.Gen[String] {
   @core.Gen::new(rng => @core.pick_string(@data.city_prefixes(locale), rng))
 }
@@ -9,7 +9,7 @@ pub fn city_prefix(
 ///|
 /// Generate a city suffix for `locale`.
 pub fn city_suffix(
-  locale? : @locales.Locale = @locales.EN,
+  locale~ : @locales.Locale = @locales.EN,
 ) -> @core.Gen[String] {
   @core.Gen::new(rng => @core.pick_string(@data.city_suffixes(locale), rng))
 }
@@ -77,7 +77,7 @@ fn special_city_name(
 
 ///|
 /// Generate a city name using locale-specific templates.
-pub fn city_name(locale? : @locales.Locale = @locales.EN) -> @core.Gen[String] {
+pub fn city_name(locale~ : @locales.Locale = @locales.EN) -> @core.Gen[String] {
   @core.Gen::new(rng => {
     match locale {
       @locales.DE_DE | @locales.NL_NL => return special_city_name(locale, rng)
@@ -104,7 +104,7 @@ pub fn city_name(locale? : @locales.Locale = @locales.EN) -> @core.Gen[String] {
 ///|
 /// Generate a country name.
 pub fn country_name(
-  locale? : @locales.Locale = @locales.EN,
+  locale~ : @locales.Locale = @locales.EN,
 ) -> @core.Gen[String] {
   @core.Gen::new(rng => @core.pick_string(@data.country_names(locale), rng))
 }
@@ -118,7 +118,7 @@ pub fn country_code() -> @core.Gen[String] {
 ///|
 /// Generate a street suffix.
 pub fn street_suffix(
-  locale? : @locales.Locale = @locales.EN,
+  locale~ : @locales.Locale = @locales.EN,
 ) -> @core.Gen[String] {
   @core.Gen::new(rng => @core.pick_string(@data.street_suffixes(locale), rng))
 }
@@ -126,7 +126,7 @@ pub fn street_suffix(
 ///|
 /// Generate a full street name.
 pub fn street_name(
-  locale? : @locales.Locale = @locales.EN,
+  locale~ : @locales.Locale = @locales.EN,
 ) -> @core.Gen[String] {
   @core.Gen::new(rng => {
     let base = @core.pick_string(@data.street_names(locale), rng)
@@ -140,26 +140,26 @@ pub fn street_name(
 
 ///|
 /// Generate a time zone string.
-pub fn time_zone(locale? : @locales.Locale = @locales.EN) -> @core.Gen[String] {
+pub fn time_zone(locale~ : @locales.Locale = @locales.EN) -> @core.Gen[String] {
   @core.Gen::new(rng => @core.pick_string(@data.time_zones(locale~), rng))
 }
 
 ///|
 /// Generate a state, province, or region name.
-pub fn state_name(locale? : @locales.Locale = @locales.EN) -> @core.Gen[String] {
+pub fn state_name(locale~ : @locales.Locale = @locales.EN) -> @core.Gen[String] {
   @core.Gen::new(rng => @core.pick(@data.states(locale), rng).0)
 }
 
 ///|
 /// Generate a state, province, or region abbreviation.
-pub fn state_abbr(locale? : @locales.Locale = @locales.EN) -> @core.Gen[String] {
+pub fn state_abbr(locale~ : @locales.Locale = @locales.EN) -> @core.Gen[String] {
   @core.Gen::new(rng => @core.pick(@data.states(locale), rng).1)
 }
 
 ///|
 /// Generate a secondary address type such as `Apt.` or `Suite`.
 pub fn secondary_address_type(
-  locale? : @locales.Locale = @locales.EN,
+  locale~ : @locales.Locale = @locales.EN,
 ) -> @core.Gen[String] {
   @core.Gen::new(rng => {
     @core.pick_string(@data.secondary_address_types(locale), rng)
@@ -169,7 +169,7 @@ pub fn secondary_address_type(
 ///|
 /// Generate a secondary address designator with a unit number.
 pub fn secondary_address(
-  locale? : @locales.Locale = @locales.EN,
+  locale~ : @locales.Locale = @locales.EN,
 ) -> @core.Gen[String] {
   @core.Gen::new(rng => {
     let ty = secondary_address_type(locale~).dummy(rng)
@@ -212,7 +212,7 @@ fn render_zip_format(
 
 ///|
 /// Generate a ZIP-code-shaped string for `locale`.
-pub fn zip_code(locale? : @locales.Locale = @locales.EN) -> @core.Gen[String] {
+pub fn zip_code(locale~ : @locales.Locale = @locales.EN) -> @core.Gen[String] {
   @core.Gen::new(rng => {
     let fmt = @core.pick_string(@data.zip_formats(locale), rng)
     render_zip_format(fmt, rng)
@@ -221,7 +221,7 @@ pub fn zip_code(locale? : @locales.Locale = @locales.EN) -> @core.Gen[String] {
 
 ///|
 /// Generate a postal-code-shaped string for `locale`.
-pub fn post_code(locale? : @locales.Locale = @locales.EN) -> @core.Gen[String] {
+pub fn post_code(locale~ : @locales.Locale = @locales.EN) -> @core.Gen[String] {
   @core.Gen::new(rng => {
     let fmt = @core.pick_string(@data.post_code_formats(locale), rng)
     render_zip_format(fmt, rng)
@@ -231,7 +231,7 @@ pub fn post_code(locale? : @locales.Locale = @locales.EN) -> @core.Gen[String] {
 ///|
 /// Generate a building number from locale-specific numeric patterns.
 pub fn building_number(
-  locale? : @locales.Locale = @locales.EN,
+  locale~ : @locales.Locale = @locales.EN,
 ) -> @core.Gen[String] {
   @core.Gen::new(rng => {
     let fmt = @core.pick_string(@data.building_number_formats(locale), rng)
@@ -265,7 +265,7 @@ pub fn longitude() -> @core.Gen[String] {
 
 ///|
 /// Generate a geohash-like string with `precision` base32 characters.
-pub fn geohash(precision? : Int = 8) -> @core.Gen[String] {
+pub fn geohash(precision~ : Int32 = 8) -> @core.Gen[String] {
   @core.Gen::new(rng => {
     if precision <= 0 {
       raise @core.DummyError::InvalidCount(precision)

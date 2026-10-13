@@ -13,7 +13,7 @@ fn compat_internet_is_hex(ch : Char) -> Bool {
 }
 
 ///|
-fn compat_internet_count_char(s : String, target : Char) -> Int {
+fn compat_internet_count_char(s : String, target : Char) -> Int32 {
   let mut count = 0
   for ch in s {
     if ch == target {
@@ -29,7 +29,7 @@ fn compat_internet_parts(s : String, sep : String) -> Array[String] {
 }
 
 ///|
-fn compat_internet_decimal_value(s : String) -> Int? {
+fn compat_internet_decimal_value(s : String) -> Int32? {
   if s.is_empty() {
     return None
   }

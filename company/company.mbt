@@ -1,7 +1,7 @@
 ///|
 /// Generate a company suffix such as `Inc.` or a locale-specific equivalent.
 pub fn company_suffix(
-  locale? : @locales.Locale = @locales.EN,
+  locale~ : @locales.Locale = @locales.EN,
 ) -> @core.Gen[String] {
   @core.Gen::new(rng => @core.pick_string(@data.company_suffixes(locale), rng))
 }
@@ -9,7 +9,7 @@ pub fn company_suffix(
 ///|
 /// Generate a company name using locale-specific templates.
 pub fn company_name(
-  locale? : @locales.Locale = @locales.EN,
+  locale~ : @locales.Locale = @locales.EN,
 ) -> @core.Gen[String] {
   @core.Gen::new(rng => {
     let name1 = @name.last_name(locale~).dummy(rng)
@@ -26,7 +26,7 @@ pub fn company_name(
 
 ///|
 /// Generate the first part of a company buzzword phrase.
-pub fn buzzword(locale? : @locales.Locale = @locales.EN) -> @core.Gen[String] {
+pub fn buzzword(locale~ : @locales.Locale = @locales.EN) -> @core.Gen[String] {
   @core.Gen::new(rng => {
     @core.pick_string(@data.company_buzzword_heads(locale), rng)
   })
@@ -35,7 +35,7 @@ pub fn buzzword(locale? : @locales.Locale = @locales.EN) -> @core.Gen[String] {
 ///|
 /// Generate the middle part of a company buzzword phrase.
 pub fn buzzword_middle(
-  locale? : @locales.Locale = @locales.EN,
+  locale~ : @locales.Locale = @locales.EN,
 ) -> @core.Gen[String] {
   @core.Gen::new(rng => {
     @core.pick_string(@data.company_buzzword_middles(locale), rng)
@@ -45,7 +45,7 @@ pub fn buzzword_middle(
 ///|
 /// Generate the tail part of a company buzzword phrase.
 pub fn buzzword_tail(
-  locale? : @locales.Locale = @locales.EN,
+  locale~ : @locales.Locale = @locales.EN,
 ) -> @core.Gen[String] {
   @core.Gen::new(rng => {
     @core.pick_string(@data.company_buzzword_tails(locale), rng)
@@ -55,7 +55,7 @@ pub fn buzzword_tail(
 ///|
 /// Generate a three-part business catch phrase.
 pub fn catch_phrase(
-  locale? : @locales.Locale = @locales.EN,
+  locale~ : @locales.Locale = @locales.EN,
 ) -> @core.Gen[String] {
   @core.Gen::new(rng => {
     let head = buzzword(locale~).dummy(rng)
@@ -71,25 +71,25 @@ pub fn catch_phrase(
 
 ///|
 /// Generate a business-speak verb.
-pub fn bs_verb(locale? : @locales.Locale = @locales.EN) -> @core.Gen[String] {
+pub fn bs_verb(locale~ : @locales.Locale = @locales.EN) -> @core.Gen[String] {
   @core.Gen::new(rng => @core.pick_string(@data.company_bs_verbs(locale), rng))
 }
 
 ///|
 /// Generate a business-speak adjective.
-pub fn bs_adj(locale? : @locales.Locale = @locales.EN) -> @core.Gen[String] {
+pub fn bs_adj(locale~ : @locales.Locale = @locales.EN) -> @core.Gen[String] {
   @core.Gen::new(rng => @core.pick_string(@data.company_bs_adjs(locale), rng))
 }
 
 ///|
 /// Generate a business-speak noun.
-pub fn bs_noun(locale? : @locales.Locale = @locales.EN) -> @core.Gen[String] {
+pub fn bs_noun(locale~ : @locales.Locale = @locales.EN) -> @core.Gen[String] {
   @core.Gen::new(rng => @core.pick_string(@data.company_bs_nouns(locale), rng))
 }
 
 ///|
 /// Generate a complete business-speak phrase.
-pub fn bs(locale? : @locales.Locale = @locales.EN) -> @core.Gen[String] {
+pub fn bs(locale~ : @locales.Locale = @locales.EN) -> @core.Gen[String] {
   @core.Gen::new(rng => {
     let verb = bs_verb(locale~).dummy(rng)
     let adj = bs_adj(locale~).dummy(rng)
@@ -104,7 +104,7 @@ pub fn bs(locale? : @locales.Locale = @locales.EN) -> @core.Gen[String] {
 
 ///|
 /// Generate a profession label.
-pub fn profession(locale? : @locales.Locale = @locales.EN) -> @core.Gen[String] {
+pub fn profession(locale~ : @locales.Locale = @locales.EN) -> @core.Gen[String] {
   @core.Gen::new(rng => {
     @core.pick_string(@data.company_professions(locale), rng)
   })
@@ -112,6 +112,6 @@ pub fn profession(locale? : @locales.Locale = @locales.EN) -> @core.Gen[String] 
 
 ///|
 /// Generate an industry label.
-pub fn industry(locale? : @locales.Locale = @locales.EN) -> @core.Gen[String] {
+pub fn industry(locale~ : @locales.Locale = @locales.EN) -> @core.Gen[String] {
   @core.Gen::new(rng => @core.pick_string(@data.company_industries(locale), rng))
 }

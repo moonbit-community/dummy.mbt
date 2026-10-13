@@ -16,4 +16,3 @@ pub fn licence_plate(locale? : @locales.Locale) -> @core.Gen[String]
 // Type aliases
 
 // Traits
-

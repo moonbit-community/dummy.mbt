@@ -4,7 +4,7 @@
 priv struct RegistrantRule {
   min : String
   max : String
-  registrant_len : Int
+  registrant_len : Int32
 }
 
 ///|
@@ -22,29 +22,29 @@ fn isbn_rules_for_group(group : String) -> Array[RegistrantRule] {
   match group {
     "0" =>
       [
-        { min: "0000000", max: "1999999", registrant_len: 2 },
-        { min: "2000000", max: "2279999", registrant_len: 3 },
-        { min: "2280000", max: "2289999", registrant_len: 4 },
-        { min: "2290000", max: "6479999", registrant_len: 3 },
-        { min: "6480000", max: "6489999", registrant_len: 7 },
-        { min: "6490000", max: "6999999", registrant_len: 3 },
-        { min: "7000000", max: "8499999", registrant_len: 4 },
-        { min: "8500000", max: "8999999", registrant_len: 5 },
-        { min: "9000000", max: "9499999", registrant_len: 6 },
-        { min: "9500000", max: "9999999", registrant_len: 7 },
+        { min: "0000000", max: "1999999", registrant_len: 2, },
+        { min: "2000000", max: "2279999", registrant_len: 3, },
+        { min: "2280000", max: "2289999", registrant_len: 4, },
+        { min: "2290000", max: "6479999", registrant_len: 3, },
+        { min: "6480000", max: "6489999", registrant_len: 7, },
+        { min: "6490000", max: "6999999", registrant_len: 3, },
+        { min: "7000000", max: "8499999", registrant_len: 4, },
+        { min: "8500000", max: "8999999", registrant_len: 5, },
+        { min: "9000000", max: "9499999", registrant_len: 6, },
+        { min: "9500000", max: "9999999", registrant_len: 7, },
       ]
     "1" =>
       [
-        { min: "0000000", max: "0999999", registrant_len: 2 },
-        { min: "20100000000000", max: "3999999", registrant_len: 3 },
-        { min: "4000000", max: "5499999", registrant_len: 4 },
-        { min: "5500000", max: "7319999", registrant_len: 5 },
-        { min: "7320000", max: "7399999", registrant_len: 7 },
-        { min: "7400000", max: "8697999", registrant_len: 5 },
-        { min: "8698000", max: "9729999", registrant_len: 6 },
-        { min: "9730000", max: "9877999", registrant_len: 4 },
-        { min: "9878000", max: "9989999", registrant_len: 6 },
-        { min: "9990000", max: "9999999", registrant_len: 7 },
+        { min: "0000000", max: "0999999", registrant_len: 2, },
+        { min: "20100000000000", max: "3999999", registrant_len: 3, },
+        { min: "4000000", max: "5499999", registrant_len: 4, },
+        { min: "5500000", max: "7319999", registrant_len: 5, },
+        { min: "7320000", max: "7399999", registrant_len: 7, },
+        { min: "7400000", max: "8697999", registrant_len: 5, },
+        { min: "8698000", max: "9729999", registrant_len: 6, },
+        { min: "9730000", max: "9877999", registrant_len: 4, },
+        { min: "9878000", max: "9989999", registrant_len: 6, },
+        { min: "9990000", max: "9999999", registrant_len: 7, },
       ]
     _ => []
   }
@@ -53,7 +53,7 @@ fn isbn_rules_for_group(group : String) -> Array[RegistrantRule] {
 ///|
 // Decide the registrant segment length by matching the registration/publication
 // suffix against the group's range table.
-fn isbn_registrant_len(group : String, suffix_reg_pub : String) -> Int {
+fn isbn_registrant_len(group : String, suffix_reg_pub : String) -> Int32 {
   for rule in isbn_rules_for_group(group) {
     if rule.min <= suffix_reg_pub && suffix_reg_pub <= rule.max {
       return rule.registrant_len
@@ -90,7 +90,7 @@ fn IsbnProperties::body(self : IsbnProperties, include_ean~ : Bool) -> String {
 
 ///|
 // Convert an ASCII digit character to its numeric value.
-fn digit_value(ch : Char) -> Int {
+fn digit_value(ch : Char) -> Int32 {
   ch.to_int() - '0'.to_int()
 }
 
@@ -112,7 +112,7 @@ fn isbn10_checksum(properties : IsbnProperties) -> String {
 
 ///|
 // ISBN-13 check digit: alternating 1/3 weights over the 12-digit body.
-fn isbn13_checksum(properties : IsbnProperties) -> Int {
+fn isbn13_checksum(properties : IsbnProperties) -> Int32 {
   let body = properties.body(include_ean=true)
   let mut sum = 0
   for i, ch in body {

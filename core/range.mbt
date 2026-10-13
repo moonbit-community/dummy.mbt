@@ -4,14 +4,14 @@
 /// `start` is possible and `end` is excluded, matching MoonBit/random `limit`
 /// semantics. The range is validated when sampled.
 pub(all) struct IntRange {
-  start : Int
-  end : Int
+  start : Int32
+  end : Int32
 } derive(Eq, Debug)
 
 ///|
 /// Construct a half-open integer range `[start, end)`.
-pub fn int_range(start : Int, end : Int) -> IntRange {
-  { start, end }
+pub fn int_range(start : Int32, end : Int32) -> IntRange {
+  { start, end, }
 }
 
 ///|
@@ -29,7 +29,7 @@ pub fn IntRange::validate(self : IntRange) -> Unit raise DummyError {
 pub fn IntRange::sample(
   self : IntRange,
   rng : @random.Rand,
-) -> Int raise DummyError {
+) -> Int32 raise DummyError {
   self.validate()
   self.start + rng.int(limit=self.end - self.start)
 }
@@ -39,14 +39,14 @@ pub fn IntRange::sample(
 ///
 /// Counts must be non-negative. Both `min` and `max` are possible outputs.
 pub(all) struct CountRange {
-  min : Int
-  max : Int
+  min : Int32
+  max : Int32
 } derive(Eq, Debug)
 
 ///|
 /// Construct an inclusive count range `[min, max]`.
-pub fn count_range(min : Int, max : Int) -> CountRange {
-  { min, max }
+pub fn count_range(min : Int32, max : Int32) -> CountRange {
+  { min, max, }
 }
 
 ///|
@@ -64,7 +64,7 @@ pub fn CountRange::validate(self : CountRange) -> Unit raise DummyError {
 pub fn CountRange::sample(
   self : CountRange,
   rng : @random.Rand,
-) -> Int raise DummyError {
+) -> Int32 raise DummyError {
   self.validate()
   self.min + rng.int(limit=self.max - self.min + 1)
 }

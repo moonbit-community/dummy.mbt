@@ -4,7 +4,7 @@ fn record(samples : Array[String], key : String, value : String) -> Unit {
 }
 
 ///|
-fn record_int(samples : Array[String], key : String, value : Int) -> Unit {
+fn record_int(samples : Array[String], key : String, value : Int32) -> Unit {
   let text = value.to_string()
   record(samples, key, text)
 }
@@ -258,7 +258,7 @@ fn compat_phone_chars_resolved(s : String) -> Bool {
 }
 
 ///|
-fn compat_det_digit_value_at(s : String, i : Int) -> Int {
+fn compat_det_digit_value_at(s : String, i : Int32) -> Int32 {
   match s.get_char(i) {
     Some(ch) => ch.to_int() - '0'.to_int()
     None => -1
@@ -356,7 +356,7 @@ test "facade generators are deterministic for the same seed" {
 fn facade_string_samples(
   gen : @core.Gen[String],
   seed_bytes : Bytes,
-  count : Int,
+  count : Int32,
 ) -> Array[String] raise @core.DummyError {
   gen.sample(count~, @dummy.seed(seed_bytes))
 }
@@ -399,7 +399,7 @@ test "migrated facade weighted boundaries" {
 fn assert_compat_empty_seed_string_sequence(
   name : String,
   gen : @core.Gen[String],
-  count : Int,
+  count : Int32,
   shape : (String) -> Bool,
 ) -> Unit raise {
   let left = gen.sample(count~, @dummy.seed(b""))
@@ -419,9 +419,9 @@ fn assert_compat_empty_seed_string_sequence(
 ///|
 fn assert_compat_empty_seed_int_sequence(
   name : String,
-  gen : @core.Gen[Int],
-  count : Int,
-  shape : (Int) -> Bool,
+  gen : @core.Gen[Int32],
+  count : Int32,
+  shape : (Int32) -> Bool,
 ) -> Unit raise {
   let left = gen.sample(count~, @dummy.seed(b""))
   let right = gen.sample(count~, @dummy.seed(b""))
@@ -508,7 +508,7 @@ test "utils either style phone combinations are deterministic" {
 }
 
 ///|
-fn compat_all_locale_sample_count() -> Int {
+fn compat_all_locale_sample_count() -> Int32 {
   16
 }
 
@@ -521,7 +521,7 @@ fn compat_all_locale_seed() -> Bytes {
 fn assert_compat_string_sequence(
   name : String,
   gen : @core.Gen[String],
-  allow_empty? : Bool = false,
+  allow_empty~ : Bool = false,
 ) -> Unit raise {
   let count = compat_all_locale_sample_count()
   let left = gen.sample(count~, @dummy.seed(compat_all_locale_seed()))
@@ -536,7 +536,7 @@ fn assert_compat_string_sequence(
 }
 
 ///|
-fn assert_compat_int_sequence(gen : @core.Gen[Int]) -> Unit raise {
+fn assert_compat_int_sequence(gen : @core.Gen[Int32]) -> Unit raise {
   let count = compat_all_locale_sample_count()
   let left = gen.sample(count~, @dummy.seed(compat_all_locale_seed()))
   let right = gen.sample(count~, @dummy.seed(compat_all_locale_seed()))

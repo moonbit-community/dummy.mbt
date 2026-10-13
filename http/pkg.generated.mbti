@@ -19,4 +19,3 @@ pub fn valid_status_code() -> @core.Gen[Int]
 // Type aliases
 
 // Traits
-

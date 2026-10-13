@@ -19,7 +19,7 @@ fn is_licence_letter(ch : Char) -> Bool {
 }
 
 ///|
-fn char_at_is(s : String, i : Int, pred : (Char) -> Bool) -> Bool {
+fn char_at_is(s : String, i : Int32, pred : (Char) -> Bool) -> Bool {
   match s.get_char(i) {
     Some(ch) => pred(ch)
     None => false
@@ -27,7 +27,7 @@ fn char_at_is(s : String, i : Int, pred : (Char) -> Bool) -> Bool {
 }
 
 ///|
-fn has_char_at(s : String, i : Int, ch : Char) -> Bool {
+fn has_char_at(s : String, i : Int32, ch : Char) -> Bool {
   s.get_char(i) == Some(ch)
 }
 

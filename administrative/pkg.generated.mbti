@@ -16,4 +16,3 @@ pub fn health_insurance_code(locale? : @locales.Locale) -> @core.Gen[String]
 // Type aliases
 
 // Traits
-

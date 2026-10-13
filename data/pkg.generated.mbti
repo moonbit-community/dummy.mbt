@@ -153,4 +153,3 @@ pub fn zip_formats(@locales.Locale) -> Array[String]
 // Type aliases
 
 // Traits
-

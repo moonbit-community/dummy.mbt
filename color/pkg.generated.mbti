@@ -25,4 +25,3 @@ pub fn rgba_color() -> @core.Gen[String]
 // Type aliases
 
 // Traits
-

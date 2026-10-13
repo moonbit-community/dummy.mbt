@@ -6,14 +6,14 @@ enum FeOrderStatus {
 
 ///|
 struct FeItem {
-  product_id : Int
-  qty : Int
+  product_id : Int32
+  qty : Int32
   company : String
 } derive(Eq, Debug)
 
 ///|
 struct FeOrder {
-  order_id : Int
+  order_id : Int32
   customer : String
   items : Array[FeItem]
   paid : Bool
@@ -23,7 +23,7 @@ struct FeOrder {
 
 ///|
 struct FeBasicUser {
-  order_id : Int
+  order_id : Int32
   customer : String
   paid : Bool
 } derive(Eq, Debug)
@@ -110,9 +110,9 @@ fn fe_is_xyz_char(ch : Char) -> Bool {
 
 ///|
 fn fe_result_with(
-  ok_gen : @core.Gen[Int],
-  err_gen : @core.Gen[Int],
-) -> @core.Gen[Result[Int, Int]] {
+  ok_gen : @core.Gen[Int32],
+  err_gen : @core.Gen[Int32],
+) -> @core.Gen[Result[Int32, Int32]] {
   @core.Gen::new(rng => {
     if @dummy.boolean().dummy(rng) {
       Ok(ok_gen.dummy(rng))
@@ -198,11 +198,11 @@ test "basic usage examples port to manual DummyDefault records" {
 ///|
 test "primitive option result tuple and array examples port through DummyDefault" {
   let rng = @dummy.seed(b"compat-basic-shapes")
-  let option_value : Int? = fe_dummy_default(rng)
-  let nested_option : Int?? = fe_dummy_default(rng)
-  let result_value : Result[Int, String] = fe_dummy_default(rng)
-  let tuple_value : (Bool, Int, String) = fe_dummy_default(rng)
-  let values : Array[Int] = fe_dummy_default(rng)
+  let option_value : Int32? = fe_dummy_default(rng)
+  let nested_option : Int32?? = fe_dummy_default(rng)
+  let result_value : Result[Int32, String] = fe_dummy_default(rng)
+  let tuple_value : (Bool, Int32, String) = fe_dummy_default(rng)
+  let values : Array[Int32] = fe_dummy_default(rng)
   let strings : Array[String] = Array::makei(4, _ => fe_dummy_default(rng))
   assert_true(option_value is None || option_value is Some(_))
   assert_true(nested_option is None || nested_option is Some(_))
@@ -334,7 +334,7 @@ test "opt and utils examples port to option and either-style generators" {
   let always_some = @core.Gen::new(rng => {
     Some(@dummy.int(range=@dummy.int_range(0, 200)).dummy(rng))
   })
-  let always_none : @core.Gen[Int?] = @core.Gen::pure(None)
+  let always_none : @core.Gen[Int32?] = @core.Gen::pure(None)
   let maybe_nested = @core.Gen::new(rng => {
     if @dummy.boolean(ratio=50).dummy(rng) {
       Some(always_some.dummy(rng))
@@ -367,9 +367,9 @@ struct FmoreLocaleCase {
 ///|
 fn fmore_locale_cases() -> Array[FmoreLocaleCase] {
   [
-    { code: @dummy.en.code(), docs_code: "EN", name: "English" },
-    { code: @dummy.fr_fr.code(), docs_code: "FR_FR", name: "French" },
-    { code: @dummy.ar_sa.code(), docs_code: "AR_SA", name: "Arabic" },
+    { code: @dummy.en.code(), docs_code: "EN", name: "English", },
+    { code: @dummy.fr_fr.code(), docs_code: "FR_FR", name: "French", },
+    { code: @dummy.ar_sa.code(), docs_code: "AR_SA", name: "Arabic", },
     {
       code: @dummy.zh_tw.code(),
       docs_code: "ZH_TW",
@@ -380,7 +380,7 @@ fn fmore_locale_cases() -> Array[FmoreLocaleCase] {
       docs_code: "ZH_CN",
       name: "Simplified Chinese",
     },
-    { code: @dummy.ja_jp.code(), docs_code: "JA_JP", name: "Japanese" },
+    { code: @dummy.ja_jp.code(), docs_code: "JA_JP", name: "Japanese", },
     {
       code: @dummy.pt_br.code(),
       docs_code: "PT_BR",
@@ -391,12 +391,12 @@ fn fmore_locale_cases() -> Array[FmoreLocaleCase] {
       docs_code: "PT_PT",
       name: "Portuguese (Portugal)",
     },
-    { code: @dummy.de_de.code(), docs_code: "DE_DE", name: "German" },
-    { code: @dummy.it_it.code(), docs_code: "IT_IT", name: "Italian" },
-    { code: @dummy.cy_gb.code(), docs_code: "CY_GB", name: "Cymraeg (Welsh)" },
-    { code: @dummy.nl_nl.code(), docs_code: "NL_NL", name: "Dutch" },
-    { code: @dummy.tr_tr.code(), docs_code: "TR_TR", name: "Turkish" },
-    { code: @dummy.fa_ir.code(), docs_code: "FA_IR", name: "Persian (iran)" },
+    { code: @dummy.de_de.code(), docs_code: "DE_DE", name: "German", },
+    { code: @dummy.it_it.code(), docs_code: "IT_IT", name: "Italian", },
+    { code: @dummy.cy_gb.code(), docs_code: "CY_GB", name: "Cymraeg (Welsh)", },
+    { code: @dummy.nl_nl.code(), docs_code: "NL_NL", name: "Dutch", },
+    { code: @dummy.tr_tr.code(), docs_code: "TR_TR", name: "Turkish", },
+    { code: @dummy.fa_ir.code(), docs_code: "FA_IR", name: "Persian (iran)", },
   ]
 }
 
@@ -437,7 +437,7 @@ fn fmore_all_chars_match(s : String, pred : (Char) -> Bool) -> Bool {
 }
 
 ///|
-fn fmore_count_char(s : String, target : Char) -> Int {
+fn fmore_count_char(s : String, target : Char) -> Int32 {
   let mut count = 0
   for ch in s {
     if ch == target {
@@ -497,7 +497,7 @@ fn fmore_ascii_string_with(
 ///|
 fn fmore_fixed_nested_ints(
   rng : @random.Rand,
-) -> Array[Array[Array[Int]]] raise @core.DummyError {
+) -> Array[Array[Array[Int32]]] raise @core.DummyError {
   Array::makei(4, _ => {
     Array::makei(3, _ => {
       @dummy.int(range=@dummy.int_range(1, 11)).sample(count=2, rng)
@@ -508,8 +508,8 @@ fn fmore_fixed_nested_ints(
 ///|
 fn fmore_string_map(
   rng : @random.Rand,
-) -> Map[Int, Array[String]] raise @core.DummyError {
-  let out : Map[Int, Array[String]] = {}
+) -> Map[Int32, Array[String]] raise @core.DummyError {
+  let out : Map[Int32, Array[String]] = {}
   for key in 0..<4 {
     out[key] = @dummy.name(locale=@dummy.en).sample(count=2, rng)
   }
@@ -519,12 +519,12 @@ fn fmore_string_map(
 ///|
 fn fmore_map_of_int_sets(
   rng : @random.Rand,
-) -> Map[Int, Array[Int]] raise @core.DummyError {
-  let out : Map[Int, Array[Int]] = {}
+) -> Map[Int32, Array[Int32]] raise @core.DummyError {
+  let out : Map[Int32, Array[Int32]] = {}
   for key in 0..<5 {
     let values = @dummy.int(range=@dummy.int_range(1, 11)).sample(count=6, rng)
     values.sort()
-    let unique : Array[Int] = []
+    let unique : Array[Int32] = []
     for value in values {
       if unique.length() == 0 || unique[unique.length() - 1] != value {
         unique.push(value)
@@ -1005,10 +1005,10 @@ test "examples cover feature string replacements picsum and time repeatability" 
 
 ///|
 struct SubagentLineItem {
-  product_id : Int
-  qty : Int
+  product_id : Int32
+  qty : Int32
   company : String
-  price_cents : Int
+  price_cents : Int32
 } derive(Eq, Debug)
 
 ///|
@@ -1019,13 +1019,13 @@ enum SubagentOrderStatus {
 
 ///|
 struct SubagentOrder {
-  order_id : Int
+  order_id : Int32
   customer : String
   items : Array[SubagentLineItem]
   paid : Bool
   status : SubagentOrderStatus
   uuid : String
-  total_cents : Int
+  total_cents : Int32
 } derive(Eq, Debug)
 
 ///|
@@ -1164,9 +1164,9 @@ fn subagent_ascii_string_with(
 
 ///|
 fn subagent_result_with(
-  ok_gen : @core.Gen[Int],
-  err_gen : @core.Gen[Int],
-) -> @core.Gen[Result[Int, Int]] {
+  ok_gen : @core.Gen[Int32],
+  err_gen : @core.Gen[Int32],
+) -> @core.Gen[Result[Int32, Int32]] {
   @core.Gen::new(rng => {
     if @dummy.boolean().dummy(rng) {
       Ok(ok_gen.dummy(rng))
@@ -1179,12 +1179,12 @@ fn subagent_result_with(
 ///|
 fn subagent_map_of_set_like_values(
   rng : @random.Rand,
-) -> Map[Int, Array[Int]] raise @core.DummyError {
-  let out : Map[Int, Array[Int]] = {}
+) -> Map[Int32, Array[Int32]] raise @core.DummyError {
+  let out : Map[Int32, Array[Int32]] = {}
   for key in 0..<4 {
     let raw = @dummy.int(range=@dummy.int_range(1, 11)).sample(count=8, rng)
     raw.sort()
-    let unique : Array[Int] = []
+    let unique : Array[Int32] = []
     for value in raw {
       if unique.length() == 0 || unique[unique.length() - 1] != value {
         unique.push(value)
@@ -1275,10 +1275,12 @@ test "basic and derive examples map to manual DummyDefault records" {
 ///|
 test "primitive result tuple array and string examples keep stable shapes" {
   let rng = @dummy.seed(b"subagent-basic-primitives")
-  let option_value : Int? = @core.DummyDefault::dummy_default(rng)
-  let nested_option : Int?? = @core.DummyDefault::dummy_default(rng)
-  let tuple_value : (Bool, Int, String) = @core.DummyDefault::dummy_default(rng)
-  let empty_array : Array[Int] = []
+  let option_value : Int32? = @core.DummyDefault::dummy_default(rng)
+  let nested_option : Int32?? = @core.DummyDefault::dummy_default(rng)
+  let tuple_value : (Bool, Int32, String) = @core.DummyDefault::dummy_default(
+    rng,
+  )
+  let empty_array : Array[Int32] = []
   let fixed_array = @dummy.int(range=@dummy.int_range(0, 10)).sample(
     count=3,
     rng,
@@ -1367,11 +1369,11 @@ test "collection examples port vec map and set-like result formats" {
   for value in vec {
     assert_true(value >= 0 && value < 256)
   }
-  let map : Map[Int, Array[String]] = {}
+  let map : Map[Int32, Array[String]] = {}
   for key in 0..<3 {
     map[key] = @dummy.name(locale=@dummy.en).sample(count=2, rng)
   }
-  let same_map : Map[Int, Array[String]] = {}
+  let same_map : Map[Int32, Array[String]] = {}
   let same_rng = @dummy.seed(seed)
   ignore(@dummy.count_range(4, 7).sample(same_rng))
   ignore(

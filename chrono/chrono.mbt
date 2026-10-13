@@ -2,26 +2,26 @@
 // Renderable date/time fields derived from a minute offset plus random seconds
 // and fractional seconds.
 priv struct Parts {
-  year : Int
-  month : Int
-  day : Int
-  hour : Int
-  minute : Int
-  second : Int
+  year : Int32
+  month : Int32
+  day : Int32
+  hour : Int32
+  minute : Int32
+  second : Int32
   frac : String
 }
 
 ///|
 // Day offset for 2000-01-01 relative to the Unix epoch.
-let base_epoch_day : Int = 10957
+let base_epoch_day : Int32 = 10957
 
 ///|
 // Number of minutes in one day.
-let day_minutes : Int = 24 * 60
+let day_minutes : Int32 = 24 * 60
 
 ///|
 // Floor division that behaves correctly for negative minute offsets.
-fn floor_div(value : Int, divisor : Int) -> Int {
+fn floor_div(value : Int32, divisor : Int32) -> Int32 {
   if value >= 0 {
     value / divisor
   } else {
@@ -31,7 +31,7 @@ fn floor_div(value : Int, divisor : Int) -> Int {
 
 ///|
 // Floor modulo paired with `floor_div`, keeping minute-of-day non-negative.
-fn floor_mod(value : Int, divisor : Int) -> Int {
+fn floor_mod(value : Int32, divisor : Int32) -> Int32 {
   value - floor_div(value, divisor) * divisor
 }
 
@@ -40,7 +40,7 @@ fn floor_mod(value : Int, divisor : Int) -> Int {
 //
 // This is Howard Hinnant's civil-from-days algorithm adapted to integer
 // MoonBit code so the package does not need a date/time dependency.
-fn civil_from_epoch_day(epoch_day : Int) -> (Int, Int, Int) {
+fn civil_from_epoch_day(epoch_day : Int32) -> (Int32, Int32, Int32) {
   let z = epoch_day + 719468
   let era = floor_div(z, 146097)
   let doe = z - era * 146097
@@ -56,7 +56,7 @@ fn civil_from_epoch_day(epoch_day : Int) -> (Int, Int, Int) {
 
 ///|
 // Convert a minute offset into renderable date/time parts.
-fn parts_from_minutes(minutes : Int, rng : @random.Rand) -> Parts {
+fn parts_from_minutes(minutes : Int32, rng : @random.Rand) -> Parts {
   let day_offset = floor_div(minutes, day_minutes)
   let minute_of_day = floor_mod(minutes, day_minutes)
   let (year, month, day) = civil_from_epoch_day(base_epoch_day + day_offset)
@@ -68,18 +68,18 @@ fn parts_from_minutes(minutes : Int, rng : @random.Rand) -> Parts {
     frac_out.write_string(rng.int(limit=10).to_string())
   }
   let frac = frac_out.to_string()
-  { year, month, day, hour, minute, second, frac }
+  { year, month, day, hour, minute, second, frac, }
 }
 
 ///|
 // Two-digit zero-padded decimal rendering.
-fn two(value : Int) -> String {
+fn two(value : Int32) -> String {
   @core.pad_left(value.to_string(), 2, '0')
 }
 
 ///|
 // Four-digit zero-padded decimal rendering.
-fn four(value : Int) -> String {
+fn four(value : Int32) -> String {
   @core.pad_left(value.to_string(), 4, '0')
 }
 
@@ -121,19 +121,19 @@ fn render_known_format(fmt : String, parts : Parts) -> String {
 
 ///|
 // Pick a minute offset in a deterministic span around the base date.
-fn random_minutes(rng : @random.Rand) -> Int {
+fn random_minutes(rng : @random.Rand) -> Int32 {
   rng.int(limit=20 * 366 * day_minutes) - 10 * 366 * day_minutes
 }
 
 ///|
 // Render a date/time at an exact minute offset using the selected format.
-fn render_at(minutes : Int, fmt : String, rng : @random.Rand) -> String {
+fn render_at(minutes : Int32, fmt : String, rng : @random.Rand) -> String {
   render_known_format(fmt, parts_from_minutes(minutes, rng))
 }
 
 ///|
 /// Generate a time string for the selected locale.
-pub fn time(locale? : @locales.Locale = @locales.EN) -> @core.Gen[String] {
+pub fn time(locale~ : @locales.Locale = @locales.EN) -> @core.Gen[String] {
   @core.Gen::new(rng => {
     let minutes = rng.int(limit=day_minutes)
     render_at(minutes, @data.chrono_time_format(locale~), rng)
@@ -142,7 +142,7 @@ pub fn time(locale? : @locales.Locale = @locales.EN) -> @core.Gen[String] {
 
 ///|
 /// Generate a date string for the selected locale.
-pub fn date(locale? : @locales.Locale = @locales.EN) -> @core.Gen[String] {
+pub fn date(locale~ : @locales.Locale = @locales.EN) -> @core.Gen[String] {
   @core.Gen::new(rng => {
     let minutes = random_minutes(rng)
     render_at(minutes, @data.chrono_date_format(locale~), rng)
@@ -151,7 +151,7 @@ pub fn date(locale? : @locales.Locale = @locales.EN) -> @core.Gen[String] {
 
 ///|
 /// Generate a date-time string for the selected locale.
-pub fn date_time(locale? : @locales.Locale = @locales.EN) -> @core.Gen[String] {
+pub fn date_time(locale~ : @locales.Locale = @locales.EN) -> @core.Gen[String] {
   @core.Gen::new(rng => {
     let minutes = random_minutes(rng)
     render_at(minutes, @data.chrono_datetime_format(locale~), rng)
@@ -160,15 +160,15 @@ pub fn date_time(locale? : @locales.Locale = @locales.EN) -> @core.Gen[String] {
 
 ///|
 /// Generate a duration represented as minutes.
-pub fn duration() -> @core.Gen[Int] {
+pub fn duration() -> @core.Gen[Int32] {
   @core.Gen::new(rng => rng.int(limit=366 * day_minutes))
 }
 
 ///|
 /// Generate a date-time before `anchor_minutes`.
 pub fn date_time_before(
-  anchor_minutes? : Int = 0,
-  locale? : @locales.Locale = @locales.EN,
+  anchor_minutes~ : Int32 = 0,
+  locale~ : @locales.Locale = @locales.EN,
 ) -> @core.Gen[String] {
   @core.Gen::new(rng => {
     let offset = duration().dummy(rng) + 1
@@ -183,8 +183,8 @@ pub fn date_time_before(
 ///|
 /// Generate a date-time after `anchor_minutes`.
 pub fn date_time_after(
-  anchor_minutes? : Int = 0,
-  locale? : @locales.Locale = @locales.EN,
+  anchor_minutes~ : Int32 = 0,
+  locale~ : @locales.Locale = @locales.EN,
 ) -> @core.Gen[String] {
   @core.Gen::new(rng => {
     let offset = duration().dummy(rng) + 1
@@ -199,9 +199,9 @@ pub fn date_time_after(
 ///|
 /// Generate a date-time between two minute offsets.
 pub fn date_time_between(
-  start_minutes : Int,
-  end_minutes : Int,
-  locale? : @locales.Locale = @locales.EN,
+  start_minutes : Int32,
+  end_minutes : Int32,
+  locale~ : @locales.Locale = @locales.EN,
 ) -> @core.Gen[String] raise @core.DummyError {
   if end_minutes <= start_minutes {
     raise @core.DummyError::InvalidRange(

@@ -22,7 +22,7 @@ fn url_safe_base64_chars() -> Array[String] {
 
 ///|
 // Random byte values represented as Int for simple bit arithmetic.
-fn random_bytes(len : Int, rng : @random.Rand) -> Array[Int] {
+fn random_bytes(len : Int32, rng : @random.Rand) -> Array[Int32] {
   Array::makei(len, _ => rng.int(limit=256))
 }
 
@@ -31,9 +31,9 @@ fn random_bytes(len : Int, rng : @random.Rand) -> Array[Int] {
 fn write_base64_quad(
   out : StringBuilder,
   chars : ArrayView[String],
-  a : Int,
-  b : Int,
-  c : Int,
+  a : Int32,
+  b : Int32,
+  c : Int32,
 ) -> Unit {
   let triple = a * 65536 + b * 256 + c
   out.write_string(chars[triple / 262144])
@@ -46,7 +46,7 @@ fn write_base64_quad(
 // Encode bytes with the supplied alphabet. Padding can be disabled to model
 // the no-pad variants.
 fn encode_base64(
-  bytes : ArrayView[Int],
+  bytes : ArrayView[Int32],
   chars : ArrayView[String],
   padding : Bool,
 ) -> String {

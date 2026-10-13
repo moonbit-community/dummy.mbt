@@ -31,7 +31,7 @@ fn is_ulid_char(ch : Char) -> Bool {
 }
 
 ///|
-fn char_at_is(s : String, i : Int, pred : (Char) -> Bool) -> Bool {
+fn char_at_is(s : String, i : Int32, pred : (Char) -> Bool) -> Bool {
   match s.get_char(i) {
     Some(ch) => pred(ch)
     None => false

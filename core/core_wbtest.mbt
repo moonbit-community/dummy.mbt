@@ -10,7 +10,7 @@ test "seed is deterministic after normalization" {
 ///|
 test "range validation rejects empty ranges" {
   let rng = default_seeded()
-  let result : Result[Int, DummyError] = try? int_range(3, 3).sample(rng)
+  let result : Result[Int32, DummyError] = try? int_range(3, 3).sample(rng)
   assert_true(result is Err(DummyError::InvalidRange(_)))
 }
 
@@ -32,7 +32,7 @@ test "empty candidates report an explicit error" {
 ///|
 fn[T : DummyDefault] dummy_default_sequence(
   seed_bytes : Bytes,
-  count : Int,
+  count : Int32,
 ) -> Array[T] raise DummyError {
   let rng = seed(seed_bytes)
   Array::makei(count, _ => T::dummy_default(rng))
@@ -42,7 +42,7 @@ fn[T : DummyDefault] dummy_default_sequence(
 fn[T] gen_sequence(
   gen : Gen[T],
   seed_bytes : Bytes,
-  count : Int,
+  count : Int32,
 ) -> Array[T] raise DummyError {
   gen.sample(count~, seed(seed_bytes))
 }
@@ -113,8 +113,8 @@ test "DummyDefault Bool Int String Option Array Result and tuples are seed-stabl
   let bools : Array[Bool] = dummy_default_sequence(seed_bytes, 12)
   let bools_again : Array[Bool] = dummy_default_sequence(seed_bytes, 12)
   @test.assert_eq(bools, bools_again)
-  let ints : Array[Int] = dummy_default_sequence(seed_bytes, 12)
-  let ints_again : Array[Int] = dummy_default_sequence(seed_bytes, 12)
+  let ints : Array[Int32] = dummy_default_sequence(seed_bytes, 12)
+  let ints_again : Array[Int32] = dummy_default_sequence(seed_bytes, 12)
   @test.assert_eq(ints, ints_again)
   let strings : Array[String] = dummy_default_sequence(seed_bytes, 12)
   let strings_again : Array[String] = dummy_default_sequence(seed_bytes, 12)
@@ -122,36 +122,38 @@ test "DummyDefault Bool Int String Option Array Result and tuples are seed-stabl
   for text in strings {
     assert_true(text.length() >= 4 && text.length() <= 10)
   }
-  let options : Array[Int?] = dummy_default_sequence(seed_bytes, 12)
-  let options_again : Array[Int?] = dummy_default_sequence(seed_bytes, 12)
+  let options : Array[Int32?] = dummy_default_sequence(seed_bytes, 12)
+  let options_again : Array[Int32?] = dummy_default_sequence(seed_bytes, 12)
   @test.assert_eq(options, options_again)
-  let arrays : Array[Array[Int]] = dummy_default_sequence(seed_bytes, 8)
-  let arrays_again : Array[Array[Int]] = dummy_default_sequence(seed_bytes, 8)
+  let arrays : Array[Array[Int32]] = dummy_default_sequence(seed_bytes, 8)
+  let arrays_again : Array[Array[Int32]] = dummy_default_sequence(seed_bytes, 8)
   @test.assert_eq(arrays, arrays_again)
   for values in arrays {
     assert_true(values.length() >= 0 && values.length() <= 4)
   }
-  let results : Array[Result[Int, String]] = dummy_default_sequence(
+  let results : Array[Result[Int32, String]] = dummy_default_sequence(
     seed_bytes, 12,
   )
-  let results_again : Array[Result[Int, String]] = dummy_default_sequence(
+  let results_again : Array[Result[Int32, String]] = dummy_default_sequence(
     seed_bytes, 12,
   )
   @test.assert_eq(results, results_again)
-  let pairs : Array[(Bool, Int)] = dummy_default_sequence(seed_bytes, 12)
-  let pairs_again : Array[(Bool, Int)] = dummy_default_sequence(seed_bytes, 12)
+  let pairs : Array[(Bool, Int32)] = dummy_default_sequence(seed_bytes, 12)
+  let pairs_again : Array[(Bool, Int32)] = dummy_default_sequence(
+    seed_bytes, 12,
+  )
   @test.assert_eq(pairs, pairs_again)
-  let triples : Array[(Bool, Int, String)] = dummy_default_sequence(
+  let triples : Array[(Bool, Int32, String)] = dummy_default_sequence(
     seed_bytes, 8,
   )
-  let triples_again : Array[(Bool, Int, String)] = dummy_default_sequence(
+  let triples_again : Array[(Bool, Int32, String)] = dummy_default_sequence(
     seed_bytes, 8,
   )
   @test.assert_eq(triples, triples_again)
-  let quads : Array[(Bool, Int, String, Int?)] = dummy_default_sequence(
+  let quads : Array[(Bool, Int32, String, Int32?)] = dummy_default_sequence(
     seed_bytes, 6,
   )
-  let quads_again : Array[(Bool, Int, String, Int?)] = dummy_default_sequence(
+  let quads_again : Array[(Bool, Int32, String, Int32?)] = dummy_default_sequence(
     seed_bytes, 6,
   )
   @test.assert_eq(quads, quads_again)

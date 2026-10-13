@@ -1,32 +1,32 @@
 ///|
 // Number of minutes in one civil day.
-const MINUTES_PER_DAY : Int = 1440
+const MINUTES_PER_DAY : Int32 = 1440
 
 ///|
 // Default +/- span used by unconstrained date and date-time generators.
-const DEFAULT_SPAN_MINUTES : Int = 366 * MINUTES_PER_DAY
+const DEFAULT_SPAN_MINUTES : Int32 = 366 * MINUTES_PER_DAY
 
 ///|
 // Renderable date/time fields for this package's string output.
 priv struct DateParts {
-  year : Int
-  month : Int
-  day : Int
-  hour : Int
-  minute : Int
-  second : Int
-  subsecond : Int
+  year : Int32
+  month : Int32
+  day : Int32
+  hour : Int32
+  minute : Int32
+  second : Int32
+  subsecond : Int32
 }
 
 ///|
 // Zero-pad an integer to a fixed width.
-fn padded(value : Int, width : Int) -> String {
+fn padded(value : Int32, width : Int32) -> String {
   @core.pad_left(value.to_string(), width, '0')
 }
 
 ///|
 // Floor division that handles negative minute offsets.
-fn floor_div(value : Int, divisor : Int) -> Int {
+fn floor_div(value : Int32, divisor : Int32) -> Int32 {
   if value >= 0 {
     value / divisor
   } else {
@@ -37,7 +37,7 @@ fn floor_div(value : Int, divisor : Int) -> Int {
 ///|
 // Convert days since Unix epoch to Gregorian year/month/day without depending
 // on a date/time library.
-fn civil_from_days(days : Int) -> (Int, Int, Int) {
+fn civil_from_days(days : Int32) -> (Int32, Int32, Int32) {
   let z = days + 719468
   let era = floor_div(z, 146097)
   let doe = z - era * 146097
@@ -53,7 +53,7 @@ fn civil_from_days(days : Int) -> (Int, Int, Int) {
 
 ///|
 // Convert minute offsets into renderable date/time parts and random seconds.
-fn parts_from_minutes(total_minutes : Int, rng : @random.Rand) -> DateParts {
+fn parts_from_minutes(total_minutes : Int32, rng : @random.Rand) -> DateParts {
   let days = floor_div(total_minutes, MINUTES_PER_DAY)
   let minute_of_day = total_minutes - days * MINUTES_PER_DAY
   let (year, month, day) = civil_from_days(days)
@@ -70,7 +70,7 @@ fn parts_from_minutes(total_minutes : Int, rng : @random.Rand) -> DateParts {
 
 ///|
 // Pick a minute offset within the default time span.
-fn random_minutes(rng : @random.Rand) -> Int {
+fn random_minutes(rng : @random.Rand) -> Int32 {
   rng.int(limit=DEFAULT_SPAN_MINUTES * 2 + 1) - DEFAULT_SPAN_MINUTES
 }
 
@@ -169,7 +169,7 @@ fn render_datetime_format(format : String, parts : DateParts) -> String {
 ///|
 // Render a date-time at a precise minute offset for the selected locale.
 fn date_time_from_minutes(
-  minutes : Int,
+  minutes : Int32,
   locale : @locales.Locale,
   rng : @random.Rand,
 ) -> String {
@@ -181,7 +181,7 @@ fn date_time_from_minutes(
 
 ///|
 /// Generate a time string for the selected locale.
-pub fn time(locale? : @locales.Locale = @locales.EN) -> @core.Gen[String] {
+pub fn time(locale~ : @locales.Locale = @locales.EN) -> @core.Gen[String] {
   @core.Gen::new(rng => {
     let parts = parts_from_minutes(random_minutes(rng), rng)
     match @data.time_time_format(locale~) {
@@ -193,7 +193,7 @@ pub fn time(locale? : @locales.Locale = @locales.EN) -> @core.Gen[String] {
 
 ///|
 /// Generate a date string for the selected locale.
-pub fn date(locale? : @locales.Locale = @locales.EN) -> @core.Gen[String] {
+pub fn date(locale~ : @locales.Locale = @locales.EN) -> @core.Gen[String] {
   @core.Gen::new(rng => {
     render_date_format(
       @data.time_date_format(locale~),
@@ -204,21 +204,21 @@ pub fn date(locale? : @locales.Locale = @locales.EN) -> @core.Gen[String] {
 
 ///|
 /// Generate a date-time string for the selected locale.
-pub fn date_time(locale? : @locales.Locale = @locales.EN) -> @core.Gen[String] {
+pub fn date_time(locale~ : @locales.Locale = @locales.EN) -> @core.Gen[String] {
   @core.Gen::new(rng => date_time_from_minutes(random_minutes(rng), locale, rng))
 }
 
 ///|
 /// Generate a duration represented as minutes.
-pub fn duration() -> @core.Gen[Int] {
+pub fn duration() -> @core.Gen[Int32] {
   @core.Gen::new(rng => rng.int(limit=DEFAULT_SPAN_MINUTES + 1))
 }
 
 ///|
 /// Generate a date-time before `anchor_minutes`.
 pub fn date_time_before(
-  anchor_minutes? : Int = 0,
-  locale? : @locales.Locale = @locales.EN,
+  anchor_minutes~ : Int32 = 0,
+  locale~ : @locales.Locale = @locales.EN,
 ) -> @core.Gen[String] {
   @core.Gen::new(rng => {
     let offset = rng.int(limit=DEFAULT_SPAN_MINUTES) + 1
@@ -229,8 +229,8 @@ pub fn date_time_before(
 ///|
 /// Generate a date-time after `anchor_minutes`.
 pub fn date_time_after(
-  anchor_minutes? : Int = 0,
-  locale? : @locales.Locale = @locales.EN,
+  anchor_minutes~ : Int32 = 0,
+  locale~ : @locales.Locale = @locales.EN,
 ) -> @core.Gen[String] {
   @core.Gen::new(rng => {
     let offset = rng.int(limit=DEFAULT_SPAN_MINUTES) + 1
@@ -241,9 +241,9 @@ pub fn date_time_after(
 ///|
 /// Generate a date-time between two minute offsets.
 pub fn date_time_between(
-  start_minutes : Int,
-  end_minutes : Int,
-  locale? : @locales.Locale = @locales.EN,
+  start_minutes : Int32,
+  end_minutes : Int32,
+  locale~ : @locales.Locale = @locales.EN,
 ) -> @core.Gen[String] raise @core.DummyError {
   if end_minutes < start_minutes {
     raise @core.DummyError::InvalidRange(

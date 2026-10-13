@@ -32,7 +32,7 @@ fn compat_finance_valid_bic(s : String) -> Bool {
 }
 
 ///|
-fn compat_finance_isin_char_value(ch : Char) -> Int? {
+fn compat_finance_isin_char_value(ch : Char) -> Int32? {
   if compat_finance_is_digit(ch) {
     Some(ch.to_int() - '0'.to_int())
   } else if compat_finance_is_upper(ch) {

@@ -36,4 +36,3 @@ pub fn username(locale? : @locales.Locale) -> @core.Gen[String]
 // Type aliases
 
 // Traits
-

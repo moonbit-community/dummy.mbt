@@ -38,4 +38,3 @@ pub fn profession(locale? : @locales.Locale) -> @core.Gen[String]
 // Type aliases
 
 // Traits
-

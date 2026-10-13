@@ -42,4 +42,3 @@ pub fn Locale::has_first_wave_data(Self) -> Bool
 // Type aliases
 
 // Traits
-

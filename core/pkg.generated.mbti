@@ -95,4 +95,3 @@ pub impl[T : DummyDefault] DummyDefault for Array[T]
 pub impl[A : DummyDefault, B : DummyDefault] DummyDefault for (A, B)
 pub impl[A : DummyDefault, B : DummyDefault, C : DummyDefault] DummyDefault for (A, B, C)
 pub impl[A : DummyDefault, B : DummyDefault, C : DummyDefault, D : DummyDefault] DummyDefault for (A, B, C, D)
-

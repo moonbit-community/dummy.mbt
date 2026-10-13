@@ -62,8 +62,8 @@ fn iso3166_code(rng : @random.Rand) -> String raise @core.DummyError {
 ///|
 // Expand ISIN letters into decimal digits (`A` -> 10, ..., `Z` -> 35) before
 // applying the Luhn check.
-fn expanded_isin_digits(s : String) -> Array[Int] {
-  let digits : Array[Int] = []
+fn expanded_isin_digits(s : String) -> Array[Int32] {
+  let digits : Array[Int32] = []
   for ch in s {
     let code = ch.to_int()
     if code >= '0'.to_int() && code <= '9'.to_int() {

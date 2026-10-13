@@ -7,7 +7,7 @@ fn docs_catalog_seed() -> Bytes {
 fn docs_catalog_assert_string(
   name : String,
   gen : @core.Gen[String],
-  allow_empty? : Bool = false,
+  allow_empty~ : Bool = false,
 ) -> Unit raise {
   let left = gen.sample(count=3, @dummy.seed(docs_catalog_seed()))
   let right = gen.sample(count=3, @dummy.seed(docs_catalog_seed()))
@@ -44,8 +44,8 @@ fn docs_catalog_assert_string_array(
 ///|
 fn docs_catalog_assert_int(
   name : String,
-  gen : @core.Gen[Int],
-  valid : (Int) -> Bool,
+  gen : @core.Gen[Int32],
+  valid : (Int32) -> Bool,
 ) -> Unit raise {
   let left = gen.sample(count=3, @dummy.seed(docs_catalog_seed()))
   let right = gen.sample(count=3, @dummy.seed(docs_catalog_seed()))
@@ -372,38 +372,38 @@ struct FcLocaleCase {
 ///|
 fn fc_compat_features() -> Array[FcFeatureCase] {
   [
-    { code: "derive", mapped: false },
-    { code: "chrono", mapped: true },
-    { code: "chrono-tz", mapped: false },
-    { code: "http", mapped: true },
-    { code: "ulid", mapped: true },
-    { code: "ferroid", mapped: false },
-    { code: "uuid", mapped: true },
-    { code: "bigdecimal", mapped: false },
-    { code: "decimal", mapped: false },
-    { code: "random_color", mapped: true },
-    { code: "geo", mapped: true },
-    { code: "semver", mapped: true },
-    { code: "serde_json", mapped: false },
-    { code: "time", mapped: true },
-    { code: "zerocopy", mapped: false },
-    { code: "glam", mapped: false },
-    { code: "url", mapped: false },
-    { code: "indexmap", mapped: false },
-    { code: "either", mapped: true },
-    { code: "base64", mapped: true },
-    { code: "bson_oid", mapped: true },
-    { code: "always-true-rng", mapped: false },
-    { code: "maybe-non-empty-collections", mapped: false },
+    { code: "derive", mapped: false, },
+    { code: "chrono", mapped: true, },
+    { code: "chrono-tz", mapped: false, },
+    { code: "http", mapped: true, },
+    { code: "ulid", mapped: true, },
+    { code: "ferroid", mapped: false, },
+    { code: "uuid", mapped: true, },
+    { code: "bigdecimal", mapped: false, },
+    { code: "decimal", mapped: false, },
+    { code: "random_color", mapped: true, },
+    { code: "geo", mapped: true, },
+    { code: "semver", mapped: true, },
+    { code: "serde_json", mapped: false, },
+    { code: "time", mapped: true, },
+    { code: "zerocopy", mapped: false, },
+    { code: "glam", mapped: false, },
+    { code: "url", mapped: false, },
+    { code: "indexmap", mapped: false, },
+    { code: "either", mapped: true, },
+    { code: "base64", mapped: true, },
+    { code: "bson_oid", mapped: true, },
+    { code: "always-true-rng", mapped: false, },
+    { code: "maybe-non-empty-collections", mapped: false, },
   ]
 }
 
 ///|
 fn fc_compat_docs_locales() -> Array[FcLocaleCase] {
   [
-    { docs_name: "English", docs_code: "EN", locale: @locales.EN },
-    { docs_name: "French", docs_code: "FR_FR", locale: @locales.FR_FR },
-    { docs_name: "Arabic", docs_code: "AR_SA", locale: @locales.AR_SA },
+    { docs_name: "English", docs_code: "EN", locale: @locales.EN, },
+    { docs_name: "French", docs_code: "FR_FR", locale: @locales.FR_FR, },
+    { docs_name: "Arabic", docs_code: "AR_SA", locale: @locales.AR_SA, },
     {
       docs_name: "Traditional Chinese",
       docs_code: "ZH_TW",
@@ -414,7 +414,7 @@ fn fc_compat_docs_locales() -> Array[FcLocaleCase] {
       docs_code: "ZH_CN",
       locale: @locales.ZH_CN,
     },
-    { docs_name: "Japanese", docs_code: "JA_JP", locale: @locales.JA_JP },
+    { docs_name: "Japanese", docs_code: "JA_JP", locale: @locales.JA_JP, },
     {
       docs_name: "Portuguese - Brazil",
       docs_code: "PT_BR",
@@ -425,11 +425,15 @@ fn fc_compat_docs_locales() -> Array[FcLocaleCase] {
       docs_code: "PT_PT",
       locale: @locales.PT_PT,
     },
-    { docs_name: "German", docs_code: "DE_DE", locale: @locales.DE_DE },
-    { docs_name: "Italian", docs_code: "IT_IT", locale: @locales.IT_IT },
-    { docs_name: "Cymraeg - Welsh", docs_code: "CY_GB", locale: @locales.CY_GB },
-    { docs_name: "Dutch", docs_code: "NL_NL", locale: @locales.NL_NL },
-    { docs_name: "Persian (Iran)", docs_code: "FA_IR", locale: @locales.FA_IR },
+    { docs_name: "German", docs_code: "DE_DE", locale: @locales.DE_DE, },
+    { docs_name: "Italian", docs_code: "IT_IT", locale: @locales.IT_IT, },
+    {
+      docs_name: "Cymraeg - Welsh",
+      docs_code: "CY_GB",
+      locale: @locales.CY_GB,
+    },
+    { docs_name: "Dutch", docs_code: "NL_NL", locale: @locales.NL_NL, },
+    { docs_name: "Persian (Iran)", docs_code: "FA_IR", locale: @locales.FA_IR, },
   ]
 }
 
@@ -447,7 +451,7 @@ fn fc_contains_string(items : ArrayView[String], needle : String) -> Bool {
 fn fc_assert_non_empty_sequence(
   name : String,
   gen : @core.Gen[String],
-  allow_empty? : Bool = false,
+  allow_empty~ : Bool = false,
 ) -> Unit raise {
   let left = gen.sample(count=4, @dummy.seed(b"compat-feature-catalog"))
   let right = gen.sample(count=4, @dummy.seed(b"compat-feature-catalog"))
@@ -542,7 +546,7 @@ fn ddt_assert_non_empty(name : String, value : String) -> Unit raise {
 fn ddt_assert_string_samples(
   name : String,
   gen : @core.Gen[String],
-  count? : Int = 4,
+  count~ : Int32 = 4,
 ) -> Array[String] raise {
   let seed_bytes = ddt_seed(name)
   let left = gen.sample(count~, @dummy.seed(seed_bytes))
@@ -558,10 +562,10 @@ fn ddt_assert_string_samples(
 ///|
 fn ddt_assert_int_samples(
   name : String,
-  gen : @core.Gen[Int],
-  count? : Int = 4,
-  valid? : (Int) -> Bool = _ => true,
-) -> Array[Int] raise {
+  gen : @core.Gen[Int32],
+  count~ : Int32 = 4,
+  valid~ : (Int32) -> Bool = _ => true,
+) -> Array[Int32] raise {
   let seed_bytes = ddt_seed(name)
   let left = gen.sample(count~, @dummy.seed(seed_bytes))
   let right = gen.sample(count~, @dummy.seed(seed_bytes))
@@ -596,7 +600,7 @@ fn ddt_is_hex(ch : Char) -> Bool {
 }
 
 ///|
-fn ddt_char_at_is(s : String, index : Int, pred : (Char) -> Bool) -> Bool {
+fn ddt_char_at_is(s : String, index : Int32, pred : (Char) -> Bool) -> Bool {
   match s.get_char(index) {
     Some(ch) => pred(ch)
     None => false
@@ -604,7 +608,7 @@ fn ddt_char_at_is(s : String, index : Int, pred : (Char) -> Bool) -> Bool {
 }
 
 ///|
-fn ddt_count_char(s : String, target : Char) -> Int {
+fn ddt_count_char(s : String, target : Char) -> Int32 {
   let mut count = 0
   for ch in s {
     if ch == target {
@@ -1235,7 +1239,7 @@ fn fdm_assert_string_gen(label : String, gen : @core.Gen[String]) -> Unit raise 
 }
 
 ///|
-fn fdm_count_supported(cases : ArrayView[FdmGeneratorCategory]) -> Int {
+fn fdm_count_supported(cases : ArrayView[FdmGeneratorCategory]) -> Int32 {
   let mut count = 0
   for case in cases {
     if case.supported {
@@ -1246,7 +1250,7 @@ fn fdm_count_supported(cases : ArrayView[FdmGeneratorCategory]) -> Int {
 }
 
 ///|
-fn fdm_total_codes(cases : ArrayView[FdmGeneratorCategory]) -> Int {
+fn fdm_total_codes(cases : ArrayView[FdmGeneratorCategory]) -> Int32 {
   let mut count = 0
   for case in cases {
     count += case.codes.length()
@@ -1290,7 +1294,7 @@ fn fdm_is_lower_hex(ch : Char) -> Bool {
 }
 
 ///|
-fn fdm_char_at(s : String, index : Int, ch : Char) -> Bool {
+fn fdm_char_at(s : String, index : Int32, ch : Char) -> Bool {
   s.get_char(index) == Some(ch)
 }
 
@@ -1316,7 +1320,7 @@ fn fdm_valid_uuid(s : String, version : Char) -> Bool {
 }
 
 ///|
-fn fdm_count_char(s : String, target : Char) -> Int {
+fn fdm_count_char(s : String, target : Char) -> Int32 {
   let mut count = 0
   for ch in s {
     if ch == target {
@@ -1638,11 +1642,11 @@ struct FddpFeatureCase {
 ///|
 fn fddp_feature_cases() -> Array[FddpFeatureCase] {
   [
-    { code: "derive", description: "Enable #[derive(Dummy)] macro" },
-    { code: "chrono", description: "Chrono date/time types support" },
-    { code: "chrono-tz", description: "Timezone support with chrono-tz" },
-    { code: "http", description: "HTTP types support" },
-    { code: "ulid", description: "ULID generation" },
+    { code: "derive", description: "Enable #[derive(Dummy)] macro", },
+    { code: "chrono", description: "Chrono date/time types support", },
+    { code: "chrono-tz", description: "Timezone support with chrono-tz", },
+    { code: "http", description: "HTTP types support", },
+    { code: "ulid", description: "ULID generation", },
     {
       code: "ferroid",
       description: "Ferroid ID generation (Twitter, Instagram, Discord, etc.)",
@@ -1651,21 +1655,24 @@ fn fddp_feature_cases() -> Array[FddpFeatureCase] {
       code: "uuid",
       description: "UUID generation (v1, v3, v4, v5, v6, v7, v8)",
     },
-    { code: "bigdecimal", description: "Big decimal numbers support" },
-    { code: "decimal", description: "Decimal string support" },
-    { code: "random_color", description: "Random color generation" },
-    { code: "geo", description: "Geographic types support" },
-    { code: "semver", description: "Semantic versioning support" },
-    { code: "serde_json", description: "JSON value generation" },
-    { code: "time", description: "Time-family support" },
-    { code: "zerocopy", description: "Zerocopy byte order support" },
-    { code: "glam", description: "Game linear algebra math support" },
-    { code: "url", description: "URL types support" },
-    { code: "indexmap", description: "IndexMap support" },
-    { code: "either", description: "Either type support" },
-    { code: "base64", description: "Base64 encoding" },
-    { code: "bson_oid", description: "BSON ObjectId support" },
-    { code: "always-true-rng", description: "Expose AlwaysTrueRng for testing" },
+    { code: "bigdecimal", description: "Big decimal numbers support", },
+    { code: "decimal", description: "Decimal string support", },
+    { code: "random_color", description: "Random color generation", },
+    { code: "geo", description: "Geographic types support", },
+    { code: "semver", description: "Semantic versioning support", },
+    { code: "serde_json", description: "JSON value generation", },
+    { code: "time", description: "Time-family support", },
+    { code: "zerocopy", description: "Zerocopy byte order support", },
+    { code: "glam", description: "Game linear algebra math support", },
+    { code: "url", description: "URL types support", },
+    { code: "indexmap", description: "IndexMap support", },
+    { code: "either", description: "Either type support", },
+    { code: "base64", description: "Base64 encoding", },
+    { code: "bson_oid", description: "BSON ObjectId support", },
+    {
+      code: "always-true-rng",
+      description: "Expose AlwaysTrueRng for testing",
+    },
     {
       code: "maybe-non-empty-collections",
       description: "Generate non-empty collections",
@@ -1754,7 +1761,7 @@ fn fddp_assert_unique(values : ArrayView[String]) -> Unit raise {
 }
 
 ///|
-fn fddp_count_char(s : String, target : Char) -> Int {
+fn fddp_count_char(s : String, target : Char) -> Int32 {
   let mut count = 0
   for ch in s {
     if ch == target {
@@ -1791,7 +1798,7 @@ fn fddp_unresolved_template_chars(s : String) -> Bool {
 ///|
 fn fddp_total_unsupported_generator_codes(
   categories : ArrayView[FddpUnsupportedGeneratorCategory],
-) -> Int {
+) -> Int32 {
   let mut total = 0
   for category in categories {
     total += category.codes.length()
@@ -2022,29 +2029,29 @@ struct DdxFeatureCase {
 ///|
 fn ddx_docs_feature_cases() -> Array[DdxFeatureCase] {
   [
-    { code: "derive", status: DdxUnsupportedDocsFeature },
-    { code: "chrono", status: DdxFacadeImplemented },
-    { code: "chrono-tz", status: DdxUnsupportedDocsFeature },
-    { code: "http", status: DdxFacadeImplemented },
-    { code: "ulid", status: DdxFacadeImplemented },
-    { code: "ferroid", status: DdxUnsupportedDocsFeature },
-    { code: "uuid", status: DdxFacadeImplemented },
-    { code: "bigdecimal", status: DdxUnsupportedDocsFeature },
-    { code: "decimal", status: DdxUnsupportedDocsFeature },
-    { code: "random_color", status: DdxFacadeImplemented },
-    { code: "geo", status: DdxShapeCompatible },
-    { code: "semver", status: DdxFacadeImplemented },
-    { code: "serde_json", status: DdxUnsupportedDocsFeature },
-    { code: "time", status: DdxFacadeImplemented },
-    { code: "zerocopy", status: DdxUnsupportedDocsFeature },
-    { code: "glam", status: DdxUnsupportedDocsFeature },
-    { code: "url", status: DdxUnsupportedDocsFeature },
-    { code: "indexmap", status: DdxUnsupportedDocsFeature },
-    { code: "either", status: DdxFacadeImplemented },
-    { code: "base64", status: DdxFacadeImplemented },
-    { code: "bson_oid", status: DdxFacadeImplemented },
-    { code: "always-true-rng", status: DdxUnsupportedDocsFeature },
-    { code: "maybe-non-empty-collections", status: DdxUnsupportedDocsFeature },
+    { code: "derive", status: DdxUnsupportedDocsFeature, },
+    { code: "chrono", status: DdxFacadeImplemented, },
+    { code: "chrono-tz", status: DdxUnsupportedDocsFeature, },
+    { code: "http", status: DdxFacadeImplemented, },
+    { code: "ulid", status: DdxFacadeImplemented, },
+    { code: "ferroid", status: DdxUnsupportedDocsFeature, },
+    { code: "uuid", status: DdxFacadeImplemented, },
+    { code: "bigdecimal", status: DdxUnsupportedDocsFeature, },
+    { code: "decimal", status: DdxUnsupportedDocsFeature, },
+    { code: "random_color", status: DdxFacadeImplemented, },
+    { code: "geo", status: DdxShapeCompatible, },
+    { code: "semver", status: DdxFacadeImplemented, },
+    { code: "serde_json", status: DdxUnsupportedDocsFeature, },
+    { code: "time", status: DdxFacadeImplemented, },
+    { code: "zerocopy", status: DdxUnsupportedDocsFeature, },
+    { code: "glam", status: DdxUnsupportedDocsFeature, },
+    { code: "url", status: DdxUnsupportedDocsFeature, },
+    { code: "indexmap", status: DdxUnsupportedDocsFeature, },
+    { code: "either", status: DdxFacadeImplemented, },
+    { code: "base64", status: DdxFacadeImplemented, },
+    { code: "bson_oid", status: DdxFacadeImplemented, },
+    { code: "always-true-rng", status: DdxUnsupportedDocsFeature, },
+    { code: "maybe-non-empty-collections", status: DdxUnsupportedDocsFeature, },
   ]
 }
 
@@ -2052,7 +2059,7 @@ fn ddx_docs_feature_cases() -> Array[DdxFeatureCase] {
 struct DdxGeneratorCategoryCase {
   id : String
   title : String
-  count : Int
+  count : Int32
   facade_supported : Bool
   has_note : Bool
 }
@@ -2234,7 +2241,7 @@ struct DdxExampleCase {
 ///|
 fn ddx_docs_example_cases() -> Array[DdxExampleCase] {
   [
-    { title: "Basic Facade Usage", language: "moonbit", note_feature: None },
+    { title: "Basic Facade Usage", language: "moonbit", note_feature: None, },
     {
       title: "Locale-specific Generators",
       language: "moonbit",
@@ -2255,7 +2262,11 @@ fn ddx_docs_example_cases() -> Array[DdxExampleCase] {
       language: "moonbit",
       note_feature: None,
     },
-    { title: "Generating Collections", language: "moonbit", note_feature: None },
+    {
+      title: "Generating Collections",
+      language: "moonbit",
+      note_feature: None,
+    },
     {
       title: "Deterministic Generation with Seeds",
       language: "moonbit",
@@ -2276,13 +2287,13 @@ fn ddx_docs_example_cases() -> Array[DdxExampleCase] {
       language: "moonbit",
       note_feature: Some("http"),
     },
-    { title: "Picsum Image URLs", language: "moonbit", note_feature: None },
+    { title: "Picsum Image URLs", language: "moonbit", note_feature: None, },
     {
       title: "Generator Choice Support",
       language: "moonbit",
       note_feature: Some("either"),
     },
-    { title: "API Usage", language: "moonbit", note_feature: None },
+    { title: "API Usage", language: "moonbit", note_feature: None, },
   ]
 }
 
@@ -2315,12 +2326,12 @@ fn ddx_all_chars_match(s : String, pred : (Char) -> Bool) -> Bool {
 }
 
 ///|
-fn ddx_char_at_eq(s : String, i : Int, ch : Char) -> Bool {
+fn ddx_char_at_eq(s : String, i : Int32, ch : Char) -> Bool {
   s.get_char(i) == Some(ch)
 }
 
 ///|
-fn ddx_char_at_is(s : String, i : Int, pred : (Char) -> Bool) -> Bool {
+fn ddx_char_at_is(s : String, i : Int32, pred : (Char) -> Bool) -> Bool {
   match s.get_char(i) {
     Some(ch) => pred(ch)
     None => false
@@ -2423,7 +2434,7 @@ fn ddx_contains_docs_locale_code(
 fn ddx_feature_status_count(
   cases : ArrayView[DdxFeatureCase],
   status : DdxFeatureStatus,
-) -> Int {
+) -> Int32 {
   let mut count = 0
   for case in cases {
     if case.status == status {
@@ -2434,7 +2445,7 @@ fn ddx_feature_status_count(
 }
 
 ///|
-fn ddx_generator_total(cases : ArrayView[DdxGeneratorCategoryCase]) -> Int {
+fn ddx_generator_total(cases : ArrayView[DdxGeneratorCategoryCase]) -> Int32 {
   let mut total = 0
   for case in cases {
     total += case.count
@@ -2445,7 +2456,7 @@ fn ddx_generator_total(cases : ArrayView[DdxGeneratorCategoryCase]) -> Int {
 ///|
 fn ddx_supported_generator_total(
   cases : ArrayView[DdxGeneratorCategoryCase],
-) -> Int {
+) -> Int32 {
   let mut total = 0
   for case in cases {
     if case.facade_supported {
@@ -2486,7 +2497,7 @@ fn ddx_join_category_note_ids(
 fn ddx_example_language_count(
   cases : ArrayView[DdxExampleCase],
   language : String,
-) -> Int {
+) -> Int32 {
   let mut count = 0
   for case in cases {
     if case.language == language {
@@ -2653,7 +2664,7 @@ struct SdpGeneratorFieldCase {
   id : String
   icon : String
   title : String
-  count : Int
+  count : Int32
   first_code : String
   first_desc : String
   last_code : String
@@ -2933,13 +2944,13 @@ fn sdp_example_file_cases() -> Array[SdpExampleFileCase] {
       file: "readme-custom-defaults",
       docs_touchpoint: "Custom DummyDefault Types",
     },
-    { file: "readme-collections", docs_touchpoint: "Generating Collections" },
-    { file: "readme-composition", docs_touchpoint: "Generator Choice Support" },
-    { file: "readme-generators", docs_touchpoint: "Available Generators" },
-    { file: "readme-basic", docs_touchpoint: "Basic Facade Usage" },
-    { file: "readme-ranges", docs_touchpoint: "Using Ranges for Primitives" },
-    { file: "readme-seeded", docs_touchpoint: "Quick Reference" },
-    { file: "readme-api", docs_touchpoint: "API Usage" },
+    { file: "readme-collections", docs_touchpoint: "Generating Collections", },
+    { file: "readme-composition", docs_touchpoint: "Generator Choice Support", },
+    { file: "readme-generators", docs_touchpoint: "Available Generators", },
+    { file: "readme-basic", docs_touchpoint: "Basic Facade Usage", },
+    { file: "readme-ranges", docs_touchpoint: "Using Ranges for Primitives", },
+    { file: "readme-seeded", docs_touchpoint: "Quick Reference", },
+    { file: "readme-api", docs_touchpoint: "API Usage", },
   ]
 }
 
@@ -2966,7 +2977,7 @@ fn sdp_join_note_features(cases : ArrayView[SdpGeneratorFieldCase]) -> String {
 }
 
 ///|
-fn sdp_total_generator_count(cases : ArrayView[SdpGeneratorFieldCase]) -> Int {
+fn sdp_total_generator_count(cases : ArrayView[SdpGeneratorFieldCase]) -> Int32 {
   let mut total = 0
   for case in cases {
     total += case.count

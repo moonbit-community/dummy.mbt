@@ -29,7 +29,7 @@ fn numerify_licence_plate(
 ///|
 /// Generate a locale-shaped vehicle licence plate.
 pub fn licence_plate(
-  locale? : @locales.Locale = @locales.FR_FR,
+  locale~ : @locales.Locale = @locales.FR_FR,
 ) -> @core.Gen[String] {
   @core.Gen::new(rng => {
     let formats = @data.licence_plate_formats(locale)

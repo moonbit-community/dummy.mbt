@@ -31,4 +31,3 @@ pub(all) struct ImageOptions {
 // Type aliases
 
 // Traits
-

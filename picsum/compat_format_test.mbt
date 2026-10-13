@@ -1,5 +1,5 @@
 ///|
-fn compat_picsum_decimal(value : String) -> Int? {
+fn compat_picsum_decimal(value : String) -> Int32? {
   if value.is_empty() {
     return None
   }

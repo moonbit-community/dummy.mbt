@@ -15,4 +15,3 @@ pub fn boolean(ratio? : Int) -> @core.Gen[Bool]
 // Type aliases
 
 // Traits
-

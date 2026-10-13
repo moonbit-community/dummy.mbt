@@ -29,4 +29,3 @@ pub fn semver_unstable() -> @core.Gen[String]
 // Type aliases
 
 // Traits
-

@@ -26,7 +26,10 @@ pub fn default_seeded() -> @random.Rand {
 
 ///|
 /// Sample an integer from a validated `IntRange`.
-pub fn random_int(range : IntRange, rng : @random.Rand) -> Int raise DummyError {
+pub fn random_int(
+  range : IntRange,
+  rng : @random.Rand,
+) -> Int32 raise DummyError {
   range.sample(rng)
 }
 
@@ -34,7 +37,7 @@ pub fn random_int(range : IntRange, rng : @random.Rand) -> Int raise DummyError 
 /// Sample a boolean that is true with `ratio` percent probability.
 ///
 /// `ratio` must be in `0..=100`.
-pub fn random_bool(ratio : Int, rng : @random.Rand) -> Bool raise DummyError {
+pub fn random_bool(ratio : Int32, rng : @random.Rand) -> Bool raise DummyError {
   if ratio < 0 || ratio > 100 {
     raise DummyError::InvalidRange("boolean ratio must be in 0..100")
   }

@@ -5,7 +5,7 @@ fn port_is_digit(ch : Char) -> Bool {
 }
 
 ///|
-fn port_digit_value(ch : Char) -> Int {
+fn port_digit_value(ch : Char) -> Int32 {
   ch.to_int() - '0'.to_int()
 }
 
@@ -22,12 +22,12 @@ fn port_is_lower_ascii(ch : Char) -> Bool {
 }
 
 ///|
-fn port_char_at_eq(s : String, i : Int, expected : Char) -> Bool {
+fn port_char_at_eq(s : String, i : Int32, expected : Char) -> Bool {
   s.get_char(i) == Some(expected)
 }
 
 ///|
-fn port_char_at_is(s : String, i : Int, pred : (Char) -> Bool) -> Bool {
+fn port_char_at_is(s : String, i : Int32, pred : (Char) -> Bool) -> Bool {
   match s.get_char(i) {
     Some(ch) => pred(ch)
     None => false
@@ -154,7 +154,7 @@ fn port_valid_base64_string(
 }
 
 ///|
-fn port_digit_at(s : String, i : Int) -> Int? {
+fn port_digit_at(s : String, i : Int32) -> Int32? {
   match s.get_char(i) {
     Some(ch) =>
       if port_is_digit(ch) {
@@ -167,7 +167,7 @@ fn port_digit_at(s : String, i : Int) -> Int? {
 }
 
 ///|
-fn port_two_digits_at(s : String, i : Int) -> Int? {
+fn port_two_digits_at(s : String, i : Int32) -> Int32? {
   match (port_digit_at(s, i), port_digit_at(s, i + 1)) {
     (Some(a), Some(b)) => Some(a * 10 + b)
     _ => None
@@ -175,7 +175,7 @@ fn port_two_digits_at(s : String, i : Int) -> Int? {
 }
 
 ///|
-fn port_all_digits_between(s : String, start : Int, end : Int) -> Bool {
+fn port_all_digits_between(s : String, start : Int32, end : Int32) -> Bool {
   for i in start..<end {
     if !port_char_at_is(s, i, port_is_digit) {
       return false
@@ -185,7 +185,7 @@ fn port_all_digits_between(s : String, start : Int, end : Int) -> Bool {
 }
 
 ///|
-fn port_valid_hms_at(s : String, start : Int) -> Bool {
+fn port_valid_hms_at(s : String, start : Int32) -> Bool {
   guard port_two_digits_at(s, start) is Some(hour) else { return false }
   guard port_two_digits_at(s, start + 3) is Some(minute) else { return false }
   guard port_two_digits_at(s, start + 6) is Some(second) else { return false }
@@ -256,7 +256,7 @@ fn port_valid_time_en_datetime(s : String) -> Bool {
 ///|
 fn[T : @core.DummyDefault] port_dummy_default_sequence(
   seed_bytes : Bytes,
-  count : Int,
+  count : Int32,
 ) -> Array[T] raise @core.DummyError {
   let rng = @dummy.seed(seed_bytes)
   Array::makei(count, _ => T::dummy_default(rng))
@@ -404,7 +404,7 @@ test "impls primitive and collection-compatible defaults are ported" {
     assert_true(value.length() >= 4 && value.length() <= 10)
     assert_true(port_all_chars_match(value, port_is_lower_ascii))
   }
-  let arrays : Array[Array[Int]] = port_dummy_default_sequence(
+  let arrays : Array[Array[Int32]] = port_dummy_default_sequence(
     b"impls-port-default-array", 16,
   )
   @test.assert_eq(
@@ -414,21 +414,21 @@ test "impls primitive and collection-compatible defaults are ported" {
   for values in arrays {
     assert_true(values.length() >= 0 && values.length() <= 4)
   }
-  let options : Array[Int?] = port_dummy_default_sequence(
+  let options : Array[Int32?] = port_dummy_default_sequence(
     b"impls-port-default-option", 32,
   )
   @test.assert_eq(
     options,
     port_dummy_default_sequence(b"impls-port-default-option", 32),
   )
-  let results : Array[Result[Int, String]] = port_dummy_default_sequence(
+  let results : Array[Result[Int32, String]] = port_dummy_default_sequence(
     b"impls-port-default-result", 32,
   )
   @test.assert_eq(
     results,
     port_dummy_default_sequence(b"impls-port-default-result", 32),
   )
-  let tuples : Array[(Bool, Int, String, Int?)] = port_dummy_default_sequence(
+  let tuples : Array[(Bool, Int32, String, Int32?)] = port_dummy_default_sequence(
     b"impls-port-default-tuple", 16,
   )
   @test.assert_eq(
@@ -450,7 +450,7 @@ fn extra_is_upper_letter(ch : Char) -> Bool {
 }
 
 ///|
-fn extra_digit_value(ch : Char) -> Int {
+fn extra_digit_value(ch : Char) -> Int32 {
   ch.to_int() - '0'.to_int()
 }
 
@@ -465,7 +465,7 @@ fn extra_all_chars_match(s : String, pred : (Char) -> Bool) -> Bool {
 }
 
 ///|
-fn extra_count_char(s : String, target : Char) -> Int {
+fn extra_count_char(s : String, target : Char) -> Int32 {
   let mut count = 0
   for ch in s {
     if ch == target {
@@ -476,7 +476,7 @@ fn extra_count_char(s : String, target : Char) -> Int {
 }
 
 ///|
-fn extra_decimal_string_to_int(s : String) -> Int {
+fn extra_decimal_string_to_int(s : String) -> Int32 {
   let mut value = 0
   for ch in s {
     value = value * 10 + extra_digit_value(ch)
@@ -485,7 +485,7 @@ fn extra_decimal_string_to_int(s : String) -> Int {
 }
 
 ///|
-fn extra_decimal_mod_97(digits : String) -> Int {
+fn extra_decimal_mod_97(digits : String) -> Int32 {
   let mut rem = 0
   for ch in digits {
     rem = (rem * 10 + extra_digit_value(ch)) % 97
@@ -494,7 +494,7 @@ fn extra_decimal_mod_97(digits : String) -> Int {
 }
 
 ///|
-fn extra_parse_unsigned_decimal(s : String) -> Int? {
+fn extra_parse_unsigned_decimal(s : String) -> Int32? {
   if s.is_empty() {
     return None
   }
@@ -553,7 +553,7 @@ fn extra_valid_nl_postcode(s : String) -> Bool {
 }
 
 ///|
-fn extra_valid_coordinate(s : String, whole_limit : Int) -> Bool {
+fn extra_valid_coordinate(s : String, whole_limit : Int32) -> Bool {
   if s.is_empty() {
     return false
   }
@@ -952,7 +952,7 @@ fn deep_is_digit(ch : Char) -> Bool {
 }
 
 ///|
-fn deep_digit_value(ch : Char) -> Int {
+fn deep_digit_value(ch : Char) -> Int32 {
   ch.to_int() - '0'.to_int()
 }
 
@@ -969,12 +969,12 @@ fn deep_is_upper_ascii(ch : Char) -> Bool {
 }
 
 ///|
-fn deep_char_at_eq(s : String, i : Int, expected : Char) -> Bool {
+fn deep_char_at_eq(s : String, i : Int32, expected : Char) -> Bool {
   s.get_char(i) == Some(expected)
 }
 
 ///|
-fn deep_char_at_is(s : String, i : Int, pred : (Char) -> Bool) -> Bool {
+fn deep_char_at_is(s : String, i : Int32, pred : (Char) -> Bool) -> Bool {
   match s.get_char(i) {
     Some(ch) => pred(ch)
     None => false
@@ -992,7 +992,7 @@ fn deep_all_chars_match(s : String, pred : (Char) -> Bool) -> Bool {
 }
 
 ///|
-fn deep_parse_uint(s : String) -> Int? {
+fn deep_parse_uint(s : String) -> Int32? {
   if s.is_empty() {
     return None
   }
@@ -1007,7 +1007,7 @@ fn deep_parse_uint(s : String) -> Int? {
 }
 
 ///|
-fn deep_digit_at(s : String, i : Int) -> Int? {
+fn deep_digit_at(s : String, i : Int32) -> Int32? {
   match s.get_char(i) {
     Some(ch) =>
       if deep_is_digit(ch) {
@@ -1020,7 +1020,7 @@ fn deep_digit_at(s : String, i : Int) -> Int? {
 }
 
 ///|
-fn deep_two_digits_at(s : String, i : Int) -> Int? {
+fn deep_two_digits_at(s : String, i : Int32) -> Int32? {
   match (deep_digit_at(s, i), deep_digit_at(s, i + 1)) {
     (Some(a), Some(b)) => Some(a * 10 + b)
     _ => None
@@ -1028,7 +1028,7 @@ fn deep_two_digits_at(s : String, i : Int) -> Int? {
 }
 
 ///|
-fn deep_all_digits_between(s : String, start : Int, end : Int) -> Bool {
+fn deep_all_digits_between(s : String, start : Int32, end : Int32) -> Bool {
   for i in start..<end {
     if !deep_char_at_is(s, i, deep_is_digit) {
       return false
@@ -1195,7 +1195,7 @@ fn deep_is_http_method(value : String) -> Bool {
 }
 
 ///|
-fn deep_rfc_status_codes() -> Array[Int] {
+fn deep_rfc_status_codes() -> Array[Int32] {
   [
     100, 101, 102, 200, 201, 202, 203, 204, 205, 206, 207, 208, 226, 300, 301, 302,
     303, 304, 305, 307, 308, 400, 401, 402, 403, 404, 405, 406, 407, 408, 409, 410,
@@ -1215,7 +1215,7 @@ fn deep_contains_string(items : ArrayView[String], target : String) -> Bool {
 }
 
 ///|
-fn deep_contains_int(items : ArrayView[Int], target : Int) -> Bool {
+fn deep_contains_int(items : ArrayView[Int32], target : Int32) -> Bool {
   for item in items {
     if item == target {
       return true
@@ -1225,12 +1225,12 @@ fn deep_contains_int(items : ArrayView[Int], target : Int) -> Bool {
 }
 
 ///|
-fn deep_is_rfc_status_code(value : Int) -> Bool {
+fn deep_is_rfc_status_code(value : Int32) -> Bool {
   deep_contains_int(deep_rfc_status_codes(), value)
 }
 
 ///|
-fn deep_valid_hms_at(s : String, start : Int) -> Bool {
+fn deep_valid_hms_at(s : String, start : Int32) -> Bool {
   guard deep_two_digits_at(s, start) is Some(hour) else { return false }
   guard deep_two_digits_at(s, start + 3) is Some(minute) else { return false }
   guard deep_two_digits_at(s, start + 6) is Some(second) else { return false }
@@ -1368,7 +1368,7 @@ fn deep_valid_any_semver(s : String) -> Bool {
 fn deep_assert_string_samples(
   gen : @core.Gen[String],
   seed_bytes : Bytes,
-  count : Int,
+  count : Int32,
   valid : (String) -> Bool,
 ) -> Unit raise {
   for value in gen.sample(count~, @dummy.seed(seed_bytes)) {
@@ -1414,7 +1414,7 @@ fn deep_assert_method_samples(
 
 ///|
 fn deep_assert_rfc_status_samples(
-  gen : @core.Gen[Int],
+  gen : @core.Gen[Int32],
   seed_bytes : Bytes,
 ) -> Unit raise {
   let values = gen.sample(count=4096, @dummy.seed(seed_bytes))
@@ -1913,12 +1913,12 @@ fn frs_more_is_nonzero_digit(ch : Char) -> Bool {
 }
 
 ///|
-fn frs_more_digit_value(ch : Char) -> Int {
+fn frs_more_digit_value(ch : Char) -> Int32 {
   ch.to_int() - '0'.to_int()
 }
 
 ///|
-fn frs_more_count_char(s : String, target : Char) -> Int {
+fn frs_more_count_char(s : String, target : Char) -> Int32 {
   let mut count = 0
   for ch in s {
     if ch == target {
@@ -1939,7 +1939,7 @@ fn frs_more_all_chars_match(s : String, pred : (Char) -> Bool) -> Bool {
 }
 
 ///|
-fn frs_more_decimal_value(s : String) -> Int? {
+fn frs_more_decimal_value(s : String) -> Int32? {
   if s.is_empty() {
     return None
   }
@@ -2013,7 +2013,7 @@ fn frs_more_username_shape(s : String) -> Bool {
 }
 
 ///|
-fn frs_more_sentence_word_count(sentence : String) -> Int? {
+fn frs_more_sentence_word_count(sentence : String) -> Int32? {
   guard sentence.strip_suffix(".") is Some(body) else { return None }
   Some(frs_more_parts(body.to_owned(), " ").length())
 }
@@ -2033,7 +2033,7 @@ fn frs_more_assert_sample_contains(
   label : String,
   gen : @core.Gen[String],
   needle : String,
-  count? : Int = 512,
+  count~ : Int32 = 512,
 ) -> Unit raise {
   let samples = gen.sample(count~, @dummy.seed(b"compat-source-more-lists"))
   if !frs_more_has_sample(samples, needle) {
@@ -2045,7 +2045,7 @@ fn frs_more_assert_sample_contains(
 fn frs_more_assert_string_samples(
   gen : @core.Gen[String],
   seed_bytes : Bytes,
-  count : Int,
+  count : Int32,
   valid : (String) -> Bool,
 ) -> Unit raise {
   for value in gen.sample(count~, @dummy.seed(seed_bytes)) {
@@ -2254,28 +2254,28 @@ fn subagent_locale_source_files() -> Array[String] {
 ///|
 fn subagent_impl_modules() -> Array[SubagentCatalogCase] {
   [
-    { name: "base64", mapped: true },
-    { name: "bigdecimal", mapped: false },
-    { name: "bson_oid", mapped: true },
-    { name: "chrono", mapped: true },
-    { name: "chrono_tz", mapped: false },
-    { name: "color", mapped: true },
-    { name: "decimal", mapped: false },
-    { name: "either", mapped: true },
-    { name: "email_address", mapped: false },
-    { name: "ferroid", mapped: false },
-    { name: "geo", mapped: true },
-    { name: "glam", mapped: false },
-    { name: "http", mapped: true },
-    { name: "indexmap", mapped: false },
-    { name: "semver", mapped: true },
-    { name: "serde_json", mapped: false },
-    { name: "std", mapped: true },
-    { name: "time", mapped: true },
-    { name: "ulid", mapped: true },
-    { name: "url", mapped: false },
-    { name: "uuid", mapped: true },
-    { name: "zerocopy_byteorder", mapped: false },
+    { name: "base64", mapped: true, },
+    { name: "bigdecimal", mapped: false, },
+    { name: "bson_oid", mapped: true, },
+    { name: "chrono", mapped: true, },
+    { name: "chrono_tz", mapped: false, },
+    { name: "color", mapped: true, },
+    { name: "decimal", mapped: false, },
+    { name: "either", mapped: true, },
+    { name: "email_address", mapped: false, },
+    { name: "ferroid", mapped: false, },
+    { name: "geo", mapped: true, },
+    { name: "glam", mapped: false, },
+    { name: "http", mapped: true, },
+    { name: "indexmap", mapped: false, },
+    { name: "semver", mapped: true, },
+    { name: "serde_json", mapped: false, },
+    { name: "std", mapped: true, },
+    { name: "time", mapped: true, },
+    { name: "ulid", mapped: true, },
+    { name: "url", mapped: false, },
+    { name: "uuid", mapped: true, },
+    { name: "zerocopy_byteorder", mapped: false, },
   ]
 }
 
@@ -2344,8 +2344,8 @@ fn subagent_key_source_data() -> Array[String] {
 fn subagent_assert_non_empty_samples(
   source_name : String,
   gen : @core.Gen[String],
-  count? : Int = 8,
-  allow_empty? : Bool = false,
+  count~ : Int32 = 8,
+  allow_empty~ : Bool = false,
 ) -> Unit raise {
   let seed = @dummy.seed(b"compat-subagent-impls-data-port")
   let values = gen.sample(count~, seed)

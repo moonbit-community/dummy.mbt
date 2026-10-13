@@ -1,5 +1,5 @@
 ///|
-fn digit_value_at(s : String, i : Int) -> Int {
+fn digit_value_at(s : String, i : Int32) -> Int32 {
   match s.get_char(i) {
     Some(ch) => ch.to_int() - '0'.to_int()
     None => -1
@@ -7,7 +7,7 @@ fn digit_value_at(s : String, i : Int) -> Int {
 }
 
 ///|
-fn is_ascii_digit_at(s : String, i : Int) -> Bool {
+fn is_ascii_digit_at(s : String, i : Int32) -> Bool {
   let value = digit_value_at(s, i)
   value >= 0 && value <= 9
 }
@@ -34,7 +34,7 @@ fn strip_hyphens(s : String) -> String {
 }
 
 ///|
-fn count_char(s : String, expected : Char) -> Int {
+fn count_char(s : String, expected : Char) -> Int32 {
   let mut count = 0
   for ch in s {
     if ch == expected {
@@ -59,7 +59,7 @@ fn isbn13_valid(s : String) -> Bool {
 }
 
 ///|
-fn isbn10_check_value(s : String) -> Int {
+fn isbn10_check_value(s : String) -> Int32 {
   let s = strip_hyphens(s)
   match s.get_char(9) {
     Some('X') => 10

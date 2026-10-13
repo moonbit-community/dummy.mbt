@@ -20,4 +20,3 @@ pub fn currency_symbol(locale? : @locales.Locale) -> @core.Gen[String]
 // Type aliases
 
 // Traits
-

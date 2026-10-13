@@ -15,7 +15,7 @@ fn fr_fr_departments() -> Array[String] {
 
 ///|
 // Parse an ASCII decimal string without allocation-heavy conversions.
-fn decimal_string_to_int(s : String) -> Int {
+fn decimal_string_to_int(s : String) -> Int32 {
   let mut value = 0
   for ch in s {
     value = value * 10 + ch.to_int() - '0'.to_int()
@@ -35,7 +35,7 @@ fn department_code_for_key(department : String) -> String {
 
 ///|
 // Streaming modulo 97 for long decimal identifiers.
-fn decimal_mod_97(digits : String) -> Int {
+fn decimal_mod_97(digits : String) -> Int32 {
   let mut rem = 0
   for ch in digits {
     rem = (rem * 10 + ch.to_int() - '0'.to_int()) % 97
@@ -73,7 +73,7 @@ fn health_insurance_code_fr_fr(
 ///
 /// Currently only `FR_FR` has a meaningful locale-specific implementation.
 pub fn health_insurance_code(
-  locale? : @locales.Locale = @locales.FR_FR,
+  locale~ : @locales.Locale = @locales.FR_FR,
 ) -> @core.Gen[String] {
   @core.Gen::new(rng => {
     match locale {

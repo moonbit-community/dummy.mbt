@@ -66,7 +66,7 @@ fn contains_string(items : ArrayView[String], value : String) -> Bool {
 }
 
 ///|
-fn char_at_is(s : String, i : Int, pred : (Char) -> Bool) -> Bool {
+fn char_at_is(s : String, i : Int32, pred : (Char) -> Bool) -> Bool {
   match s.get_char(i) {
     Some(ch) => pred(ch)
     None => false
@@ -84,7 +84,7 @@ fn all_chars_match(s : String, pred : (Char) -> Bool) -> Bool {
 }
 
 ///|
-fn two_chars_at(s : String, i : Int) -> String? {
+fn two_chars_at(s : String, i : Int32) -> String? {
   guard s.get_char(i) is Some(a) else { return None }
   guard s.get_char(i + 1) is Some(b) else { return None }
   let out = StringBuilder::new(size_hint=2)
@@ -103,8 +103,8 @@ fn bic_suffix_is_compat_shape(s : String) -> Bool {
 }
 
 ///|
-fn expanded_isin_digits(s : String) -> Array[Int]? {
-  let digits : Array[Int] = []
+fn expanded_isin_digits(s : String) -> Array[Int32]? {
+  let digits : Array[Int32] = []
   for ch in s {
     let code = ch.to_int()
     if code >= '0'.to_int() && code <= '9'.to_int() {

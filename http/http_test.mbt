@@ -12,7 +12,7 @@ fn is_known_method(value : String) -> Bool {
 }
 
 ///|
-fn contains_int(items : ArrayView[Int], value : Int) -> Bool {
+fn contains_int(items : ArrayView[Int32], value : Int32) -> Bool {
   for item in items {
     if item == value {
       return true
@@ -22,7 +22,7 @@ fn contains_int(items : ArrayView[Int], value : Int) -> Bool {
 }
 
 ///|
-fn compat_5_1_0_rfc_status_codes() -> Array[Int] {
+fn compat_5_1_0_rfc_status_codes() -> Array[Int32] {
   [
     100, 101, 102, 200, 201, 202, 203, 204, 205, 206, 207, 208, 226, 300, 301, 302,
     303, 304, 305, 307, 308, 400, 401, 402, 403, 404, 405, 406, 407, 408, 409, 410,
@@ -32,7 +32,7 @@ fn compat_5_1_0_rfc_status_codes() -> Array[Int] {
 }
 
 ///|
-fn is_rfc_status_code(value : Int) -> Bool {
+fn is_rfc_status_code(value : Int32) -> Bool {
   contains_int(compat_5_1_0_rfc_status_codes(), value)
 }
 

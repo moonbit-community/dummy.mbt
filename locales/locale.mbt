@@ -98,19 +98,19 @@ pub fn all() -> Array[Locale] {
 /// 5.1.0 docs locale data.
 pub fn docs_locales() -> Array[DocsLocale] {
   [
-    { name: "English", docs_code: "EN", locale: EN },
-    { name: "French", docs_code: "FR_FR", locale: FR_FR },
-    { name: "Arabic", docs_code: "AR_SA", locale: AR_SA },
-    { name: "Traditional Chinese", docs_code: "ZH_TW", locale: ZH_TW },
-    { name: "Simplified Chinese", docs_code: "ZH_CN", locale: ZH_CN },
-    { name: "Japanese", docs_code: "JA_JP", locale: JA_JP },
-    { name: "Portuguese - Brazil", docs_code: "PT_BR", locale: PT_BR },
-    { name: "Portuguese - Portugal", docs_code: "PT_PT", locale: PT_PT },
-    { name: "German", docs_code: "DE_DE", locale: DE_DE },
-    { name: "Italian", docs_code: "IT_IT", locale: IT_IT },
-    { name: "Cymraeg - Welsh", docs_code: "CY_GB", locale: CY_GB },
-    { name: "Dutch", docs_code: "NL_NL", locale: NL_NL },
-    { name: "Persian (Iran)", docs_code: "FA_IR", locale: FA_IR },
+    { name: "English", docs_code: "EN", locale: EN, },
+    { name: "French", docs_code: "FR_FR", locale: FR_FR, },
+    { name: "Arabic", docs_code: "AR_SA", locale: AR_SA, },
+    { name: "Traditional Chinese", docs_code: "ZH_TW", locale: ZH_TW, },
+    { name: "Simplified Chinese", docs_code: "ZH_CN", locale: ZH_CN, },
+    { name: "Japanese", docs_code: "JA_JP", locale: JA_JP, },
+    { name: "Portuguese - Brazil", docs_code: "PT_BR", locale: PT_BR, },
+    { name: "Portuguese - Portugal", docs_code: "PT_PT", locale: PT_PT, },
+    { name: "German", docs_code: "DE_DE", locale: DE_DE, },
+    { name: "Italian", docs_code: "IT_IT", locale: IT_IT, },
+    { name: "Cymraeg - Welsh", docs_code: "CY_GB", locale: CY_GB, },
+    { name: "Dutch", docs_code: "NL_NL", locale: NL_NL, },
+    { name: "Persian (Iran)", docs_code: "FA_IR", locale: FA_IR, },
   ]
 }
 

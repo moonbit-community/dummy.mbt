@@ -1,5 +1,5 @@
 ///|
-fn count_char(s : String, target : Char) -> Int {
+fn count_char(s : String, target : Char) -> Int32 {
   let mut count = 0
   for ch in s {
     if ch == target {

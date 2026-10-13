@@ -15,7 +15,7 @@ fn all_decimal_digits(s : String) -> Bool {
 }
 
 ///|
-fn decimal_string_to_int(s : String) -> Int {
+fn decimal_string_to_int(s : String) -> Int32 {
   let mut value = 0
   for ch in s {
     value = value * 10 + ch.to_int() - '0'.to_int()
@@ -24,7 +24,7 @@ fn decimal_string_to_int(s : String) -> Int {
 }
 
 ///|
-fn decimal_mod_97(digits : String) -> Int {
+fn decimal_mod_97(digits : String) -> Int32 {
   let mut rem = 0
   for ch in digits {
     rem = (rem * 10 + ch.to_int() - '0'.to_int()) % 97

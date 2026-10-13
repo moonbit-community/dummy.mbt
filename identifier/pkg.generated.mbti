@@ -35,4 +35,3 @@ pub fn uuid_v8() -> @core.Gen[String]
 // Type aliases
 
 // Traits
-

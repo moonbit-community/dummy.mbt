@@ -34,7 +34,7 @@ pub fn[T] Gen::dummy(self : Gen[T], rng : @random.Rand) -> T raise DummyError {
 /// Raises `DummyError::InvalidCount` when `count` is negative.
 pub fn[T] Gen::sample(
   self : Gen[T],
-  count~ : Int,
+  count~ : Int32,
   rng : @random.Rand,
 ) -> Array[T] raise DummyError {
   if count < 0 {
@@ -81,7 +81,9 @@ pub fn[T] one_of(items : ArrayView[Gen[T]]) -> Gen[T] raise DummyError {
 ///
 /// Weights less than or equal to zero are ignored. Raises if the list is empty
 /// or if no candidate has a positive weight.
-pub fn[T] weighted(items : ArrayView[(Int, Gen[T])]) -> Gen[T] raise DummyError {
+pub fn[T] weighted(
+  items : ArrayView[(Int32, Gen[T])],
+) -> Gen[T] raise DummyError {
   if items.length() == 0 {
     raise DummyError::EmptyCandidates("weighted")
   }
@@ -131,14 +133,14 @@ pub impl DummyDefault for Bool with fn dummy_default(rng) {
 
 ///|
 /// Default integer generator from the core random source.
-pub impl DummyDefault for Int with fn dummy_default(rng) {
+pub impl DummyDefault for Int32 with fn dummy_default(rng) {
   rng.int()
 }
 
 ///|
 /// Default ASCII string generator with length 4 through 10.
 pub impl DummyDefault for String with fn dummy_default(rng) {
-  let len = CountRange::{ min: 4, max: 10 }.sample(rng)
+  let len = CountRange::{ min: 4, max: 10, }.sample(rng)
   random_ascii(len, rng)
 }
 
@@ -155,7 +157,7 @@ pub impl[T : DummyDefault] DummyDefault for T? with fn dummy_default(rng) {
 ///|
 /// Default array generator with length 0 through 4.
 pub impl[T : DummyDefault] DummyDefault for Array[T] with fn dummy_default(rng) {
-  let len = CountRange::{ min: 0, max: 4 }.sample(rng)
+  let len = CountRange::{ min: 0, max: 4, }.sample(rng)
   Array::makei(len, _ => T::dummy_default(rng))
 }
 

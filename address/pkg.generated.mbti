@@ -50,4 +50,3 @@ pub fn zip_code(locale? : @locales.Locale) -> @core.Gen[String]
 // Type aliases
 
 // Traits
-

@@ -8,20 +8,20 @@ struct CompatLocalePortCase {
 ///|
 fn compat_locale_port_cases() -> Array[CompatLocalePortCase] {
   [
-    { compat_file: "ar_sa.rs", locale: @locales.AR_SA, facade: @dummy.ar_sa },
-    { compat_file: "cy_gb.rs", locale: @locales.CY_GB, facade: @dummy.cy_gb },
-    { compat_file: "de_de.rs", locale: @locales.DE_DE, facade: @dummy.de_de },
-    { compat_file: "en.rs", locale: @locales.EN, facade: @dummy.en },
-    { compat_file: "fa_ir.rs", locale: @locales.FA_IR, facade: @dummy.fa_ir },
-    { compat_file: "fr_fr.rs", locale: @locales.FR_FR, facade: @dummy.fr_fr },
-    { compat_file: "it_it.rs", locale: @locales.IT_IT, facade: @dummy.it_it },
-    { compat_file: "ja_jp.rs", locale: @locales.JA_JP, facade: @dummy.ja_jp },
-    { compat_file: "nl_nl.rs", locale: @locales.NL_NL, facade: @dummy.nl_nl },
-    { compat_file: "pt_br.rs", locale: @locales.PT_BR, facade: @dummy.pt_br },
-    { compat_file: "pt_pt.rs", locale: @locales.PT_PT, facade: @dummy.pt_pt },
-    { compat_file: "tr_tr.rs", locale: @locales.TR_TR, facade: @dummy.tr_tr },
-    { compat_file: "zh_cn.rs", locale: @locales.ZH_CN, facade: @dummy.zh_cn },
-    { compat_file: "zh_tw.rs", locale: @locales.ZH_TW, facade: @dummy.zh_tw },
+    { compat_file: "ar_sa.rs", locale: @locales.AR_SA, facade: @dummy.ar_sa, },
+    { compat_file: "cy_gb.rs", locale: @locales.CY_GB, facade: @dummy.cy_gb, },
+    { compat_file: "de_de.rs", locale: @locales.DE_DE, facade: @dummy.de_de, },
+    { compat_file: "en.rs", locale: @locales.EN, facade: @dummy.en, },
+    { compat_file: "fa_ir.rs", locale: @locales.FA_IR, facade: @dummy.fa_ir, },
+    { compat_file: "fr_fr.rs", locale: @locales.FR_FR, facade: @dummy.fr_fr, },
+    { compat_file: "it_it.rs", locale: @locales.IT_IT, facade: @dummy.it_it, },
+    { compat_file: "ja_jp.rs", locale: @locales.JA_JP, facade: @dummy.ja_jp, },
+    { compat_file: "nl_nl.rs", locale: @locales.NL_NL, facade: @dummy.nl_nl, },
+    { compat_file: "pt_br.rs", locale: @locales.PT_BR, facade: @dummy.pt_br, },
+    { compat_file: "pt_pt.rs", locale: @locales.PT_PT, facade: @dummy.pt_pt, },
+    { compat_file: "tr_tr.rs", locale: @locales.TR_TR, facade: @dummy.tr_tr, },
+    { compat_file: "zh_cn.rs", locale: @locales.ZH_CN, facade: @dummy.zh_cn, },
+    { compat_file: "zh_tw.rs", locale: @locales.ZH_TW, facade: @dummy.zh_tw, },
   ]
 }
 
@@ -162,7 +162,7 @@ fn locale_extra_sample_contains(
   label : String,
   gen : @core.Gen[String],
   needle : String,
-  count? : Int = 512,
+  count~ : Int32 = 512,
 ) -> Unit raise {
   let samples = gen.sample(count~, @dummy.seed(b"compat-locale-extra-values"))
   if !locale_extra_contains(samples, needle) {

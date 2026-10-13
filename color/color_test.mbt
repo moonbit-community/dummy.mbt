@@ -7,7 +7,7 @@ fn is_hex_char(ch : Char) -> Bool {
 }
 
 ///|
-fn count_char(s : String, target : Char) -> Int {
+fn count_char(s : String, target : Char) -> Int32 {
   let mut count = 0
   for ch in s {
     if ch == target {
@@ -18,7 +18,7 @@ fn count_char(s : String, target : Char) -> Int {
 }
 
 ///|
-fn decimal_value(ch : Char) -> Int? {
+fn decimal_value(ch : Char) -> Int32? {
   let code = ch.to_int()
   if code >= '0'.to_int() && code <= '9'.to_int() {
     Some(code - '0'.to_int())
@@ -28,8 +28,8 @@ fn decimal_value(ch : Char) -> Int? {
 }
 
 ///|
-fn numbers_in(s : String) -> Array[Int] {
-  let values : Array[Int] = []
+fn numbers_in(s : String) -> Array[Int32] {
+  let values : Array[Int32] = []
   let mut current = 0
   let mut reading = false
   for ch in s {
