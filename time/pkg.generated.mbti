@@ -11,13 +11,13 @@ pub fn date(locale? : @locales.Locale) -> @core.Gen[String]
 
 pub fn date_time(locale? : @locales.Locale) -> @core.Gen[String]
 
-pub fn date_time_after(anchor_minutes? : Int, locale? : @locales.Locale) -> @core.Gen[String]
+pub fn date_time_after(anchor_minutes? : Int32, locale? : @locales.Locale) -> @core.Gen[String]
 
-pub fn date_time_before(anchor_minutes? : Int, locale? : @locales.Locale) -> @core.Gen[String]
+pub fn date_time_before(anchor_minutes? : Int32, locale? : @locales.Locale) -> @core.Gen[String]
 
-pub fn date_time_between(Int, Int, locale? : @locales.Locale) -> @core.Gen[String] raise @core.DummyError
+pub fn date_time_between(Int32, Int32, locale? : @locales.Locale) -> @core.Gen[String] raise @core.DummyError
 
-pub fn duration() -> @core.Gen[Int]
+pub fn duration() -> @core.Gen[Int32]
 
 pub fn time(locale? : @locales.Locale) -> @core.Gen[String]
 

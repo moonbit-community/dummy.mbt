@@ -6,11 +6,11 @@ import {
 }
 
 // Values
-pub fn digit() -> @core.Gen[Int]
+pub fn digit() -> @core.Gen[Int32]
 
 pub fn digit_string() -> @core.Gen[String]
 
-pub fn int(range? : @core.IntRange) -> @core.Gen[Int]
+pub fn int(range? : @core.IntRange) -> @core.Gen[Int32]
 
 pub fn number_with_format(String) -> @core.Gen[String]
 

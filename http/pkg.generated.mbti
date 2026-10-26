@@ -8,9 +8,9 @@ import {
 // Values
 pub fn http_method() -> @core.Gen[String]
 
-pub fn rfc_status_code() -> @core.Gen[Int]
+pub fn rfc_status_code() -> @core.Gen[Int32]
 
-pub fn valid_status_code() -> @core.Gen[Int]
+pub fn valid_status_code() -> @core.Gen[Int32]
 
 // Errors
 

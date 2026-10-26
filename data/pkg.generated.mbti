@@ -78,7 +78,7 @@ pub fn geohash_chars() -> Array[String]
 
 pub fn http_methods() -> Array[String]
 
-pub fn http_statuses() -> Array[Int]
+pub fn http_statuses() -> Array[Int32]
 
 pub fn isbn_ean_prefix() -> String
 

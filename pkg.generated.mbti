@@ -25,7 +25,7 @@ pub fn block_quote_single_line(locale? : @locales.Locale, count? : @core.CountRa
 
 pub fn bold_word(locale? : @locales.Locale) -> @core.Gen[String]
 
-pub fn boolean(ratio? : Int) -> @core.Gen[Bool]
+pub fn boolean(ratio? : Int32) -> @core.Gen[Bool]
 
 pub fn bs(locale? : @locales.Locale) -> @core.Gen[String]
 
@@ -57,13 +57,13 @@ pub fn chrono_date(locale? : @locales.Locale) -> @core.Gen[String]
 
 pub fn chrono_date_time(locale? : @locales.Locale) -> @core.Gen[String]
 
-pub fn chrono_date_time_after(anchor_minutes? : Int, locale? : @locales.Locale) -> @core.Gen[String]
+pub fn chrono_date_time_after(anchor_minutes? : Int32, locale? : @locales.Locale) -> @core.Gen[String]
 
-pub fn chrono_date_time_before(anchor_minutes? : Int, locale? : @locales.Locale) -> @core.Gen[String]
+pub fn chrono_date_time_before(anchor_minutes? : Int32, locale? : @locales.Locale) -> @core.Gen[String]
 
-pub fn chrono_date_time_between(Int, Int, locale? : @locales.Locale) -> @core.Gen[String] raise @core.DummyError
+pub fn chrono_date_time_between(Int32, Int32, locale? : @locales.Locale) -> @core.Gen[String] raise @core.DummyError
 
-pub fn chrono_duration() -> @core.Gen[Int]
+pub fn chrono_duration() -> @core.Gen[Int32]
 
 pub fn chrono_time(locale? : @locales.Locale) -> @core.Gen[String]
 
@@ -79,7 +79,7 @@ pub fn company_name(locale? : @locales.Locale) -> @core.Gen[String]
 
 pub fn company_suffix(locale? : @locales.Locale) -> @core.Gen[String]
 
-pub fn count_range(Int, Int) -> @core.CountRange
+pub fn count_range(Int32, Int32) -> @core.CountRange
 
 pub fn country_code() -> @core.Gen[String]
 
@@ -99,7 +99,7 @@ pub let de_de : @locales.Locale
 
 pub fn default_seeded() -> @random.Rand
 
-pub fn digit() -> @core.Gen[Int]
+pub fn digit() -> @core.Gen[Int32]
 
 pub fn digit_string() -> @core.Gen[String]
 
@@ -127,7 +127,7 @@ pub fn free_email(locale? : @locales.Locale) -> @core.Gen[String]
 
 pub fn free_email_provider(locale? : @locales.Locale) -> @core.Gen[String]
 
-pub fn geohash(precision? : Int) -> @core.Gen[String]
+pub fn geohash(precision? : Int32) -> @core.Gen[String]
 
 pub fn health_insurance_code(locale? : @locales.Locale) -> @core.Gen[String]
 
@@ -139,15 +139,15 @@ pub fn hsla_color() -> @core.Gen[String]
 
 pub fn http_method() -> @core.Gen[String]
 
-pub fn http_status_code() -> @core.Gen[Int]
+pub fn http_status_code() -> @core.Gen[Int32]
 
-pub fn image_options(width? : Int, height? : Int, grayscale? : Bool, blur? : Int, seed? : String) -> ImageOptions
+pub fn image_options(width? : Int32, height? : Int32, grayscale? : Bool, blur? : Int32, seed? : String) -> ImageOptions
 
 pub fn industry(locale? : @locales.Locale) -> @core.Gen[String]
 
-pub fn int(range? : @core.IntRange) -> @core.Gen[Int]
+pub fn int(range? : @core.IntRange) -> @core.Gen[Int32]
 
-pub fn int_range(Int, Int) -> @core.IntRange
+pub fn int_range(Int32, Int32) -> @core.IntRange
 
 pub fn ip() -> @core.Gen[String]
 
@@ -231,7 +231,7 @@ pub let pt_br : @locales.Locale
 
 pub let pt_pt : @locales.Locale
 
-pub fn rfc_status_code() -> @core.Gen[Int]
+pub fn rfc_status_code() -> @core.Gen[Int32]
 
 pub fn rgb_color() -> @core.Gen[String]
 
@@ -269,13 +269,13 @@ pub fn time_date(locale? : @locales.Locale) -> @core.Gen[String]
 
 pub fn time_date_time(locale? : @locales.Locale) -> @core.Gen[String]
 
-pub fn time_date_time_after(anchor_minutes? : Int, locale? : @locales.Locale) -> @core.Gen[String]
+pub fn time_date_time_after(anchor_minutes? : Int32, locale? : @locales.Locale) -> @core.Gen[String]
 
-pub fn time_date_time_before(anchor_minutes? : Int, locale? : @locales.Locale) -> @core.Gen[String]
+pub fn time_date_time_before(anchor_minutes? : Int32, locale? : @locales.Locale) -> @core.Gen[String]
 
-pub fn time_date_time_between(Int, Int, locale? : @locales.Locale) -> @core.Gen[String] raise @core.DummyError
+pub fn time_date_time_between(Int32, Int32, locale? : @locales.Locale) -> @core.Gen[String] raise @core.DummyError
 
-pub fn time_duration() -> @core.Gen[Int]
+pub fn time_duration() -> @core.Gen[Int32]
 
 pub fn time_time(locale? : @locales.Locale) -> @core.Gen[String]
 
@@ -313,9 +313,9 @@ pub fn uuid_v7() -> @core.Gen[String]
 
 pub fn uuid_v8() -> @core.Gen[String]
 
-pub fn valid_status_code() -> @core.Gen[Int]
+pub fn valid_status_code() -> @core.Gen[Int32]
 
-pub fn[T] weighted(ArrayView[(Int, @core.Gen[T])]) -> @core.Gen[T] raise @core.DummyError
+pub fn[T] weighted(ArrayView[(Int32, @core.Gen[T])]) -> @core.Gen[T] raise @core.DummyError
 
 pub fn word(locale? : @locales.Locale) -> @core.Gen[String]
 
@@ -339,10 +339,10 @@ pub fn Dummy::new(locale? : @locales.Locale) -> Self
 pub fn Dummy::sentence(Self) -> @core.Gen[String]
 
 pub(all) struct ImageOptions {
-  width : Int
-  height : Int
+  width : Int32
+  height : Int32
   grayscale : Bool
-  blur : Int?
+  blur : Int32?
   seed : String?
 } derive(Eq, @debug.Debug)
 

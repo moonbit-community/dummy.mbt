@@ -19,7 +19,7 @@ pub fn country_code() -> @core.Gen[String]
 
 pub fn country_name(locale? : @locales.Locale) -> @core.Gen[String]
 
-pub fn geohash(precision? : Int) -> @core.Gen[String]
+pub fn geohash(precision? : Int32) -> @core.Gen[String]
 
 pub fn latitude() -> @core.Gen[String]
 

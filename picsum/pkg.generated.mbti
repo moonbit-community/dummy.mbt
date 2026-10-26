@@ -21,10 +21,10 @@ pub fn image_with_seed() -> @core.Gen[String]
 
 // Types and methods
 pub(all) struct ImageOptions {
-  width : Int
-  height : Int
+  width : Int32
+  height : Int32
   grayscale : Bool
-  blur : Int?
+  blur : Int32?
   seed : String?
 } derive(Eq, @debug.Debug)
 

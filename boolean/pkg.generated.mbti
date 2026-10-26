@@ -6,7 +6,7 @@ import {
 }
 
 // Values
-pub fn boolean(ratio? : Int) -> @core.Gen[Bool]
+pub fn boolean(ratio? : Int32) -> @core.Gen[Bool]
 
 // Errors
 

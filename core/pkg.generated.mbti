@@ -7,15 +7,15 @@ import {
 }
 
 // Values
-pub fn count_range(Int, Int) -> CountRange
+pub fn count_range(Int32, Int32) -> CountRange
 
 pub fn default_seeded() -> @random.Rand
 
-pub fn hex_byte(Int) -> String
+pub fn hex_byte(Int32) -> String
 
-pub fn hex_u16(Int) -> String
+pub fn hex_u16(Int32) -> String
 
-pub fn int_range(Int, Int) -> IntRange
+pub fn int_range(Int32, Int32) -> IntRange
 
 pub fn join_strings(ArrayView[String], String) -> String
 
@@ -25,42 +25,42 @@ pub fn numerify(String, @random.Rand) -> String
 
 pub fn[T] one_of(ArrayView[Gen[T]]) -> Gen[T] raise DummyError
 
-pub fn pad_left(String, Int, Char) -> String
+pub fn pad_left(String, Int32, Char) -> String
 
 pub fn[T] pick(ArrayView[T], @random.Rand) -> T raise DummyError
 
 pub fn pick_string(ArrayView[String], @random.Rand) -> String raise DummyError
 
-pub fn random_ascii(Int, @random.Rand) -> String raise DummyError
+pub fn random_ascii(Int32, @random.Rand) -> String raise DummyError
 
-pub fn random_bool(Int, @random.Rand) -> Bool raise DummyError
+pub fn random_bool(Int32, @random.Rand) -> Bool raise DummyError
 
-pub fn random_digit_string(Int, @random.Rand) -> String raise DummyError
+pub fn random_digit_string(Int32, @random.Rand) -> String raise DummyError
 
-pub fn random_int(IntRange, @random.Rand) -> Int raise DummyError
+pub fn random_int(IntRange, @random.Rand) -> Int32 raise DummyError
 
 pub fn render_template(String, ArrayView[(String, String)]) -> String
 
-pub fn repeat_pick(ArrayView[String], Int, @random.Rand) -> Array[String] raise DummyError
+pub fn repeat_pick(ArrayView[String], Int32, @random.Rand) -> Array[String] raise DummyError
 
 pub fn seed(Bytes) -> @random.Rand
 
-pub fn[T] weighted(ArrayView[(Int, Gen[T])]) -> Gen[T] raise DummyError
+pub fn[T] weighted(ArrayView[(Int32, Gen[T])]) -> Gen[T] raise DummyError
 
 // Errors
 pub(all) suberror DummyError {
   InvalidRange(String)
-  InvalidCount(Int)
+  InvalidCount(Int32)
   EmptyCandidates(String)
   UnsupportedLocale(String)
 } derive(Eq, @debug.Debug)
 
 // Types and methods
 pub(all) struct CountRange {
-  min : Int
-  max : Int
+  min : Int32
+  max : Int32
 } derive(Eq, @debug.Debug)
-pub fn CountRange::sample(Self, @random.Rand) -> Int raise DummyError
+pub fn CountRange::sample(Self, @random.Rand) -> Int32 raise DummyError
 pub fn CountRange::validate(Self) -> Unit raise DummyError
 
 pub(all) struct Gen[T] {
@@ -71,13 +71,13 @@ pub fn[T, U] Gen::flat_map(Self[T], (T) -> Self[U]) -> Self[U]
 pub fn[T, U] Gen::map(Self[T], (T) -> U) -> Self[U]
 pub fn[T] Gen::new((@random.Rand) -> T raise DummyError) -> Self[T]
 pub fn[T] Gen::pure(T) -> Self[T]
-pub fn[T] Gen::sample(Self[T], count~ : Int, @random.Rand) -> Array[T] raise DummyError
+pub fn[T] Gen::sample(Self[T], count~ : Int32, @random.Rand) -> Array[T] raise DummyError
 
 pub(all) struct IntRange {
-  start : Int
-  end : Int
+  start : Int32
+  end : Int32
 } derive(Eq, @debug.Debug)
-pub fn IntRange::sample(Self, @random.Rand) -> Int raise DummyError
+pub fn IntRange::sample(Self, @random.Rand) -> Int32 raise DummyError
 pub fn IntRange::validate(Self) -> Unit raise DummyError
 
 // Type aliases
@@ -87,7 +87,7 @@ pub(open) trait DummyDefault {
   fn dummy_default(@random.Rand) -> Self raise DummyError
 }
 pub impl DummyDefault for Bool
-pub impl DummyDefault for Int
+pub impl DummyDefault for Int32
 pub impl DummyDefault for String
 pub impl[T : DummyDefault] DummyDefault for T?
 pub impl[T : DummyDefault, E : DummyDefault] DummyDefault for Result[T, E]
